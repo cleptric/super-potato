@@ -1,0 +1,20 @@
+{
+  "name": "super-potato",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/cleptric/super-potato.git",
+  "author": "Michael Hoffmann <michael@magicplan.app>",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.3.2",
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.13",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.2"
+  },
+  "scripts": {
+    "dev": "TAILWIND_MODE=watch NODE_ENV=development postcss frontend/css/app.css -o webroot/css/app.css -w",
+    "build:dev": "TAILWIND_MODE=build NODE_ENV=development postcss frontend/css/app.css -o webroot/css/app.css",
+    "build:prod": "TAILWIND_MODE=build NODE_ENV=production postcss frontend/css/app.css -o webroot/css/app.css"
+  }
+}
