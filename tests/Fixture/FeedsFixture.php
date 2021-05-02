@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * RawFeedsFixture
+ * FeedsFixture
  */
-class RawFeedsFixture extends TestFixture
+class FeedsFixture extends TestFixture
 {
     /**
      * Fields
@@ -38,9 +38,9 @@ class RawFeedsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => '7d9af120-797b-4309-9430-8e662b0b6ae3',
+                'id' => '13d297e1-59af-44e8-8529-59ce5b5d3d97',
                 'data' => '',
-                'created' => '2021-05-02 01:55:44',
+                'created' => '2021-05-02 03:31:47',
             ],
         ];
         parent::init();

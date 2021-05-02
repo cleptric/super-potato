@@ -39,8 +39,14 @@ class HomeController extends AppController
 
     public function loww()
     {
+        $this->loadModel('Feeds');
+        $feed = $this->Feeds->find()
+            ->order(['created' => 'DESC'])
+            ->first()
+            ->toArray();
+
         $atisService = new LowwDecoderService();
-        $atisService->setDataFeed();
+        $atisService->setDataFeed($feed);
         $atis = $atisService->getData();
 
         $metarService = new MetarService();

@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\RawFeedsTable;
+use App\Model\Table\FeedsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\RawFeedsTable Test Case
+ * App\Model\Table\FeedsTable Test Case
  */
-class RawFeedsTableTest extends TestCase
+class FeedsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\RawFeedsTable
+     * @var \App\Model\Table\FeedsTable
      */
-    protected $RawFeeds;
+    protected $Feeds;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class RawFeedsTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.RawFeeds',
+        'app.Feeds',
     ];
 
     /**
@@ -35,8 +35,8 @@ class RawFeedsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('RawFeeds') ? [] : ['className' => RawFeedsTable::class];
-        $this->RawFeeds = $this->getTableLocator()->get('RawFeeds', $config);
+        $config = $this->getTableLocator()->exists('Feeds') ? [] : ['className' => FeedsTable::class];
+        $this->Feeds = $this->getTableLocator()->get('Feeds', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class RawFeedsTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->RawFeeds);
+        unset($this->Feeds);
 
         parent::tearDown();
     }

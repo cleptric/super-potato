@@ -52,7 +52,6 @@ abstract class AbstractDecoderService
     protected string $_timePattern = '/(?<=AT TIME )\d\d\d\d(?= )/s';
 
     abstract public function getAirportName(): string;
-    abstract protected function _getAtisCallsign(): string;
     abstract protected function _getDefaultAtisString(): string;
 
     public function getData(): array
@@ -138,17 +137,18 @@ abstract class AbstractDecoderService
 
     public function setDataFeed(array $feed = null): void
     {
-        if (!empty($feed['atis'])) {
-            $atisFeed = $feed['atis'];
-
-            foreach ($atisFeed as $atis) {
-                if ($atis['callsign'] === $this->getAtisCallsign()) {
-                    $this->_atisString = trim(join(' ', $atis['text_atis']));
-                    return;
-                }
+        foreach ($feed['data'] as $atisCallsign => $atis) {
+            if ($atisCallsign === $this->_getAtisCallsign()) {
+                $this->_atisString = $atis;
+                return;
             }
-        } else {
-            $this->_atisString = $this->_getDefaultAtisString();
         }
+
+        $this->_atisString = $this->_getDefaultAtisString();
+    }
+
+    protected function _getAtisCallsign(): string
+    {
+        return $this->_atisCallsign;
     }
 }

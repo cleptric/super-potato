@@ -3,7 +3,7 @@
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
           <div class="flex-shrink-0">
-            <img class="h-8" src="https://cdn.discordapp.com/attachments/801368239074312256/834126054591299597/vacc-austria_white.png.png" alt="VACC-Austria">
+            <img class="h-8" src="/img/vacc-austria_white.png.png" alt="VACC-Austria">
             <!-- <span class="h-8 w-8 text-2xl">🦸‍♂️🥔</span> -->
           </div>
           <div class="hidden md:block">
@@ -40,7 +40,7 @@
               <div>
                 <button type="button" class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                   <span class="sr-only">Open user menu</span>
-                  <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1584552643131-f2aeb04348d1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  <img class="h-8 w-8 rounded-full" src="/img/avatar.jpeg" alt="">
                 </button>
               </div>
 
@@ -111,7 +111,7 @@
       <div class="pt-4 pb-3 border-t border-gray-700">
         <div class="flex items-center px-5">
           <div class="flex-shrink-0">
-            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1584552643131-f2aeb04348d1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+            <img class="h-10 w-10 rounded-full" src="/img/avatar.jpeg" alt="">
           </div>
           <div class="ml-3">
             <div class="text-base font-medium text-white">Jon Doe</div>

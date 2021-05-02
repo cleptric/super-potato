@@ -8,6 +8,7 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-iKbFRxucmOHIcpWdX9NTZ5WETOPm0Goy0WmfyNcl52qSYtc2Buk0NCe6jU1sWWNB" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/app.css">
     <?= $this->fetch('css') ?>
 </head>
