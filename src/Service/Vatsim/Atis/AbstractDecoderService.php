@@ -63,6 +63,7 @@ abstract class AbstractDecoderService
             'arrival_runway' => $this->getArrivalRunway(),
             'transition_level' => $this->getTransitionLevel(),
             'time' => $this->getTime(),
+            'raw' => $this->_atisString,
         ];
     }
 

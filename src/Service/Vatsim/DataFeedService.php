@@ -28,6 +28,9 @@ class DataFeedService
      */
     protected string $_vatsimFeedVersion = 'v3';
 
+    /**
+     * @var array
+     */
     protected array $_atisStations = [
         'LOWW_ATIS',
         'LOWI_ATIS',

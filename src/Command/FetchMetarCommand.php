@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Service\Vatsim\DataFeedService;
+use App\Service\Vatsim\MetarService;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
 
-class FetchFeedCommand extends Command
+class FetchMetarCommand extends Command
 {
     /**
      * @param \Cake\Console\ConsoleOptionParser $parser The parser to be defined
@@ -30,11 +30,11 @@ class FetchFeedCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io)
     {
         while (true) {
-            $feedService = new DataFeedService();
-            $feedService->fetchFeed();
-            $feedService->persistFeed();
+            $feedService = new MetarService();
+            $feedService->fetchMetar();
+            $feedService->persistMetar();
 
-            sleep(5);
+            sleep(60);
         }
     }
 }

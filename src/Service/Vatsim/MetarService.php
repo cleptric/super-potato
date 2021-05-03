@@ -5,6 +5,7 @@ namespace App\Service\Vatsim;
 
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
+use Exception;
 
 class MetarService
 {
@@ -16,17 +17,53 @@ class MetarService
      */
     protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
 
-    public function fetchMetar(string $icao)
+    /**
+     * @var string
+     */
+    protected ?array $_rawMetar = null;
+
+    /**
+     * @var array
+     */
+    protected array $_metarStations = [
+        'LOWW',
+        'LOWI',
+        'LOWS',
+        'LOWG',
+        'LOWK',
+        'LOWL',
+    ];
+
+    public function __construct()
+    {
+        $this->loadModel('Metar');
+    }
+
+    public function fetchMetar(): void
     {
         $metarUrl = $this->_getMetarUrl();
+        $metar = [];
 
         $client = new Client();
-        $response = $client->get($metarUrl, [
-            'id' => $icao,
-        ]);
-        $responseBody = $response->getStringBody();
+        foreach ($this->_metarStations as $station) {
+            $response = $client->get($metarUrl, [
+                'id' => $station,
+            ]);
+            $this->_rawMetar[$station] = $response->getStringBody();
+        }
+    }
 
-        return $responseBody;
+    public function persistMetar(): void
+    {
+        if (empty($this->_rawMetar)) {
+            throw new Exception('METAR is empty. Did you fetch it first?');
+        }
+
+        $metarEntity = $this->Metar->newEntity([
+            'data' => $this->_rawMetar,
+        ]);
+        $savedMetar = $this->Metar->save($metarEntity);
+        $this->Metar->deleteAll(['id IS NOT' => $savedMetar->id]);
     }
 
     protected function _getMetarUrl():string

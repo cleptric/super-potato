@@ -18,15 +18,18 @@ class HomeController extends AppController
      */
     public function index()
     {
-        // $feedService = new DataFeedService();
-        // $feed = $feedService->fetchFeed();
+        $this->loadModel('Feeds');
+        $feed = $this->Feeds->find()
+            ->order(['created' => 'DESC'])
+            ->first()
+            ->toArray();
 
         $atisService = new LowwDecoderService();
-        $atisService->setDataFeed();
+        $atisService->setDataFeed($feed);
         $atisLoww = $atisService->getData();
 
         $atisService = new LowsDecoderService();
-        $atisService->setDataFeed();
+        $atisService->setDataFeed($feed);
         $atisLows = $atisService->getData();
 
         $atis = [
@@ -45,15 +48,19 @@ class HomeController extends AppController
             ->first()
             ->toArray();
 
+        $this->loadModel('Metar');
+        $metar = $this->Metar->find()
+            ->order(['created' => 'DESC'])
+            ->first()
+            ->toArray();
+
         $atisService = new LowwDecoderService();
         $atisService->setDataFeed($feed);
         $atis = $atisService->getData();
 
-        $metarService = new MetarService();
-        $metar = $metarService->fetchMetar('LOWW');
-
         $metarDecoderService = new MetarDecoderService();
-        $metarDecoder = $metarDecoderService->getMetarDecoder($metar);
+        $metarDecoderService->setMetar($metar['data']['LOWW']);
+        $metarDecoder = $metarDecoderService->getMetarDecoder();
 
         $this->set(compact('atis', 'metarDecoder'));
     }
