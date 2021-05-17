@@ -25,7 +25,7 @@ class ViteHelper extends Helper
     protected $_defaultConfig = [
         'host' => 'http://localhost:3000/build/',
         'manifest' => 'manifest.json',
-        'buildDirectory' => '/webroot/build/',
+        'buildDirectory' => '/webroot/js/',
     ];
 
     /**
@@ -113,7 +113,7 @@ class ViteHelper extends Helper
             $file
         );
 
-        $prefix = $this->getConfig('publicDirectory', '/build/');
+        $prefix = $this->getConfig('publicDirectory', '/js/');
 
         $out = '';
         $visited = [];

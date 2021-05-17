@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
-    base: '/build/',
+    base: '/js/',
     build: {
         sourcemap: true,
         minify: 'esbuild',
@@ -17,6 +17,7 @@ export default defineConfig({
             },
         },
         outDir: './webroot/js/',
+        assetsDir: '',
         assetsInlineLimit: 0,
     },
     resolve: {

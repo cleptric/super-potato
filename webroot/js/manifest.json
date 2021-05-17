@@ -1,19 +1,13 @@
 {
   "frontend/js/main.js": {
-    "file": "assets/main.cbe3b0f4.js",
+    "file": "main.779b9da4.js",
     "src": "frontend/js/main.js",
     "isEntry": true,
     "imports": [
-      "_vendor.642d02b4.js"
-    ],
-    "css": [
-      "assets/main.e778a479.css"
-    ],
-    "assets": [
-      "assets/logo.03d6d6da.png"
+      "_vendor.298260a3.js"
     ]
   },
-  "_vendor.642d02b4.js": {
-    "file": "assets/vendor.642d02b4.js"
+  "_vendor.298260a3.js": {
+    "file": "vendor.298260a3.js"
   }
 }
