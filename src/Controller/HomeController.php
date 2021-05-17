@@ -19,9 +19,4 @@ class HomeController extends AppController
     public function index()
     {
     }
-
-    public function loww()
-    {
-        return $this->render('index');
-    }
 }

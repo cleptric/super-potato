@@ -55,12 +55,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);
     $builder->connect('/signup', ['controller' => 'Login', 'action' => 'signup']);
 
-    $builder->connect('/loww', ['controller' => 'Home', 'action' => 'loww']);
-    $builder->connect('/lowi', ['controller' => 'Home', 'action' => 'loww']);
-    $builder->connect('/lows', ['controller' => 'Home', 'action' => 'loww']);
-    $builder->connect('/lowg', ['controller' => 'Home', 'action' => 'loww']);
-    $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'loww']);
-    $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'loww']);
+    $builder->connect('/loww', ['controller' => 'Home', 'action' => 'index']);
+    $builder->connect('/lowi', ['controller' => 'Home', 'action' => 'index']);
+    $builder->connect('/lows', ['controller' => 'Home', 'action' => 'index']);
+    $builder->connect('/lowg', ['controller' => 'Home', 'action' => 'index']);
+    $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'index']);
+    $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'index']);
 
     $builder->fallbacks();
 });
