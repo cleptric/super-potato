@@ -23,7 +23,7 @@ class ViteHelper extends Helper
      * @inheritDoc
      */
     protected $_defaultConfig = [
-        'host' => 'http://localhost:3000/build/',
+        'host' => 'http://localhost:3000/js/',
         'manifest' => 'manifest.json',
         'buildDirectory' => '/webroot/js/',
     ];
@@ -54,7 +54,7 @@ class ViteHelper extends Helper
             return $this->_devServerEnabled;
         }
 
-        if (env('DEBUG', false)) {
+        if (env('DEBUG', false) === false) {
             return $this->_devServerEnabled = false;
         }
 

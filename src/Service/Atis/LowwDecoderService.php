@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Vatsim\Atis;
+namespace App\Service\Atis;
 
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;

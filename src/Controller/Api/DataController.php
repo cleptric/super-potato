@@ -5,8 +5,8 @@ namespace App\Controller\Api;
 
 use App\Service\Vatsim\DataFeedService;
 use App\Service\Vatsim\MetarService;
-use App\Service\Vatsim\MetarDecoderService;
-use App\Service\Vatsim\Atis\LowwDecoderService;
+use App\Service\Metar\MetarDecoderService;
+use App\Service\Atis\LowwDecoderService;
 use Cake\Controller\Controller;
 use Cake\Utility\Hash;
 use ZMQContext;

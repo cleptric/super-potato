@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Vatsim;
+namespace App\Service\Metar;
 
 use Cake\Datasource\ModelAwareTrait;
 use Exception;
@@ -32,11 +32,7 @@ class MetarDecoderService
             'qnh_unit' => $decoder->getPressure()->getUnit(),
             'mean_direction' => $decoder->getSurfaceWind()->getMeanDirection()->getValue(),
             'mean_speed' => $decoder->getSurfaceWind()->getMeanSpeed()->getValue(),
-            'speed_variations' => $decoder->getSurfaceWind()->getSpeedVariations(),
-            'direction_variations' => [
-                'from' => isset($decoder->getSurfaceWind()->getDirectionVariations()[0]) ? $decoder->getSurfaceWind()->getDirectionVariations()[0]->getValue() : null,
-                'to' => isset($decoder->getSurfaceWind()->getDirectionVariations()[1]) ? $decoder->getSurfaceWind()->getDirectionVariations()[1]->getValue() : null,
-            ],
+            'speed_variations' => $decoder->getSurfaceWind()->getSpeedVariations()->getValue(),
             'wind_shear' => $decoder->getWindshearRunways(),
             'condition' => 'VMC',
             'raw_metar' => $decoder->getRawMetar(),
