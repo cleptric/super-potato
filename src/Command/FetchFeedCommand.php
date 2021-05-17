@@ -8,6 +8,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Throwable;
 
 class FetchFeedCommand extends Command
 {
@@ -30,9 +31,13 @@ class FetchFeedCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io)
     {
         while (true) {
-            $feedService = new DataFeedService();
-            $feedService->fetchFeed();
-            $feedService->persistFeed();
+            try {
+                $feedService = new DataFeedService();
+                $feedService->fetchFeed();
+                $feedService->persistFeed();
+            } catch (Throwable $t) {
+                // do nothing
+            }
 
             sleep(5);
         }

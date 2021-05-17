@@ -8,6 +8,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
+use Throwable;
 
 class FetchMetarCommand extends Command
 {
@@ -30,9 +31,13 @@ class FetchMetarCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io)
     {
         while (true) {
-            $feedService = new MetarService();
-            $feedService->fetchMetar();
-            $feedService->persistMetar();
+            try {
+                $feedService = new MetarService();
+                $feedService->fetchMetar();
+                $feedService->persistMetar();
+            } catch (Throwable $t) {
+                // do nothing
+            }
 
             sleep(60);
         }

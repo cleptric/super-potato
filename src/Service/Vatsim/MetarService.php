@@ -6,6 +6,8 @@ namespace App\Service\Vatsim;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Exception;
+use ZMQContext;
+use ZMQ;
 
 class MetarService
 {
@@ -64,6 +66,11 @@ class MetarService
         ]);
         $savedMetar = $this->Metar->save($metarEntity);
         $this->Metar->deleteAll(['id IS NOT' => $savedMetar->id]);
+
+        $context = new ZMQContext();
+        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+        $socket->connect("tcp://localhost:5555");
+        $socket->send(json_encode(['type' => 'refresh']));
     }
 
     protected function _getMetarUrl():string

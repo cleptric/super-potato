@@ -51,7 +51,6 @@ abstract class AbstractDecoderService
      */
     protected string $_timePattern = '/(?<=AT TIME )\d\d\d\d(?= )/s';
 
-    abstract public function getAirportName(): string;
     abstract protected function _getDefaultAtisString(): string;
 
     public function getData(): array
@@ -65,6 +64,11 @@ abstract class AbstractDecoderService
             'time' => $this->getTime(),
             'raw' => $this->_atisString,
         ];
+    }
+
+    public function getAirportName(): string
+    {
+        return $this->_airportName;
     }
 
     public function getAtisLetter(): string

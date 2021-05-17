@@ -16,15 +16,13 @@ class LowwDecoderService extends AbstractDecoderService
      */
     protected string $_atisCallsign = 'LOWW_ATIS';
 
+    /**
+     * @var string
+     */
     protected string $_airportName = 'Wien-Schwechat (LOWW)';
-
-    public function getAirportName(): string
-    {
-        return $this->_airportName;
-    }
 
     protected function _getDefaultAtisString(): string
     {
-        return 'THIS IS WIEN-SCHWECHAT INFORMATION Z AT TIME 1650 LANDING RUNWAY 11 AND 16 DEPARTURE RUNWAY 16 TRANSITION LEVEL 120 WIND 150 DEGREES 12 KNOTS VISIBILITY MORE THAN 10 KILOMETERS CLOUDS FEW 5000 FEET TEMPERATURE 18 DEW POINT 9 QNH 1008 NOSIG ADVISE ON INITIAL CONTACT YOU HAVE INFORMATION Z';
+        return 'THIS IS WIEN-SCHWECHAT INFORMATION A AT TIME 1020 ARRIVAL RUNWAY 29 DEPARTURE RUNWAY 29 TRANSITION LEVEL 120 WIND 150 DEGREES 12 KNOTS VISIBILITY MORE THAN 10 KILOMETERS CLOUDS FEW 5000 FEET TEMPERATURE 18 DEW POINT 9 QNH 1008 NOSIG ADVISE ON INITIAL CONTACT YOU HAVE INFORMATION A';
     }
 }

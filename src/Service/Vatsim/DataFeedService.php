@@ -7,6 +7,8 @@ use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
 use Exception;
+use ZMQContext;
+use ZMQ;
 
 class DataFeedService
 {
@@ -68,7 +70,7 @@ class DataFeedService
         $parsedFeed = json_decode($this->_rawFeed, true);
         $feedUpdatedAt = FrozenTime::parse($parsedFeed['general']['update_timestamp']);
 
-        // Only store the latest feed if we do not have in the DB yet
+        // Only store the latest feed if we do not have it in the DB yet
         if (empty($lastFeed) || $lastFeed->created < $feedUpdatedAt) {
             $data = [];
             foreach ($parsedFeed['atis'] as $atis) {
@@ -83,6 +85,11 @@ class DataFeedService
                 ]);
                 $savedFeed = $this->Feeds->save($feedEntity);
                 $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
+
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect("tcp://localhost:5555");
+                $socket->send(json_encode(['type' => 'refresh']));
             }
         }
     }

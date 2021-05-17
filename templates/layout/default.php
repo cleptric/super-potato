@@ -12,10 +12,17 @@
     <link rel="stylesheet" href="/css/app.css">
     <?= $this->fetch('css') ?>
 </head>
-<body class="bg-gray-50">
-    <?= $this->Flash->render() ?>
-    <?= $this->element('layout/menu') ?>
-    <?= $this->fetch('content') ?>
+<body class="bg-gray-50 min-w-[1024px]">
+
+    <div id="app"></div>
+
+    <?= $this->Vite->init(); ?>
+    <?= $this->Vite->script('frontend/js/main.js'); ?>
+    <?php if (isset($jsData)): ?>
+        <script>
+            window.jsData = <?= json_encode($jsData) ?>
+        </script>
+    <?php endif; ?>
     <?= $this->fetch('script') ?>
 </body>
 </html>

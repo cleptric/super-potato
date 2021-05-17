@@ -156,7 +156,8 @@
                 <?php endif; ?>
             </div>
 
-            <div class="absolute w-[120px] h-[550px] flex flex-col justify-between border bg-red-200 border-gray-200 rounded-lg transform -rotate-40" style="left: 220px; top: 40px;">
+            <!-- RWY closed: bg-red-500 -->
+            <div class="absolute w-[120px] h-[550px] flex flex-col justify-between border border-gray-200 rounded-lg transform -rotate-40" style="left: 220px; top: 40px;">
                 <div class="relative x-4 py-5 text-center text-2xl font-black <?= in_array('34', $atis['depature_runway']) || in_array('34', $atis['arrival_runway']) && false ? 'rounded-lg bg-blue-200': ''?>">
                     <?php if (in_array('34', $atis['arrival_runway'])): ?>
                         <div class="absolute h-6 w-6" style="top: -40px; right: 50%; transform: translateX(50%) rotate(180deg);">
@@ -175,7 +176,7 @@
                     </div>
                     34
                 </div>
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <i class="far fa-2x fa-times text-red-800"></i>
                 </div>
                 <div class="text-center">
@@ -186,7 +187,7 @@
                 </div>
                 <div class="text-center">
                     <i class="far fa-2x fa-times text-red-800"></i>
-                </div>
+                </div> -->
                 <div class="relative px-4 py-5 text-center text-2xl font-black <?= in_array('16', $atis['depature_runway']) || in_array('16', $atis['arrival_runway']) ? 'rounded-lg bg-blue-200': ''?>">
                     <?php if (in_array('16', $atis['arrival_runway'])): ?>
                         <div class="absolute h-6 w-6" style="bottom: -40px; right: 50%; transform: translateX(50%);">

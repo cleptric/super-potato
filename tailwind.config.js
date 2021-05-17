@@ -2,6 +2,7 @@ module.exports = {
   mode: 'jit',
   purge: [
     './frontend/**/*.{js,vue}',
+    './config/**/*.php',
     './templates/**/*.php',
     './plugins/**/*.php',
   ],
@@ -11,7 +12,7 @@ module.exports = {
       rotate: {
         '40': '40deg',
         '-40': '-40deg',
-      }
+      },
     },
   },
   variants: {
