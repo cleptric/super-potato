@@ -7,10 +7,6 @@
                 </dt>
                 <dd class="mt-1 text-3xl font-semibold text-gray-900">
                     {{ loww.atis.atis_letter }}
-                    <span class="text-gray-500 mr-2">at time</span>
-                    <span class="font-bold mr-2">
-                        {{ loww.atis.time }}
-                    </span>
                 </dd>
             </div>
 
