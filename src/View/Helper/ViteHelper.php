@@ -54,6 +54,10 @@ class ViteHelper extends Helper
             return $this->_devServerEnabled;
         }
 
+        if (env('DEBUG', false)) {
+            return $this->_devServerEnabled = false;
+        }
+
         $this->_devServerEnabled = \file_exists($this->_getManifestFilePath()) === false;
 
         return $this->_devServerEnabled;
