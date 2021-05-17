@@ -7,5 +7,124 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Make sure some URLs, either called by bots or static files are not dispatched to CakePHP
+    # Our own
+    RewriteCond %{REQUEST_URI} !^/build
+    RewriteCond %{REQUEST_URI} !^/js
+    RewriteCond %{REQUEST_URI} !^/css
+    RewriteCond %{REQUEST_URI} !^/cache_img
+    RewriteCond %{REQUEST_URI} !^/img
+    RewriteCond %{REQUEST_URI} !^/img-v2
+
+    # Crawlers
+    RewriteCond %{REQUEST_URI} !^/blog
+    RewriteCond %{REQUEST_URI} !^/license.php
+    RewriteCond %{REQUEST_URI} !^/wp-login.php
+    RewriteCond %{REQUEST_URI} !^/login.do
+    RewriteCond %{REQUEST_URI} !^/app/Mage.php
+    RewriteCond %{REQUEST_URI} !^/browserconfig.xml
+    RewriteCond %{REQUEST_URI} !^/apple-touch-icon-
+    RewriteCond %{REQUEST_URI} !^/jenkins
+    RewriteCond %{REQUEST_URI} !^/msd
+    RewriteCond %{REQUEST_URI} !^/mySqlDumper
+    RewriteCond %{REQUEST_URI} !^/jmx-console
+    RewriteCond %{REQUEST_URI} !^/phpMyAdmin
+    RewriteCond %{REQUEST_URI} !^/myadmin
+    RewriteCond %{REQUEST_URI} !^/MySQLDumber
+    RewriteCond %{REQUEST_URI} !^/Wordpress
+    RewriteCond %{REQUEST_URI} !^/wordpress
+    RewriteCond %{REQUEST_URI} !^/wp
+    RewriteCond %{REQUEST_URI} !^/manager
+    RewriteCond %{REQUEST_URI} !^/Joomla
+    RewriteCond %{REQUEST_URI} !^/administrator
+    RewriteCond %{REQUEST_URI} !^/Blog
+    RewriteCond %{REQUEST_URI} !^/cgi
+    RewriteCond %{REQUEST_URI} !^/phpmyadmin
+    RewriteCond %{REQUEST_URI} !^/etc/lib
+    RewriteCond %{REQUEST_URI} !^/dns
+    RewriteCond %{REQUEST_URI} !^/admin/i18n
+    RewriteCond %{REQUEST_URI} !^/SQLite
+    RewriteCond %{REQUEST_URI} !^/SQlite
+    RewriteCond %{REQUEST_URI} !^/mysql
+    RewriteCond %{REQUEST_URI} !^/MYSQL
+    RewriteCond %{REQUEST_URI} !^/sql
+    RewriteCond %{REQUEST_URI} !^/hudson
+    RewriteCond %{REQUEST_URI} !^/script
+    RewriteCond %{REQUEST_URI} !^/vegadns
+    RewriteCond %{REQUEST_URI} !^/pdfjs
+    RewriteCond %{REQUEST_URI} !^/\.well-known
+    RewriteCond %{REQUEST_URI} !^/xmlrpc
+    RewriteCond %{REQUEST_URI} !^/login.php
+    RewriteCond %{REQUEST_URI} !^/search.php
+    RewriteCond %{REQUEST_URI} !^/ads.txt
+    RewriteCond %{REQUEST_URI} !^/install.php
+    RewriteCond %{REQUEST_URI} !^/apple-touch-icon
+    RewriteCond %{REQUEST_URI} !^/style.css
+
     RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_expires.c>
+	# Enable expirations
+	ExpiresActive On
+    ExpiresDefault                                      "access plus 1 month"
+
+    # CSS
+    ExpiresByType text/css                              "access plus 1 year"
+
+    # Data interchange
+
+    ExpiresByType application/atom+xml                  "access plus 1 hour"
+    ExpiresByType application/rdf+xml                   "access plus 1 hour"
+    ExpiresByType application/rss+xml                   "access plus 1 hour"
+
+    ExpiresByType application/json                      "access plus 0 seconds"
+    ExpiresByType application/ld+json                   "access plus 0 seconds"
+    ExpiresByType application/schema+json               "access plus 0 seconds"
+    ExpiresByType application/vnd.geo+json              "access plus 0 seconds"
+    ExpiresByType application/xml                       "access plus 0 seconds"
+    ExpiresByType text/xml                              "access plus 0 seconds"
+
+
+    # Favicon (cannot be renamed!) and cursor images
+
+    ExpiresByType image/vnd.microsoft.icon              "access plus 1 year"
+    ExpiresByType image/x-icon                          "access plus 1 year"
+
+    # HTML
+
+    ExpiresByType text/html                             "access plus 0 seconds"
+
+
+    # JavaScript
+
+    ExpiresByType application/javascript                "access plus 1 year"
+    ExpiresByType application/x-javascript              "access plus 1 year"
+    ExpiresByType text/javascript                       "access plus 1 year"
+
+
+    # Manifest files
+
+    ExpiresByType application/manifest+json             "access plus 1 week"
+    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+
+    # Media files
+
+    ExpiresByType audio/ogg                             "access plus 1 month"
+    ExpiresByType image/bmp                             "access plus 1 month"
+    ExpiresByType image/gif                             "access plus 1 month"
+    ExpiresByType image/jpeg                            "access plus 1 month"
+    ExpiresByType image/png                             "access plus 1 month"
+    ExpiresByType image/svg+xml                         "access plus 1 month"
+    ExpiresByType image/webp                            "access plus 1 month"
+    ExpiresByType video/mp4                             "access plus 1 month"
+    ExpiresByType video/ogg                             "access plus 1 month"
+    ExpiresByType video/webm                            "access plus 1 month"
+
+    <IfModule mod_headers.c>
+        Header append Cache-Control "public"
+    </IfModule>
 </IfModule>
