@@ -8,8 +8,7 @@
     </header>
 
     <main>
-        <AtisRow />
-        <MetarRow />
+        <AtisMetarRow />
 
         <Runway />
 
@@ -22,8 +21,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
-import AtisRow from '@/components/AtisRow.vue'
-import MetarRow from '@/components/MetarRow.vue'
+import AtisMetarRow from '@/components/AtisMetarRow.vue'
 import Runway from '@/components/Runway.vue'
 import Actions from '@/components/Actions.vue'
 import RawMetar from '@/components/RawMetar.vue'
@@ -31,8 +29,7 @@ import RawMetar from '@/components/RawMetar.vue'
 export default {
     name: 'Loww',
     components: {
-        AtisRow,
-        MetarRow,
+        AtisMetarRow,
         Runway,
         Actions,
         RawMetar,

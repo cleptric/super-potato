@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <dl class="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+            <div class="p-4 bg-white shadow rounded-lg overflow-hidden">
                 <dt class="text-sm font-medium text-gray-500 truncate">
                     Visual Depatures
                 </dt>
@@ -39,7 +39,7 @@
                 </dd>
             </div>
 
-            <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+            <div class="p-4 bg-white shadow rounded-lg overflow-hidden">
                 <dt class="text-sm font-medium text-gray-500 truncate">
                     Runway Closed
                 </dt>
@@ -63,7 +63,7 @@
                 </dd>
             </div>
 
-            <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+            <div class="p-4 bg-white shadow rounded-lg overflow-hidden">
                 <dt class="text-sm font-medium text-gray-500 truncate">
                     Missed Approach
                 </dt>
@@ -73,8 +73,8 @@
                         @click="triggerMissedApproach"
                         class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                     >
-                        <i class="animate-spin far fa-spinner mr-2"></i>
-                        Cancel
+                        <i class="far fa-times mr-2"></i>
+                        Remove Notification
                     </button>
                     <button
                         v-else

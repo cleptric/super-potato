@@ -32,7 +32,7 @@ class MetarDecoderService
             'qnh_unit' => $decoder->getPressure()->getUnit(),
             'mean_direction' => $decoder->getSurfaceWind()->getMeanDirection()->getValue(),
             'mean_speed' => $decoder->getSurfaceWind()->getMeanSpeed()->getValue(),
-            'speed_variations' => $decoder->getSurfaceWind()->getSpeedVariations(),
+            'speed_variations' => !empty($decoder->getSurfaceWind()->getSpeedVariations()) ? $decoder->getSurfaceWind()->getSpeedVariations()->getValue() : null,
             'wind_shear_runways' => $decoder->getWindshearRunways(),
             'wind_shear_all_runways' => $decoder->getWindshearAllRunways(),
             'condition' => 'VMC',

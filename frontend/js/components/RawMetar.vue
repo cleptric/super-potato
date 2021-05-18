@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <dl class="mt-5 grid grid-cols-1 gap-5">
-            <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+            <div class="p-4 bg-white shadow rounded-lg overflow-hidden">
                 <dt class="text-sm font-medium text-gray-500 truncate">
                     METAR
                 </dt>
