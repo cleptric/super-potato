@@ -33,7 +33,8 @@ class MetarDecoderService
             'mean_direction' => $decoder->getSurfaceWind()->getMeanDirection()->getValue(),
             'mean_speed' => $decoder->getSurfaceWind()->getMeanSpeed()->getValue(),
             'speed_variations' => $decoder->getSurfaceWind()->getSpeedVariations()->getValue(),
-            'wind_shear' => $decoder->getWindshearRunways(),
+            'wind_shear_runways' => $decoder->getWindshearRunways(),
+            'wind_shear_all_runways' => $decoder->getWindshearAllRunways(),
             'condition' => 'VMC',
             'raw_metar' => $decoder->getRawMetar(),
         ];
