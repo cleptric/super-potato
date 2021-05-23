@@ -5,11 +5,14 @@ namespace App\Service\Atis;
 
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
+use Cake\I18n\FrozenTime;
 
 abstract class AbstractDecoderService
 {
 
     use ModelAwareTrait;
+
+    const ATIS_MAX_AGE = '+15 minutes';
 
     /**
      * @var string
@@ -25,6 +28,11 @@ abstract class AbstractDecoderService
      * @var string|null
      */
     protected ?string $_atisString = null;
+
+    /**
+     * @var string|null
+     */
+    protected ?FrozenTime $_atisUpdateTime = null;
 
     /**
      * @var string
@@ -62,6 +70,7 @@ abstract class AbstractDecoderService
             'arrival_runway' => $this->getArrivalRunway(),
             'transition_level' => $this->getTransitionLevel(),
             'time' => $this->getTime(),
+            'outdated' => $this->isAtisOutdated(),
             'raw' => $this->_atisString,
         ];
     }
@@ -140,11 +149,17 @@ abstract class AbstractDecoderService
         return '';
     }
 
+    public function isAtisOutdated(): bool
+    {
+        return $this->_atisUpdateTime < new FrozenTime(self::ATIS_MAX_AGE);
+    }
+
     public function setDataFeed(array $feed = null): void
     {
-        foreach ($feed['data'] as $atisCallsign => $atis) {
+        foreach ($feed['data']['atis'] as $atisCallsign => $atis) {
             if ($atisCallsign === $this->_getAtisCallsign()) {
-                $this->_atisString = $atis;
+                $this->_atisString = $atis['raw'];
+                $this->_atisUpdateTime = new FrozenTime($atis['last_updated']);;
                 return;
             }
         }

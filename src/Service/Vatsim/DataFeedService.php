@@ -80,7 +80,8 @@ class DataFeedService
             $data = [];
             foreach ($parsedFeed['atis'] as $atis) {
                 if (in_array($atis['callsign'], $this->_atisStations)) {
-                    $data[$atis['callsign']] = trim(join(' ', $atis['text_atis']));
+                    $data['atis'][$atis['callsign']]['last_updated'] = $atis['last_updated'];
+                    $data['atis'][$atis['callsign']]['raw'] = trim(join(' ', $atis['text_atis']));
                 }
             }
             foreach ($parsedFeed['controllers'] as $controller) {
