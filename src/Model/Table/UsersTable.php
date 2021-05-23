@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use App\Model\Entity\User;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -60,32 +59,36 @@ class UsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email');
+
+        $validator
             ->scalar('username')
             ->maxLength('username', 255)
-            ->requirePresence('username', 'create')
-            ->notEmptyString('username');
+            ->allowEmptyString('username');
+
+        $validator
+            ->scalar('vatsim_id')
+            ->maxLength('vatsim_id', 255)
+            ->requirePresence('vatsim_id', 'create')
+            ->notEmptyString('vatsim_id');
 
         $validator
             ->scalar('password')
-            ->minLength('password', 8)
             ->maxLength('password', 255)
-            ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->allowEmptyString('password');
 
         $validator
-            ->scalar('sign-up-code')
-            ->requirePresence('sign-up-code', 'create')
-            ->notEmptyString('sign-up-code')
-            ->add('sign-up-code', 'custom', [
-                'rule' => function ($value, $context) {
-                    if ($value !== User::SIGNUP_CODE) {
-                        return 'Invalid sign up code';
-                    }
+            ->scalar('full_name')
+            ->maxLength('full_name', 255)
+            ->requirePresence('full_name', 'create')
+            ->notEmptyString('full_name');
 
-                    return true;
-                },
-                'message' => 'Invalid sign up code'
-            ]);
+        $validator
+            ->scalar('subdivision')
+            ->maxLength('subdivision', 255)
+            ->allowEmptyString('subdivision');
 
         return $validator;
     }
@@ -99,7 +102,9 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
+        $rules->add($rules->isUnique(['vatism_id']), ['errorField' => 'vatism_id']);
 
         return $rules;
     }

@@ -31,6 +31,11 @@ class DataFeedService
     protected string $_vatsimFeedVersion = 'v3';
 
     /**
+     * @var string
+     */
+    protected string $_controllerPrefix = 'LO';
+
+    /**
      * @var array
      */
     protected array $_atisStations = [
@@ -76,6 +81,11 @@ class DataFeedService
             foreach ($parsedFeed['atis'] as $atis) {
                 if (in_array($atis['callsign'], $this->_atisStations)) {
                     $data[$atis['callsign']] = trim(join(' ', $atis['text_atis']));
+                }
+            }
+            foreach ($parsedFeed['controllers'] as $controller) {
+                if (substr($controller['callsign'], 0, 2) === $this->_controllerPrefix)) {
+                    $data['controllers'][] = $controller;
                 }
             }
 

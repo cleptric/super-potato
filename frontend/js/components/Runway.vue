@@ -1,6 +1,6 @@
 <template>
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="relative h-[620px] px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+    <div class="max-w-7xl mx-auto py-3 sm:px-6 lg:px-8">
+        <div class="relative h-[470px] px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6 xl:h-[600px]">
             <div class="flex justify-end">
                 <div
                     v-if="loww.missed_approach"

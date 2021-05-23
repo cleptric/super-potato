@@ -1,19 +1,24 @@
 <template>
     <Menu />
+    <Settings />
     <router-view></router-view>
 </template>
 
 <script>
 import { useStore } from 'vuex'
 import Menu from './components/Menu.vue'
+import Settings from './components/Settings.vue'
 
 export default {
     components: {
         Menu,
+        Settings,
     },
-    data() {
+    setup () {
+        const store = useStore()
+
         return {
-            connected: null,
+            setWebsockt: (connected) => store.dispatch('setWebsockt', connected)
         }
     },
     mounted() {
@@ -21,18 +26,20 @@ export default {
     },
     methods: {
         setupWebsocket() {
-            const socket = new WebSocket(window.jsData.wssUrl)
+            let socket = new WebSocket(window.jsData.wssUrl)
             const store = useStore()
 
             socket.addEventListener('open', () => {
-                this.connected = true
+                this.setWebsockt(true);
             });
             socket.addEventListener('close', () => {
-                this.connected = false
+                this.setWebsockt(false);
+                setTimeout(() => {
+                    this.setupWebsocket()
+                }, 2500)
             });
             socket.addEventListener('error', () => {
-                this.connected = false
-                // retry
+                this.setWebsockt(false);
             });
             socket.addEventListener('message', (e) => {
                 let data = JSON.parse(e.data)
@@ -42,16 +49,19 @@ export default {
                 }
                 if (data.type == 'missed-approach') {
                     const audio = new Audio('/sounds/bell.wav')
+                    // audio.volume = 0.2;
                     audio.play()
 
                     store.dispatch('loadData')
                 }
                 if (data.type == 'runway-closed') {
                     const audio = new Audio('/sounds/alert.wav')
+                    // audio.volume = 0.2;
                     audio.play()
                 }
                 if (data.type == 'runway-reopened') {
                     const audio = new Audio('/sounds/success.wav')
+                    // audio.volume = 0.2;
                     audio.play()
                 }
             });

@@ -1,7 +1,7 @@
 <template>
     <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-lg leading-6 font-semibold text-gray-900">
+        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-lg font-semibold text-gray-900">
                 Airports
             </h1>
         </div>
@@ -10,7 +10,7 @@
         <div
             v-for="(airport, airportName) in airports"
             :key="airportName"
-            class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8"
+            class="max-w-7xl mx-auto py-3 sm:px-6 lg:px-8"
         >
             <div class="px-4 py-4 sm:px-0">
                 <div>
@@ -27,30 +27,30 @@
                             {{ airport.atis.time }}
                         </span>
                     </h3>
-                    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-                        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                    <dl class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                             <dt class="text-sm font-medium text-gray-500 truncate">
                                 Depature Runway
                             </dt>
-                            <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                            <dd class="mt-1 text-xl font-semibold text-gray-900">
                                 {{ airport.atis.depature_runway.join(' & ') }}
                             </dd>
                         </div>
 
-                        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                        <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                             <dt class="text-sm font-medium text-gray-500 truncate">
                                 Arrival Runway
                             </dt>
-                            <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                            <dd class="mt-1 text-xl font-semibold text-gray-900">
                                 {{ airport.atis.arrival_runway.join(' & ') }}
                             </dd>
                         </div>
 
-                        <div class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+                        <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                             <dt class="text-sm font-medium text-gray-500 truncate">
                                 Transition Level
                             </dt>
-                            <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                            <dd class="mt-1 text-xl font-semibold text-gray-900">
                                 {{ airport.atis.transition_level }}
                             </dd>
                         </div>

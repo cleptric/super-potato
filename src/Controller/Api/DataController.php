@@ -15,6 +15,13 @@ use ZMQ;
 class DataController extends Controller
 {
 
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->loadComponent('Authentication.Authentication');
+    }
+
     public function index()
     {
         $this->request->allowMethod('get');
@@ -45,6 +52,10 @@ class DataController extends Controller
             ->first();
 
         $data = [
+            'user' => [
+                'name' => $this->Authentication->getIdentityData('full_name'),
+                'vatsim_id' => $this->Authentication->getIdentityData('vatsim_id'),
+            ],
             'loww' => [
                 'atis' => $atis,
                 'metar' => $metar,

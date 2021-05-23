@@ -53,7 +53,6 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
     $builder->connect('/login', ['controller' => 'Login', 'action' => 'login']);
     $builder->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);
-    $builder->connect('/signup', ['controller' => 'Login', 'action' => 'signup']);
 
     $builder->connect('/loww', ['controller' => 'Home', 'action' => 'index']);
     $builder->connect('/lowi', ['controller' => 'Home', 'action' => 'index']);
