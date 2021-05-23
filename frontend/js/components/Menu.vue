@@ -4,9 +4,9 @@
             <h2 class="text-sm font-medium text-gray-400  mr-8">
                 Servus, {{ user.name }} ({{ user.vatsim_id }})
             </h2>
-            <div class="text-sm font-medium text-gray-400 mr-8">
+            <!-- <div class="text-sm font-medium text-gray-400 mr-8">
                 Online as <strong class="text-gray-300">LOWW_APP</strong>
-            </div>
+            </div> -->
             <div class="flex items-center text-sm font-medium text-gray-400">
                 Websocket
                 <i
@@ -14,12 +14,12 @@
                     :class="{ 'text-green-300': websocket, 'text-red-300': !websocket }"
                 ></i>
             </div>
-            <div class="ml-auto mr-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
+            <!-- <div class="ml-auto mr-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
                 <a href="/settings" class="flex items-center">
                     <i class="far fa-cog text-xs text-gray-300 mr-1"></i> Settings
                 </a>
-            </div>
-            <div class="px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
+            </div> -->
+            <div class="ml-auto px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
                 <a href="/logout" class="flex items-center">
                     <i class="far fa-sign-out text-xs text-gray-300 mr-1"></i> Sign out
                 </a>
