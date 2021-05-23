@@ -54,7 +54,7 @@ class ViteHelper extends Helper
             return $this->_devServerEnabled;
         }
 
-        if (env('DEBUG', false) === false) {
+        if (filter_var(env('DEBUG'), FILTER_VALIDATE_BOOLEAN) === false) {
             return $this->_devServerEnabled = false;
         }
 

@@ -51,7 +51,7 @@ class AppController extends Controller
 
         // Data is available through window.jsData
         $jsData = [
-            'wssUrl' => env('WSS_URL', null),
+            'wssUrl' => env('WSS_URL'),
         ];
 
         $this->set(compact('jsData'));

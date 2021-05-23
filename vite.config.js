@@ -18,7 +18,6 @@ export default defineConfig({
         },
         outDir: './webroot/js/',
         assetsDir: '',
-        assetsInlineLimit: 0,
     },
     resolve: {
         alias: {

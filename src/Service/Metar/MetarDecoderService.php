@@ -53,12 +53,6 @@ class MetarDecoderService
 
     public function getConditions(): string 
     {
-        debug($this->_decoder);
-        debug($this->_decoder->getVisibility());
-        debug($this->_decoder->getClouds());
-        debug($this->_decoder->getRunwaysVisualRange());
-        exit;
-
         return 'VMC';
     }
 }

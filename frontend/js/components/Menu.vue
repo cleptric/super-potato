@@ -32,7 +32,7 @@
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <router-link to="/" class="flex items-center text-white text-2xl font-extrabold">
-                            Super <img class="h-7 w-7 ml-2" src="/img/potato.png">
+                            Super <img class="h-7 w-7 ml-2" :src="logoUrl">
                         </router-link>
                     </div>
                     <div>
@@ -74,6 +74,7 @@ export default {
         const store = useStore()
 
         return {
+            logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
             websocket: computed(() => store.getters.websocket),
         }
