@@ -99,12 +99,18 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <!-- <div class="absolute flex items-center text-yellow-400 font-medium transform rotate-40" style="top: 50px; right: -80px;">
+                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 40px; right: -100px;">
+                            <span class="ml-1">
+                                {{ windComponent(loww.wind_components[34]) }}
+                            </span>
+                        </div>
+                        <!-- <div class="absolute flex items-center text-yellow-400 text-md font-medium transform rotate-40" style="top: 10px; left: -80px;">
                             <i class="far fa-location-circle" style="transform: rotate(45deg);"></i>
                             <span class="ml-1">12 C</span>
                         </div> -->
                         34
                     </div>
+
                     <template v-if="loww.closed_runways.includes('16/34')">
                         <div class="text-center">
                             <i class="far fa-2x fa-times text-red-800"></i>
@@ -119,6 +125,16 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
+                    <template v-else>
+                        <div class="transform rotate-40 text-center text-blue-300">
+                            <i 
+                                class="fad fa-3x fa-location-circle"
+                                :style="windArrow1634"
+                            >
+                            </i>
+                        </div>
+                    </template>
+
                     <div
                         class="relative px-4 py-5 text-center text-2xl font-black"
                         :class="{ 'rounded-lg bg-blue-200': loww.closed_runways.includes('16/34') === false && (loww.atis.arrival_runway.includes('16') || loww.atis.depature_runway.includes('16')) }"
@@ -138,10 +154,11 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <!-- <div class="absolute flex items-center text-yellow-400 text-md font-medium transform rotate-40" style="top: 10px; left: -80px;">
-                            <i class="far fa-location-circle" style="transform: rotate(45deg);"></i>
-                            <span class="ml-1">12 C</span>
-                        </div> -->
+                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 0px; left: -100px;">
+                            <span class="ml-1">
+                                {{ windComponent(loww.wind_components[16]) }}
+                            </span>
+                        </div>
                         16
                     </div>
                 </div>
@@ -191,12 +208,14 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <!-- <div class="absolute flex items-center text-green-400 text-md font-medium transform rotate-90" style="top: 20px; right: -60px;">
-                            <i class="far fa-location-circle" style="transform: rotate(45deg);"></i>
-                            <span class="ml-1">0 T</span>
-                        </div> -->
+                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 30px; right: -70px;">
+                            <span class="ml-1">
+                                {{ windComponent(loww.wind_components[29]) }}
+                            </span>
+                        </div>
                         29
                     </div>
+
                     <template v-if="loww.closed_runways.includes('29/11')">
                         <div class="text-center">
                             <i class="far fa-2x fa-times text-red-800"></i>
@@ -211,6 +230,16 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
+                    <template v-else>
+                        <div class="transform rotate-40 text-center text-blue-300">
+                            <i 
+                                class="fad fa-3x fa-location-circle"
+                                :style="windArrow1129"
+                            >
+                            </i>
+                        </div>
+                    </template>
+
                     <div
                         class="relative px-4 py-5 text-center text-2xl font-black"
                         :class="{ 'rounded-lg bg-blue-200': loww.closed_runways.includes('29/11') === false && (loww.atis.arrival_runway.includes('11') || loww.atis.depature_runway.includes('11')) }"
@@ -230,10 +259,11 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <!-- <div class="absolute flex items-center text-red-400 text-md font-medium transform rotate-90" style="top: 20px; right: -60px;">
-                            <i class="far fa-location-circle" style="transform: rotate(-135deg);"></i>
-                            <span class="ml-1">16 T</span>
-                        </div> -->
+                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 10px; right: -70px;">
+                            <span class="ml-1">
+                                {{ windComponent(loww.wind_components[11]) }}
+                            </span>
+                        </div>
                         11
                     </div>
                 </div>
@@ -277,7 +307,29 @@ export default {
 
         return {
             loww: computed(() => store.getters.loww),
+            windArrow1634: computed(() => {
+                return {
+                    transform: `rotate(${store.getters.loww.metar.mean_direction - 65}deg)`
+                }
+            }),
+            windArrow1129: computed(() => {
+                return {
+                    transform: `rotate(${store.getters.loww.metar.mean_direction - 15}deg)`
+                }
+            }),
         }
     },
+    methods: {
+        windComponent(winds) {
+            let headTailWind = null
+            if (winds.head_tail_wind > 0) {
+                headTailWind = `H${Math.abs(winds.head_tail_wind)}`
+            } else {
+                headTailWind = `T${Math.abs(winds.head_tail_wind)}`
+            }
+
+            return `X${winds.cross_wind}/${headTailWind}`;
+        },
+    }
 }
 </script>

@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace App\Service\Atis;
 
-use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
 class LowsDecoderService extends AbstractDecoderService
 {
-
-    use ModelAwareTrait;
 
     /**
      * @var string

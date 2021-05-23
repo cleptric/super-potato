@@ -8,6 +8,7 @@ use App\Service\Vatsim\DataFeedService;
 use App\Service\Vatsim\MetarService;
 use App\Service\Metar\MetarDecoderService;
 use App\Service\Atis\LowwDecoderService;
+use App\Service\WindComponent\LowwWindComponentService;
 use Cake\Controller\Controller;
 use Cake\I18n\FrozenTime;
 use Cake\Utility\Hash;
@@ -48,6 +49,11 @@ class DataController extends Controller
         $metarDecoderService->setMetar($metar['data']['LOWW']);
         $metar = $metarDecoderService->getData();
 
+        $windComponentService = new LowwWindComponentService();
+        $windComponentService->setMeanDirection($metar['mean_direction']);
+        $windComponentService->setMeanSpeed($metar['mean_speed']);
+        $windComponents = $windComponentService->getData();
+
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
             ->where(['name' => 'loww'])
@@ -62,6 +68,7 @@ class DataController extends Controller
             'loww' => [
                 'atis' => $atis,
                 'metar' => $metar,
+                'wind_components' => $windComponents,
                 'missed_approach' => $airport->missed_approach,
                 'missed_approach_timeout' => $airport->missed_approach_timeout->toUnixString(),
                 'closed_runways' => $airport->closed_runways ?? [],
