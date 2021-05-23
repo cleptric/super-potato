@@ -99,15 +99,14 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 40px; right: -100px;">
+                        <div
+                            v-if="!loww.metar.is_variable"
+                            class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 40px; right: -100px;"
+                        >
                             <span class="ml-1">
                                 {{ windComponent(loww.wind_components[34]) }}
                             </span>
                         </div>
-                        <!-- <div class="absolute flex items-center text-yellow-400 text-md font-medium transform rotate-40" style="top: 10px; left: -80px;">
-                            <i class="far fa-location-circle" style="transform: rotate(45deg);"></i>
-                            <span class="ml-1">12 C</span>
-                        </div> -->
                         34
                     </div>
 
@@ -125,7 +124,7 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
-                    <template v-else>
+                    <template v-else-if="!loww.metar.is_variable">
                         <div class="transform rotate-40 text-center text-blue-300">
                             <i 
                                 class="fad fa-3x fa-location-circle"
@@ -154,7 +153,10 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 0px; left: -100px;">
+                        <div
+                            v-if="!loww.metar.is_variable"
+                            class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 0px; left: -100px;"
+                        >
                             <span class="ml-1">
                                 {{ windComponent(loww.wind_components[16]) }}
                             </span>
@@ -208,7 +210,10 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 30px; right: -70px;">
+                        <div
+                            v-if="!loww.metar.is_variable"
+                            class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 30px; right: -70px;"
+                        >
                             <span class="ml-1">
                                 {{ windComponent(loww.wind_components[29]) }}
                             </span>
@@ -230,7 +235,7 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
-                    <template v-else>
+                    <template v-else-if="!loww.metar.is_variable">
                         <div class="transform rotate-40 text-center text-blue-300">
                             <i 
                                 class="fad fa-3x fa-location-circle"
@@ -259,7 +264,10 @@
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
-                        <div class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 10px; right: -70px;">
+                        <div
+                            v-if="!loww.metar.is_variable"
+                            class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 10px; right: -70px;"
+                        >
                             <span class="ml-1">
                                 {{ windComponent(loww.wind_components[11]) }}
                             </span>

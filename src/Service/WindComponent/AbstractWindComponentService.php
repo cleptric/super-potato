@@ -16,12 +16,12 @@ abstract class AbstractWindComponentService
      */
     protected ?int $_meanSpeed;
 
-    public function setMeanDirection(int $meanDirection): void
+    public function setMeanDirection(?int $meanDirection): void
     {
         $this->_meanDirection = $meanDirection;
     }
 
-    public function setMeanSpeed(int $meanSpeed): void
+    public function setMeanSpeed(?int $meanSpeed): void
     {
         $this->_meanSpeed = $meanSpeed;
     }
