@@ -54,7 +54,7 @@
                 </div>
 
                 <div
-                    class="absolute w-[120px] h-[550px] flex flex-col justify-between border border-gray-200 rounded-lg transform -rotate-40" style="left: 220px; top: 40px;"
+                    class="absolute w-[120px] h-[550px] flex flex-col justify-between border border-gray-300 rounded-lg transform -rotate-40" style="left: 220px; top: 40px;"
                     :class="{ 'bg-red-200 border-red-300': loww.closed_runways.includes('16/34') }"
                 >
                     <div
@@ -163,7 +163,7 @@
                     </div>
                 </div>
                 <div
-                    class="absolute w-[120px] h-[550px] flex flex-col justify-between border border-gray-200 rounded-lg transform -rotate-90" style="right: 300px; bottom: 0px;"
+                    class="absolute w-[120px] h-[550px] flex flex-col justify-between border border-gray-300 rounded-lg transform -rotate-90" style="right: 300px; bottom: 0px;"
                     :class="{ 'bg-red-200 border-red-300': loww.closed_runways.includes('29/11') }"
                 >
                     <div
