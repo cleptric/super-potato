@@ -8,7 +8,7 @@
                 Online as <strong class="text-gray-300">LOWW_APP</strong>
             </div> -->
             <div class="flex items-center text-sm font-medium text-gray-400">
-                Websocket
+                Connection
                 <i
                     class="fas fa-circle text-xs ml-3"
                     :class="{ 'text-green-300': websocket, 'text-red-300': !websocket }"

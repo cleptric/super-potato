@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <dl class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-6">
+        <dl class="mt-3 grid grid-cols-6 gap-3">
             <template v-if="!loww.atis.outdated">
                 <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
