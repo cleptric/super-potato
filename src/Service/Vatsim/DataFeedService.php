@@ -79,7 +79,7 @@ class DataFeedService
         if (empty($lastFeed) || $lastFeed->created < $feedUpdatedAt) {
             $data = [];
             foreach ($parsedFeed['atis'] as $atis) {
-                if (in_array($atis['callsign'], $this->_atisStations)) {
+                if (!empty($atis['text_atis']) && in_array($atis['callsign'], $this->_atisStations)) {
                     $data['atis'][$atis['callsign']]['last_updated'] = $atis['last_updated'];
                     $data['atis'][$atis['callsign']]['raw'] = trim(join(' ', $atis['text_atis']));
                 }
