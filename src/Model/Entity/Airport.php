@@ -12,7 +12,9 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property array|null $visual_depatures
  * @property array|null $closed_runways
+ * @property \Cake\I18n\FrozenTime|null $closed_runways_timeout
  * @property bool $missed_approach
+ * @property \Cake\I18n\FrozenTime|null $missed_approach_timeout
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  */
@@ -30,4 +32,8 @@ class Airport extends Entity
     protected $_accessible = [
         '*' => false,
     ];
+
+    const MISSED_APPROACH_TIMEOUT = '+60 seconds';
+
+    const RUNWAY_CLOSED_TIMEOUT = '+180 seconds';
 }

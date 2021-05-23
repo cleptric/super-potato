@@ -51,8 +51,6 @@ export default {
                     const audio = new Audio('/sounds/bell.wav')
                     // audio.volume = 0.2;
                     audio.play()
-
-                    store.dispatch('loadData')
                 }
                 if (data.type == 'runway-closed') {
                     const audio = new Audio('/sounds/alert.wav')
