@@ -5,7 +5,7 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
-    base: '/js/',
+    base: '/build/',
     build: {
         sourcemap: true,
         minify: 'esbuild',
@@ -13,10 +13,11 @@ export default defineConfig({
         rollupOptions: {
             // overwrite default .html entry
             input: {
-                'main': './frontend/js/main.js',
+                'main_js': './frontend/js/main.js',
+                'main_css': './frontend/css/main.js',
             },
         },
-        outDir: './webroot/js/',
+        outDir: './webroot/build/',
         assetsDir: '',
     },
     resolve: {

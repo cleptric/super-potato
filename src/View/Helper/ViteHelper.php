@@ -23,9 +23,9 @@ class ViteHelper extends Helper
      * @inheritDoc
      */
     protected $_defaultConfig = [
-        'host' => 'http://localhost:3000/js/',
+        'host' => 'http://localhost:3000/build/',
         'manifest' => 'manifest.json',
-        'buildDirectory' => '/webroot/js/',
+        'buildDirectory' => '/webroot/build/',
     ];
 
     /**
@@ -38,15 +38,6 @@ class ViteHelper extends Helper
      */
     private ?array $_manifestData = null;
 
-    public function init()
-    {
-        if ($this->isDevServerEnabled()) {
-            return $this->script('@vite/client', [
-                'type' => 'module',
-            ]);
-        }
-    }
-
     public function isDevServerEnabled(): bool
     {
         // Do not ping the dev server multiple times.
@@ -54,6 +45,7 @@ class ViteHelper extends Helper
             return $this->_devServerEnabled;
         }
 
+        // Disable dev server development on prod.
         if (filter_var(env('DEBUG'), FILTER_VALIDATE_BOOLEAN) === false) {
             return $this->_devServerEnabled = false;
         }
@@ -78,7 +70,7 @@ class ViteHelper extends Helper
         $path = preg_replace('#/+#', '/', $path);
     }
 
-    protected function resolveImports(string $prefix, string $file, array $options, string &$out, array &$visited): void
+    protected function resolveImports(string $prefix, string $file, array $options, bool $cssOnly, string &$out, array &$visited): void
     {
         if (in_array($file, $visited)) {
             return;
@@ -88,13 +80,23 @@ class ViteHelper extends Helper
         $data = $this->_manifestData[$file];
 
         foreach ($data['imports'] ?? [] as $import) {
-            $this->resolveImports($prefix, $import, $options, $out, $visited);
+            $this->resolveImports($prefix, $import, $options, $cssOnly, $out, $visited);
+        }
+
+        foreach ($data['css'] ?? [] as $import) {
+            $out .= $this->Html->css(
+                $prefix . $import,
+            );
+        }
+
+        if ($cssOnly) {
+            return;
         }
 
         $out .= $this->Html->script($prefix . $data['file'], $options);
     }
 
-    protected function _resolveFileName(string $file, array $options): ?string
+    protected function _resolveFileName(string $file, array $options, bool $cssOnly = false): ?string
     {
         if ($this->_manifestData === null) {
             $manifestData = $this->_loadManifest();
@@ -105,20 +107,12 @@ class ViteHelper extends Helper
 
         $this->_stripSlashes($file);
 
-        assert(
-            \array_key_exists(
-                $file,
-                $manifestData
-            ),
-            $file
-        );
-
-        $prefix = $this->getConfig('publicDirectory', '/js/');
+        $prefix = $this->getConfig('publicDirectory', '/build/');
 
         $out = '';
         $visited = [];
 
-        $this->resolveImports($prefix, $file, $options, $out, $visited);
+        $this->resolveImports($prefix, $file, $options, $cssOnly, $out, $visited);
 
         return $out;
     }
@@ -126,8 +120,6 @@ class ViteHelper extends Helper
     protected function _loadManifest(): array
     {
         $path = $this->_getManifestFilePath();
-
-        assert(file_exists($path));
 
         $fileContent = \file_get_contents($path);
 
@@ -146,5 +138,29 @@ class ViteHelper extends Helper
         }
 
         return $this->_resolveFileName($script, $options);
+    }
+
+    public function css(string $script, array $options = []): ?string
+    {
+        $options = ['type' => 'module'] + $options;
+
+        if ($this->isDevServerEnabled()) {
+            // Screw options; I have Webpack!
+            return $this->Html->script(
+                $this->_resolveDevServerFileName($script),
+                $options
+            );
+        }
+
+        return $this->_resolveFileName($script, $options, true);
+    }
+
+    public function vite()
+    {
+        if ($this->isDevServerEnabled()) {
+            return $this->script('@vite/client', [
+                'type' => 'module',
+            ]);
+        }
     }
 }

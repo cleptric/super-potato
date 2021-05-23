@@ -8,15 +8,15 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-iKbFRxucmOHIcpWdX9NTZ5WETOPm0Goy0WmfyNcl52qSYtc2Buk0NCe6jU1sWWNB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/app.css">
+    <?= $this->Vite->css('frontend/css/main.js'); ?>
     <?= $this->fetch('css') ?>
 </head>
 <body class="bg-gray-50 min-w-[1024px]">
 
     <div id="app"></div>
 
-    <?= $this->Vite->init(); ?>
+    <script src="https://kit.fontawesome.com/c1157ccfdb.js" crossorigin="anonymous"></script>
+    <?= $this->Vite->vite(); ?>
     <?= $this->Vite->script('frontend/js/main.js'); ?>
     <?php if (isset($jsData)): ?>
         <script>

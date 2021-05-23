@@ -24,11 +24,7 @@
     "vite": "^2.3.0"
   },
   "scripts": {
-    "tailwind:dev": "TAILWIND_MODE=watch NODE_ENV=development postcss frontend/css/app.css -o webroot/css/app.css -w",
-    "tailwind:build-dev": "TAILWIND_MODE=build NODE_ENV=development postcss frontend/css/app.css -o webroot/css/app.css",
-    "tailwind:build-prod": "TAILWIND_MODE=build NODE_ENV=production postcss frontend/css/app.css -o webroot/css/app.css",
-    "vue:dev": "vite",
-    "vue:build": "vite build",
-    "vue:serve": "vite preview"
+    "dev": "vite",
+    "prod": "vite build"
   }
 }

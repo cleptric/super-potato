@@ -8,7 +8,8 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <link rel="stylesheet" href="/css/app.css">
+    <?= $this->Vite->vite(); ?>
+    <?= $this->Vite->css('frontend/css/main.js'); ?>
     <?= $this->fetch('css') ?>
 </head>
 <body class="bg-gray-50">
