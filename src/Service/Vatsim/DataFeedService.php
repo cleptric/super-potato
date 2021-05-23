@@ -84,7 +84,7 @@ class DataFeedService
                 }
             }
             foreach ($parsedFeed['controllers'] as $controller) {
-                if (substr($controller['callsign'], 0, 2) === $this->_controllerPrefix)) {
+                if (substr($controller['callsign'], 0, 2) === $this->_controllerPrefix) {
                     $data['controllers'][] = $controller;
                 }
             }
