@@ -151,7 +151,7 @@ abstract class AbstractDecoderService
 
     public function isAtisOutdated(): bool
     {
-        return $this->_atisUpdateTime < new FrozenTime(self::ATIS_MAX_AGE);
+        return !($this->_atisUpdateTime->modify(self::ATIS_MAX_AGE) > new FrozenTime());
     }
 
     public function setDataFeed(array $feed = null): void
