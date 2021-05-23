@@ -156,15 +156,18 @@ abstract class AbstractDecoderService
 
     public function setDataFeed(array $feed = null): void
     {
-        foreach ($feed['data']['atis'] as $atisCallsign => $atis) {
-            if ($atisCallsign === $this->_getAtisCallsign()) {
-                $this->_atisString = $atis['raw'];
-                $this->_atisUpdateTime = new FrozenTime($atis['last_updated']);;
-                return;
+        if (!empty($feed['data']['atis'])) {
+            foreach ($feed['data']['atis'] as $atisCallsign => $atis) {
+                if ($atisCallsign === $this->_getAtisCallsign()) {
+                    $this->_atisString = $atis['raw'];
+                    $this->_atisUpdateTime = new FrozenTime($atis['last_updated']);;
+                    return;
+                }
             }
         }
 
         $this->_atisString = $this->_getDefaultAtisString();
+        $this->_atisUpdateTime = new FrozenTime('1 day ago');
     }
 
     protected function _getAtisCallsign(): string
