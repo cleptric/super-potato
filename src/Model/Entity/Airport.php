@@ -33,7 +33,7 @@ class Airport extends Entity
         '*' => false,
     ];
 
-    const MISSED_APPROACH_TIMEOUT = '+60 seconds';
+    const MISSED_APPROACH_TIMEOUT = '+30 seconds';
 
-    const RUNWAY_CLOSED_TIMEOUT = '+180 seconds';
+    const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
 }
