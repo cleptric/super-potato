@@ -11,6 +11,7 @@ function git_pull() {
     # pull
     git pull
 }
+
 function execute_migration() {
     # migrate
     bin/cake migrations migrate
@@ -23,10 +24,30 @@ function build_frontend_data() {
     yarn prod
 }
 
-# composer install
+function stop_supervisor() {
+    sudo systemctl stop supervisor
+}
+
+function start_supervisor() {
+    sudo systemctl start supervisor
+}
+
+function set_folder_permissions() {
+    sudo chown -R deployer:www-data /var/www/super-potato
+    sudo chmod -R 770 /var/www/super-potato
+}
+
+stop_supervisor
+
+git_pull
+
+set_folder_permissions
+
 composer install -n --no-dev
 
 execute_migration
+
+start_supervisor
 
 build_frontend_data
 
