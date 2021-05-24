@@ -59,25 +59,10 @@ class UsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
-
-        $validator
-            ->scalar('username')
-            ->maxLength('username', 255)
-            ->allowEmptyString('username');
-
-        $validator
             ->scalar('vatsim_id')
             ->maxLength('vatsim_id', 255)
             ->requirePresence('vatsim_id', 'create')
             ->notEmptyString('vatsim_id');
-
-        $validator
-            ->scalar('password')
-            ->maxLength('password', 255)
-            ->allowEmptyString('password');
 
         $validator
             ->scalar('full_name')
@@ -102,8 +87,6 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
-        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
         $rules->add($rules->isUnique(['vatism_id']), ['errorField' => 'vatism_id']);
 
         return $rules;

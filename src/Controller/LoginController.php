@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 use Cake\Routing\Router;
@@ -27,20 +28,15 @@ class LoginController extends AppController
 
             return $this->redirect($target);
         }
-        if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Invalid username or password');
-
-            return $this->redirect(['action' => 'login']);
-        }
     }
 
     public function startOauth()
     {
-        $url = env('VATSIM_SSO_ENDPOINT') . '/authorize' .
+        $url = env('VATSIM_SSO_ENDPOINT') . '/oauth/authorize' .
             '?client_id=' . env('VATSIM_SSO_CLIENT_ID') .
             '&redirect_uri=' . env('VATSIM_SSO_REDIRECT_URL') .
             '&response_type=code' .
-            '&scope=full_name+vatsim_details+email';
+            '&scope=full_name+vatsim_details';
 
         return $this->redirect($url);
     }
@@ -50,7 +46,7 @@ class LoginController extends AppController
         $code = $this->request->getQuery('code');
 
         $http = new Client();
-        $response = $http->post(env('VATSIM_SSO_ENDPOINT') . '/token', [
+        $response = $http->post(env('VATSIM_SSO_ENDPOINT') . '/oauth/token', [
             'grant_type' => 'authorization_code',
             'client_id' => env('VATSIM_SSO_CLIENT_ID'),
             'client_secret' => env('VATSIM_SSO_CLIENT_SECRET'),
@@ -74,6 +70,19 @@ class LoginController extends AppController
             if ($response->isOk()) {
                 $responseJson = $response->getJson();
 
+                // Only allow login/signup for VACC Austria members
+                if ($responseJson['data']['vatsim']['subdivision']['id'] !== User::SUBDIVISION_ID) {
+                    $this->Flash->error('Your division has no access');
+
+                    return $this->redirect(['action' => 'login']);
+                }
+                // Only allow login/signup for whitelisted VATSIM IDs
+                if (!in_array($responseJson['data']['cid'], explode(';', env('VATSIM_ID_WHITELIST')))) {
+                    $this->Flash->error('You VATSIM ID is not whitelisted yet');
+
+                    return $this->redirect(['action' => 'login']);
+                }
+
                 $this->loadModel('Users');
                 $user = $this->Users->find()
                     ->where([
@@ -88,13 +97,11 @@ class LoginController extends AppController
                     return $this->redirect(['controller' => 'Home', 'action' => 'index']);
                 } else {
                     $user = $this->Users->newEntity([
-                        'email' => $responseJson['data']['personal']['email'],
                         'vatsim_id' => $responseJson['data']['cid'],
                         'full_name' => $responseJson['data']['personal']['name_full'],
                         'subdivision' => $responseJson['data']['vatsim']['subdivision']['id'],
                     ], [
                         'accessibleFields' => [
-                            'email' => true,
                             'vatsim_id' => true,
                             'full_name' => true,
                             'subdivision' => true,

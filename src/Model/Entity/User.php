@@ -10,9 +10,6 @@ use Cake\ORM\Entity;
  * User Entity
  *
  * @property string $id
- * @property string $email
- * @property string|null $username
- * @property string|null $password
  * @property string $vatsim_id
  * @property string $full_name
  * @property string|null $subdivision
@@ -21,6 +18,9 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
+
+    const SUBDIVISION_ID = 'AT';
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -33,19 +33,4 @@ class User extends Entity
     protected $_accessible = [
         '*' => false,
     ];
-
-    /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array
-     */
-    protected $_hidden = [
-        'password',
-    ];
-
-    protected function _setPassword(string $password)
-    {
-        $hasher = new DefaultPasswordHasher();
-        return $hasher->hash($password);
-    }
 }
