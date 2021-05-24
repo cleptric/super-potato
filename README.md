@@ -1,6 +1,96 @@
 # Super Potato 🥔
 
-## Supervisor
+`Super Potato` is an ADD (Aerodrom Data Display) used by controllers on the VATSIM online flying network.
+
+The tool displays valuable information for online vATC like active runways, decoded METAR information, visual departures, closed runways and missed approaches.
+
+`Super Potato` was developed to be used while controlling Austrian airspace only.
+
+## Usage
+
+### Basics
+
+To use `Super Potato`, you need a VATSIM account which is associated to the VACC Austria sub-divison.
+The login is only possible via VATSIM Connect.
+
+The data displayed by `Super Potato` is fetched from the VATSIM data feed as well as the VATSIM METAR API.
+`Super Potato` can only display data if an ATIS is set online on the concerning airports.
+
+#### Dashboard
+
+The dashboard displays the arrival runway(s), departure runway(s) as well as the transition level of all supported airports.
+
+#### Airport view
+
+Each airport view is divided into the atis/METAR widget, the runway widget, the action widget and the raw METAR widget
+
+##### Atis/METAR Widget
+
+This widgets displays the current ATIS Letter, the transition level, the QNH, the wind (mean speed, mean direction), gusts (if present) and the current MET conditions (VMC, LVP1, LVP2 and LVP3). 
+
+#### Runway Widget
+
+This widget displays the following data
+
+- All runways of the airport
+- The current departure runway(s)
+- The current arrival runway(s)
+- Closed runway(s), if present
+- A windrose on each runway
+- The current RVR on each runway, if present
+- Crosswind (X), head (H) or tailwind (T) components for each runway, if the wind is not VRB
+- A missed approach indicator, if present
+- A wind shear indicator, if present
+
+#### Action Widget
+
+This widget allows certain actions to be triggered
+
+##### Visual Departures
+
+A controller can indicate that visual departures are approved to one or many of the four cardinal directions.
+
+##### Closed Runways
+
+A controller can indicate that a certain runway is currently closed. This action triggers an audible warning and has a time out of 30 seconds before it can be canceled and re-triggered. Once a runway is reopened, an audible sound will be triggered.
+
+##### Missed Approach
+
+A controller can indicate that a missed approach is in progress. This action triggers an audible warning and has a time out of 30 seconds before it be canceled and re-triggered.
+
+#### Raw METAR Widget
+
+This widget displays the current raw METAR
+
+## Setup
+
+### Requirements
+
+`Super Potato` is build with CakePHP v4, Vue.js v3 and Tailwind CSS v2.
+To install `Super Potato`, you need a machine with the following things installed:
+
+- Apache 2.4 (you should be able to use nginx as well)
+- MySQL 8.0 or newer
+- PHP 7.4 or newer with the common, intl, mbstring and the zmq extension
+- node.js 14 or newer
+- composer 2.0 or newer
+- Yarn 1.0 or newer (Yarn 2.0 is not supported)
+
+### Installation
+
+- Create a new database using the `utf8mb4` encoding and `utf8mb4_unicode_520_ci` collation
+- Clone this repository into your web-serves webroot directory
+- Create a copy of the `config/.env.default` file named `config/.env` and fill out the values. As an alternative, populate your serves environment with the needed variables
+- Run `composer intall --no-dev` to install all composer dependencies
+- Run `yarn install --frozen-lock` to install all node_modules dependencies
+- Run `bin\cake migrations migrate` to populate the database
+- Import the `Seeds/airport.sql` file into your database
+- Run `yarn prod` to the build all frontend assets
+
+### Supervisor
+
+`Super Potato` uses various long running php processes to fetch data and push data via web-sockets.
+To control these processes, add the following to the `supervisor` config.
 
 ```
 [program:pusher]
@@ -37,7 +127,11 @@ stderr_logfile=/var/www/super-potato/logs/metar.log
 stderr_logfile_maxbytes=1MB
 ```
 
-## Apache
+### Apache
+
+To enable web-sockets, you have to enable the apache `proxy_wstunnel`, `proxy_http` and the `proxy` module.
+Thereafter, add a `ProxPass` config to your apache `VirtualHost` config.
+
 ```
 <VirtualHost *:443>
         ...
