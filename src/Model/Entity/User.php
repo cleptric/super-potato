@@ -19,7 +19,7 @@ use Cake\ORM\Entity;
 class User extends Entity
 {
 
-    const SUBDIVISION_ID = 'AT';
+    const SUBDIVISION_ID = 'AUST';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
