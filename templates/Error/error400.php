@@ -34,8 +34,8 @@ if (Configure::read('debug')) :
 $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
-</p>
+<div class="h-full flex items-center justify-center">
+    <h1 class="text-2xl font-semibold text-gray-600">
+        404 | Not Found
+    </h1>
+</div>

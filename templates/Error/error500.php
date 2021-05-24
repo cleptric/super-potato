@@ -38,8 +38,8 @@ if (Configure::read('debug')) :
     $this->end();
 endif;
 ?>
-<h2><?= __d('cake', 'An Internal Error Has Occurred') ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= h($message) ?>
-</p>
+<div class="h-full flex items-center justify-center">
+    <h1 class="text-2xl font-semibold text-gray-600">
+        500 | Internal Server Error
+    </h1>
+</div>
