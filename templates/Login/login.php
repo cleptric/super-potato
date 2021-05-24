@@ -10,7 +10,7 @@
             <?= $this->Flash->render() ?>
 
             <div class="space-y-6">
-                <?= $this->Html->link('Vatsim SOO', [
+                <?= $this->Html->link('Vatsim SSO', [
                     'controller' => 'Login',
                     'action' => 'startOauth',
                 ], [
