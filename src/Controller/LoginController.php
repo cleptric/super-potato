@@ -17,6 +17,7 @@ class LoginController extends AppController
 
         $this->viewBuilder()->setLayout('login');
         $this->Authentication->allowUnauthenticated(['login', 'startOauth', 'oauth']);
+        $this->Authorization->skipAuthorization();
     }
 
     public function login()
