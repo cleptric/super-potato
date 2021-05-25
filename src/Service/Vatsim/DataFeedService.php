@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
+use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -39,12 +40,12 @@ class DataFeedService
      * @var array
      */
     protected array $_atisStations = [
-        'LOWW_ATIS',
-        'LOWI_ATIS',
-        'LOWS_ATIS',
-        'LOWG_ATIS',
-        'LOWK_ATIS',
-        'LOWL_ATIS',
+        Airport::LOWW_ICAO,
+        Airport::LOWI_ICAO,
+        Airport::LOWS_ICAO,
+        Airport::LOWG_ICAO,
+        Airport::LOWK_ICAO,
+        Airport::LOWL_ICAO,
     ];
 
     public function __construct()
@@ -86,7 +87,11 @@ class DataFeedService
             }
             foreach ($parsedFeed['controllers'] as $controller) {
                 if (substr($controller['callsign'], 0, 2) === $this->_controllerPrefix) {
-                    $data['controllers'][] = $controller;
+                    $data['controllers'][] = [
+                        'vatsim_id' => $controller['cid'],
+                        'callsign' => $controller['callsign'],
+                        'facility' => $controller['facility'],
+                    ];
                 }
             }
 

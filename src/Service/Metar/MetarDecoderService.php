@@ -26,7 +26,18 @@ class MetarDecoderService
     public function getData(): array
     {
         if (empty($this->_metar)) {
-            throw new Exception('No METAR is present. Did you set the METAR first?');
+            return [
+                'qnh_value' => '',
+                'qnh_unit' => '',
+                'mean_direction' => null,
+                'is_variable' => '',
+                'mean_speed' => null,
+                'speed_variations' => '',
+                'wind_shear_runways' => '',
+                'wind_shear_all_runways' => '',
+                'condition' => '',
+                'raw_metar' => '',
+            ];
         }
 
         $decoder = new MetarDecoder();
@@ -46,7 +57,7 @@ class MetarDecoderService
         ];
     }
 
-    public function setMetar(string $metar): void
+    public function setMetar(?string $metar): void
     {
         $this->_metar = $metar;
     }

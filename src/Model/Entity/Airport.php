@@ -20,6 +20,34 @@ use Cake\ORM\Entity;
  */
 class Airport extends Entity
 {
+    const LOWW_ICAO = 'LOWW';
+    const LOWW_ATIS_CALLSIGN = 'LOWW_ATIS';
+    const LOWW_AIPORT_NAME = 'Wien-Schwechat (LOWW)';
+
+    const LOWI_ICAO = 'LOWI';
+    const LOWI_ATIS_CALLSIGN = 'LOWI_ATIS';
+    const LOWI_AIPORT_NAME = 'Innsburck (LOWI)';
+
+    const LOWS_ICAO = 'LOWS';
+    const LOWS_ATIS_CALLSIGN = 'LOWS_ATIS';
+    const LOWS_AIPORT_NAME = 'Salzburg (LOWS)';
+
+    const LOWG_ICAO = 'LOWG';
+    const LOWG_ATIS_CALLSIGN = 'LOWG_ATIS';
+    const LOWG_AIPORT_NAME = 'Graz (LOWG)';
+
+    const LOWK_ICAO = 'LOWK';
+    const LOWK_ATIS_CALLSIGN = 'LOWK_ATIS';
+    const LOWK_AIPORT_NAME = 'Klagenfurt (LOWK)';
+
+    const LOWL_ICAO = 'LOWL';
+    const LOWL_ATIS_CALLSIGN = 'LOWL_ATIS';
+    const LOWL_AIPORT_NAME = 'Linz (LOWL)';
+
+    const MISSED_APPROACH_TIMEOUT = '+30 seconds';
+
+    const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -32,8 +60,4 @@ class Airport extends Entity
     protected $_accessible = [
         '*' => false,
     ];
-
-    const MISSED_APPROACH_TIMEOUT = '+30 seconds';
-
-    const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
 }

@@ -9,12 +9,12 @@ abstract class AbstractWindComponentService
     /**
      * @var int|null
      */
-    protected ?int $_meanDirection;
+    protected ?int $_meanDirection = null;
 
     /**
      * @var int|null
      */
-    protected ?int $_meanSpeed;
+    protected ?int $_meanSpeed = null;
 
     public function setMeanDirection(?int $meanDirection): void
     {
@@ -31,22 +31,36 @@ abstract class AbstractWindComponentService
         $data = [];
 
         foreach ($this->_trueHeadings as $runway => $trueHeading) {
-            $data[$runway] = [
-                'cross_wind' => $this->_calcutlateCrossWindComponent($trueHeading),
-                'head_tail_wind' => $this->_calcutlateHeadTailWindComponent($trueHeading),
-            ];
+            $windComponents = null;
+
+            if (!is_null($this->_meanDirection) && !is_null($this->_meanSpeed)) {
+                $crossWind = $this->_calcutlateCrossWindComponent($trueHeading);
+                $headTailWind = $this->_calcutlateHeadTailWindComponent($trueHeading);
+
+                $windComponents = $crossWind . '/' . $headTailWind;
+            }
+
+            $data[$runway] = $windComponents;
         }
 
         return $data;
     }
 
-    protected function _calcutlateCrossWindComponent($trueHeading)
+    protected function _calcutlateCrossWindComponent($trueHeading): string
     {
-        return abs(round(sin(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed));
+        $crossWind = abs(round(sin(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed));
+
+        return $crossWind . 'X';
     }
 
-    protected function _calcutlateHeadTailWindComponent($trueHeading)
+    protected function _calcutlateHeadTailWindComponent($trueHeading): string
     {
-        return round(cos(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed);
+        $headTailWind = abs(round(cos(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed));
+
+        if ($headTailWind > 0) {
+            return $headTailWind . 'H';
+        } else {
+            return $headTailWind . 'T';
+        }
     }
 }

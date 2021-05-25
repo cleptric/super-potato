@@ -1,24 +1,32 @@
 <template>
-    <Menu />
-    <Settings />
-    <router-view></router-view>
+    <template v-if="oisOasch === false">
+        <Menu />
+        <Settings />
+        <router-view></router-view>
+    </template>
+    <template v-else>
+        <OisOasch />
+    </template>
 </template>
 
 <script>
 import { useStore } from 'vuex'
 import Menu from './components/Menu.vue'
 import Settings from './components/Settings.vue'
+import OisOasch from './components/OisOasch.vue'
 
 export default {
     components: {
         Menu,
         Settings,
+        OisOasch,
     },
     setup () {
         const store = useStore()
 
         return {
-            setWebsockt: (connected) => store.dispatch('setWebsockt', connected)
+            setWebsockt: (connected) => store.dispatch('setWebsockt', connected),
+            oisOasch: store.getters.oisOasch,
         }
     },
     mounted() {

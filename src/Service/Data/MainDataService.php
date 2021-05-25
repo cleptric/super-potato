@@ -10,14 +10,15 @@ use App\Service\Metar\MetarDecoderService;
 use App\Service\WindComponent\LowwWindComponentService;
 use Authentication\Identity;
 use Cake\Datasource\ModelAwareTrait;
+use Throwable;
 
 class MainDataService
 {
     use ModelAwareTrait;
 
-    protected ?array $_feed;
+    protected ?array $_feed = null;
 
-    protected ?array $_metar;
+    protected ?array $_metar = null;
 
     protected ?Identity $_user;
 
@@ -26,15 +27,21 @@ class MainDataService
         $this->loadModel('Feeds');
         $this->loadModel('Metar');
 
-        $this->_feed = $this->Feeds->find()
-            ->order(['created' => 'DESC'])
-            ->first()
-            ->toArray();
+        try {
+            $this->_feed = $this->Feeds->find()
+                ->order(['created' => 'DESC'])
+                ->firstOrFail()
+                ->toArray();
+        } catch (Throwable $t) {
+        }
 
-        $this->_metar = $this->Metar->find()
-            ->order(['created' => 'DESC'])
-            ->first()
-            ->toArray();
+        try {
+            $this->_metar = $this->Metar->find()
+                ->order(['created' => 'DESC'])
+                ->firstOrFail()
+                ->toArray();
+        } catch (Throwable $t) {
+        }
     }
 
     public function getData(): array

@@ -1,88 +1,67 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <dl class="grid grid-cols-3 gap-3">
-            <template v-if="!lowi.atis.outdated">
 
-                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        Runway Closed
-                    </dt>
-                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                        <template v-if="closedRunwaysDisabled">
-                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                                <span
-                                    class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-l-md rounded-r-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
-                                >
-                                    <i class="far fa-spinner mr-2"></i> In progress... {{ closedRunwaysTimer }}
-                                </span>
-                            </span>
-                        </template>
-                        <template v-else>
-                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                                <button
-                                    @click="triggerRunwayClosed('08/26')"
-                                    class="relative inline-flex items-center px-4 py-2 rounded-l-md rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': lowi.closed_runways.includes('08/26') }"
-                                >
-                                    <i v-if="lowi.closed_runways.includes('08/26')" class="far fa-times mr-1 text-red-800"></i> 08 / 26
-                                </button>
-                            </span>
-                        </template>
-                    </dd>
-                </div>
-
-                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        Missed Approach
-                    </dt>
-                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                        <template v-if="missedApporachDisabled">
+            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                <dt class="text-sm font-medium text-gray-500 truncate">
+                    Runway Closed
+                </dt>
+                <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                    <template v-if="closedRunwaysDisabled">
+                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
                             <span
-                                class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
+                                class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-l-md rounded-r-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
                             >
-                                <i class="far fa-spinner mr-2"></i>
-                                In progress... {{ missedApporachTimer }}
+                                <i class="far fa-spinner mr-2"></i> In progress... {{ closedRunwaysTimer }}
                             </span>
-                        </template>
-                        <template v-else>
+                        </span>
+                    </template>
+                    <template v-else>
+                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
                             <button
-                                v-if="lowi.missed_approach"
-                                @click="triggerMissedApproach"
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                @click="triggerRunwayClosed('08/26')"
+                                class="relative inline-flex items-center px-4 py-2 rounded-l-md rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': lowi.closed_runways.includes('08/26') }"
                             >
-                                <i class="far fa-times mr-2"></i>
-                                Remove Notification
+                                <i v-if="lowi.closed_runways.includes('08/26')" class="far fa-times mr-1 text-red-800"></i> 08 / 26
                             </button>
-                            <button
-                                v-else
-                                @click="triggerMissedApproach"
-                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            >
-                                <i class="far fa-bells mr-2"></i> Trigger Notification
-                            </button>
-                        </template>
-                    </dd>
-                </div>
-            </template>
-            <template v-else>
-                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        Runway Closed
-                    </dt>
-                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
-                    </dd>
-                </div>
+                        </span>
+                    </template>
+                </dd>
+            </div>
 
-                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                    <dt class="text-sm font-medium text-gray-500 truncate">
-                        Missed Approach
-                    </dt>
-                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
-                    </dd>
-                </div>
-            </template>
+            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                <dt class="text-sm font-medium text-gray-500 truncate">
+                    Missed Approach
+                </dt>
+                <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                    <template v-if="missedApporachDisabled">
+                        <span
+                            class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
+                        >
+                            <i class="far fa-spinner mr-2"></i>
+                            In progress... {{ missedApporachTimer }}
+                        </span>
+                    </template>
+                    <template v-else>
+                        <button
+                            v-if="lowi.missed_approach"
+                            @click="triggerMissedApproach"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <i class="far fa-times mr-2"></i>
+                            Remove Notification
+                        </button>
+                        <button
+                            v-else
+                            @click="triggerMissedApproach"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        >
+                            <i class="far fa-bells mr-2"></i> Trigger Notification
+                        </button>
+                    </template>
+                </dd>
+            </div>
 
         </dl>
     </div>
@@ -152,7 +131,7 @@ export default {
         async triggerMissedApproach() {
             try {
                 await api.post('data/update-missed-approach', {
-                    airport: 'lowi',
+                    airport: 'LOWI',
                 })
             } catch (error) {
 
@@ -162,7 +141,7 @@ export default {
         async triggerRunwayClosed(runways) {
             try {
                 await api.post('data/update-runway-closed', {
-                    airport: 'lowi',
+                    airport: 'LOWI',
                     runways: runways,
                 })
             } catch (error) {
@@ -172,7 +151,7 @@ export default {
         },
         triggerVisualDepature(direction) {
             api.post('data/update-visual-depature', {
-                airport: 'lowi',
+                airport: 'LOWI',
                 direction: direction,
             })
         },

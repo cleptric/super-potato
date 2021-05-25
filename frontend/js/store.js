@@ -4,6 +4,7 @@ import { api } from '@/api'
 export const store = createStore({
     state () {
         return {
+            oisOasch: false,
             user: null,
             websocket: false,
             airports: {
@@ -13,6 +14,7 @@ export const store = createStore({
         }
     },
     getters: {
+        oisOasch: state => state.oisOasch,
         user: state => state.user,
         websocket: state => state.websocket,
         airports: state => state.airports,
@@ -21,8 +23,12 @@ export const store = createStore({
     },
     actions: {
         async loadData({ commit }) {
-            const response = await api.get('data');
-            commit('SET_DATA', response.data);
+            try {
+                const response = await api.get('data');
+                commit('SET_DATA', response.data);
+            } catch (error) {
+                commit('SET_OIS_OASCH');
+            }
         },
         setWebsockt({ commit }, connected) {
             commit('SET_WEBSOCKET', connected);
@@ -33,6 +39,9 @@ export const store = createStore({
             state.airports.loww = data.loww
             state.airports.lowi = data.lowi
             state.user = data.user
+        },
+        SET_OIS_OASCH(state) {
+            state.oisOasch = true
         },
         SET_WEBSOCKET(state, connected) {
             state.websocket = connected

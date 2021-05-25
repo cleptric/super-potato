@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
+use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Exception;
@@ -28,12 +29,12 @@ class MetarService
      * @var array
      */
     protected array $_metarStations = [
-        'LOWW',
-        'LOWI',
-        'LOWS',
-        'LOWG',
-        'LOWK',
-        'LOWL',
+        Airport::LOWW_ICAO,
+        Airport::LOWI_ICAO,
+        Airport::LOWS_ICAO,
+        Airport::LOWG_ICAO,
+        Airport::LOWK_ICAO,
+        Airport::LOWL_ICAO,
     ];
 
     public function __construct()

@@ -43,30 +43,56 @@
                 </div>
             </template>
 
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    QNH
-                </dt>
-                <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ airport.metar.qnh_value }}
-                    <span class="text-lg font-medium text-gray-500">
-                        {{ airport.metar.qnh_unit }}
-                    </span>
-                </dd>
-            </div>
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    Wind
-                </dt>
-                <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    <template v-if="airport.metar.is_variable">
-                        VRB {{ airport.metar.mean_speed }}kts
-                    </template>
-                    <template v-else>
-                        {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
-                    </template>
-                </dd>
-            </div>
+            <template v-if="airport.metar.qnh_value && airport.metar.qnh_unit">
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        QNH
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
+                        {{ airport.metar.qnh_value }}
+                        <span class="text-lg font-medium text-gray-500">
+                            {{ airport.metar.qnh_unit }}
+                        </span>
+                    </dd>
+                </div>
+            </template>
+            <template v-else>
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-400 truncate">
+                        QNH
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Data unavailable
+                    </dd>
+                </div>
+            </template>
+
+            <template v-if="airport.metar.mean_speed && airport.metar.mean_direction">
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Wind
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
+                        <template v-if="airport.metar.is_variable">
+                            VRB {{ airport.metar.mean_speed }}kts
+                        </template>
+                        <template v-else>
+                            {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
+                        </template>
+                    </dd>
+                </div>
+            </template>
+            <template v-else>
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-400 truncate">
+                        Wind
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Data unavailable
+                    </dd>
+                </div>
+            </template>
+
             <div
                 v-if="airport.metar.speed_variations"
                 class="p-3 bg-white shadow rounded-lg overflow-hidden"
@@ -78,14 +104,28 @@
                     {{ airport.metar.speed_variations }}kts
                 </dd>
             </div>
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    Conditions
-                </dt>
-                <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ airport.metar.condition }}
-                </dd>
-            </div>
+
+            <template v-if="airport.metar.condition">
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Conditions
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
+                        {{ airport.metar.condition }}
+                    </dd>
+                </div>
+            </template>
+            <template v-else>
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-400 truncate">
+                        Conditions
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Data unavailable
+                    </dd>
+                </div>
+            </template>
+
         </dl>
     </div>
 </template>

@@ -5,7 +5,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'loww',
+    'LOWW',
     NOW(),
     NOW()
 );
@@ -16,7 +16,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lowi',
+    'LOWI',
     NOW(),
     NOW()
 );
@@ -27,7 +27,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lows',
+    'LOWS',
     NOW(),
     NOW()
 );
@@ -38,7 +38,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lowg',
+    'LOWG',
     NOW(),
     NOW()
 );
@@ -49,7 +49,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lowk',
+    'LOWK',
     NOW(),
     NOW()
 );
@@ -60,7 +60,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lowl',
+    'LOWL',
     NOW(),
     NOW()
 );
