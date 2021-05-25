@@ -171,12 +171,6 @@ export default {
             }
             this.startClosedRunwaysTimer()
         },
-        triggerVisualDepature(direction) {
-            api.post('data/update-visual-depature', {
-                airport: 'LOWK',
-                direction: direction,
-            })
-        },
         startMissedApproachTimer() {
             if (this.missedApporachInterval === null && this.missedApporachDisabled) {
                 this.missedApporachInterval = setInterval(() => {
