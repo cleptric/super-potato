@@ -2,6 +2,11 @@ import { createWebHistory, createRouter } from 'vue-router'
 import List from '@/views/List.vue'
 import Loww from '@/views/Loww.vue'
 import Lowi from '@/views/Lowi.vue'
+import Lows from '@/views/Lows.vue'
+import Lowg from '@/views/Lowg.vue'
+import Lowk from '@/views/Lowk.vue'
+import Lowl from '@/views/Lowl.vue'
+
 
 const routes = [
     {
@@ -18,6 +23,26 @@ const routes = [
         path: '/lowi',
         name: 'Lowi',
         component: Lowi,
+    },
+    {
+        path: '/lows',
+        name: 'Lows',
+        component: Lows,
+    },
+    {
+        path: '/lowg',
+        name: 'Lowg',
+        component: Lowg,
+    },
+    {
+        path: '/lowk',
+        name: 'Lowk',
+        component: Lowk,
+    },
+    {
+        path: '/lowl',
+        name: 'Lowl',
+        component: Lowl,
     },
 ]
 

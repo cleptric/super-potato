@@ -10,6 +10,10 @@ export const store = createStore({
             airports: {
                 loww: null,
                 lowi: null,
+                lows: null,
+                lowg: null,
+                lowk: null,
+                lowl: null,
             },
         }
     },
@@ -20,6 +24,10 @@ export const store = createStore({
         airports: state => state.airports,
         loww: state => state.airports.loww,
         lowi: state => state.airports.lowi,
+        lows: state => state.airports.lows,
+        lowg: state => state.airports.lowg,
+        lowk: state => state.airports.lowk,
+        lowl: state => state.airports.lowl,
     },
     actions: {
         async loadData({ commit }) {
@@ -38,6 +46,10 @@ export const store = createStore({
         SET_DATA(state, data) {
             state.airports.loww = data.loww
             state.airports.lowi = data.lowi
+            state.airports.lows = data.lows
+            state.airports.lowg = data.lowg
+            state.airports.lowk = data.lowk
+            state.airports.lowl = data.lowl
             state.user = data.user
         },
         SET_OIS_OASCH(state) {

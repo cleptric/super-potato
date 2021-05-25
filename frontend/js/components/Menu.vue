@@ -61,10 +61,34 @@
                             >
                                 LOWI
                             </router-link>
-                            <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWS</a>
-                            <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWG</a>
-                            <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWK</a>
-                            <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWL</a>
+                            <router-link
+                                to="/lows"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lows' }"
+                            >
+                                LOWS
+                            </router-link>
+                            <router-link
+                                to="/lowg"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowg' }"
+                            >
+                                LOWG
+                            </router-link>
+                            <router-link
+                                to="/lowk"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowk' }"
+                            >
+                                LOWK
+                            </router-link>
+                            <router-link
+                                to="/lowl"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowl' }"
+                            >
+                                LOWL
+                            </router-link>
                         </div>
                     </div>
                 </div>

@@ -5,18 +5,18 @@ namespace App\Service\Atis;
 
 use App\Model\Entity\Airport;
 
-class LowsDecoderService extends AbstractDecoderService
+class LowgDecoderService extends AbstractDecoderService
 {
 
     /**
      * @var string
      */
-    protected string $_atisCallsign = Airport::LOWS_ATIS_CALLSIGN;
+    protected string $_atisCallsign = Airport::LOWG_ATIS_CALLSIGN;
 
     /**
      * @var string
      */
-    protected string $_airportName = Airport::LOWS_AIPORT_NAME;
+    protected string $_airportName = Airport::LOWG_AIPORT_NAME;
 
     /**
      * @var string

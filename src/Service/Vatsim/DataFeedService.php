@@ -42,6 +42,7 @@ class DataFeedService
         Airport::LOWG_ATIS_CALLSIGN,
         Airport::LOWK_ATIS_CALLSIGN,
         Airport::LOWL_ATIS_CALLSIGN,
+        Airport::LOXZ_ATIS_CALLSIGN,
     ];
 
     public function __construct()

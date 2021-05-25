@@ -44,6 +44,10 @@ class Airport extends Entity
     const LOWL_ATIS_CALLSIGN = 'LOWL_ATIS';
     const LOWL_AIPORT_NAME = 'Linz (LOWL)';
 
+    const LOXZ_ICAO = 'LOXZ';
+    const LOXZ_ATIS_CALLSIGN = 'LOXZ_ATIS';
+    const LOXZ_AIPORT_NAME = 'Zeltweg (LOXZ)';
+
     const MISSED_APPROACH_TIMEOUT = '+30 seconds';
 
     const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';

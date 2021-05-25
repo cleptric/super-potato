@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace App\Service\Data;
 
 use Authorization\IdentityInterface;
-use App\Service\Atis\LowwDecoderService;
-use App\Service\Data\LowwDataService;
 use App\Service\Data\LowiDataService;
+use App\Service\Data\LowgDataService;
+use App\Service\Data\LowkDataService;
+use App\Service\Data\LowlDataService;
+use App\Service\Data\LowsDataService;
+use App\Service\Data\LowwDataService;
 use App\Service\Metar\MetarDecoderService;
 use App\Service\WindComponent\LowwWindComponentService;
 use Cake\Datasource\ModelAwareTrait;
@@ -56,6 +59,10 @@ class MainDataService
             ],
             'loww' => (new LowwDataService($this->_feed, $this->_metar))->getData(),
             'lowi' => (new LowiDataService($this->_feed, $this->_metar))->getData(),
+            'lows' => (new LowsDataService($this->_feed, $this->_metar))->getData(),
+            'lowg' => (new LowgDataService($this->_feed, $this->_metar))->getData(),
+            'lowk' => (new LowkDataService($this->_feed, $this->_metar))->getData(),
+            'lowl' => (new LowlDataService($this->_feed, $this->_metar))->getData(),
         ];
     }
 

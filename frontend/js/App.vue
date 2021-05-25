@@ -57,17 +57,17 @@ export default {
                 }
                 if (data.type == 'missed-approach') {
                     const audio = new Audio('/sounds/bell.wav')
-                    // audio.volume = 0.2;
+                    audio.volume = 0.2;
                     audio.play()
                 }
                 if (data.type == 'runway-closed') {
                     const audio = new Audio('/sounds/alert.wav')
-                    // audio.volume = 0.2;
+                    audio.volume = 0.2;
                     audio.play()
                 }
                 if (data.type == 'runway-reopened') {
                     const audio = new Audio('/sounds/success.wav')
-                    // audio.volume = 0.2;
+                    audio.volume = 0.2;
                     audio.play()
                 }
             });
