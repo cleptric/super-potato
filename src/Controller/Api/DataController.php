@@ -17,11 +17,13 @@ class DataController extends Controller
         parent::initialize();
 
         $this->loadComponent('Authentication.Authentication');
+        $this->loadComponent('Authorization.Authorization');
     }
 
     public function index()
     {
         $this->request->allowMethod('get');
+        $this->Authorization->skipAuthorization();
 
         $service = new MainDataService();
         $service->setUser($this->Authentication->getIdentity());
@@ -37,14 +39,16 @@ class DataController extends Controller
     {
         $this->request->allowMethod('post');
 
-        $airport = $this->request->getData('airport');
+        $airportIcao = $this->request->getData('airport');
+
+        $this->loadModel('Airports');
+        $airport = $this->Airports->find()
+            ->where(['name' => $airportIcao])
+            ->first();
+
+        $this->Authorization->authorize($airport, 'updateMissedApporach');
 
         $service = new MissedApproachService();
-
-        if ($service->isMissedApproachTriggerable($airport) === false) {
-            return $this->response
-                ->withStatus(400);
-        }
         $service->toggleMissedApproach($airport);
 
         return $this->response
@@ -55,15 +59,17 @@ class DataController extends Controller
     {
         $this->request->allowMethod('post');
 
-        $airport = $this->request->getData('airport');
+        $airportIcao = $this->request->getData('airport');
         $runways = $this->request->getData('runways');
 
-        $service = new RunwayClosedService();
+        $this->loadModel('Airports');
+        $airport = $this->Airports->find()
+            ->where(['name' => $airportIcao])
+            ->first();
 
-        if ($service->isRunwayClosedTriggerable($airport) === false) {
-            return $this->response
-                ->withStatus(400);
-        }
+        $this->Authorization->authorize($airport, 'updateRunwayClosed');
+
+        $service = new RunwayClosedService();
         $service->toggleRunwayClosed($airport, $runways);
 
         return $this->response
@@ -74,11 +80,17 @@ class DataController extends Controller
     {
         $this->request->allowMethod('post');
 
-        $service = new VisualDepatureService();
-
-        $airport = $this->request->getData('airport');
+        $airportIcao = $this->request->getData('airport');
         $direction = $this->request->getData('direction');
 
+        $this->loadModel('Airports');
+        $airport = $this->Airports->find()
+            ->where(['name' => $airportIcao])
+            ->first();
+
+        $this->Authorization->authorize($airport, 'updateVisualDepature');
+
+        $service = new VisualDepatureService();
         $service->toggleVisualDepature($airport, $direction);
 
         return $this->response

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Utility\Hash;
 use ZMQContext;
@@ -18,13 +19,8 @@ class VisualDepatureService
         $this->loadModel('Airports');
     }
 
-    public function toggleVisualDepature(string $airportIcao, string $direction): void
+    public function toggleVisualDepature(Airport $airport, string $direction): void
     {
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
         $data = (array)$airport->visual_depatures;
         if (($key = array_search($direction, $data)) !== false) {
             unset($data[$key]);

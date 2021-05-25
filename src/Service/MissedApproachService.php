@@ -19,21 +19,8 @@ class MissedApproachService
         $this->loadModel('Airports');
     }
 
-    public function isMissedApproachTriggerable(string $airportIcao): bool
+    public function toggleMissedApproach(Airport $airport): void
     {
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
-        return !($airport->missed_approach_timeout > new FrozenTime());
-    }
-
-    public function toggleMissedApproach(string $airportIcao): void
-    {
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
         $missedApproach = $airport->missed_approach;
         $missedApproachTimeout = new FrozenTime();
 

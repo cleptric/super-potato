@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Service\Data;
 
+use Authorization\IdentityInterface;
 use App\Service\Atis\LowwDecoderService;
 use App\Service\Data\LowwDataService;
 use App\Service\Data\LowiDataService;
 use App\Service\Metar\MetarDecoderService;
 use App\Service\WindComponent\LowwWindComponentService;
-use Authentication\Identity;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
@@ -20,7 +20,7 @@ class MainDataService
 
     protected ?array $_metar = null;
 
-    protected ?Identity $_user;
+    protected ?IdentityInterface $_user;
 
     public function __construct()
     {
@@ -51,13 +51,15 @@ class MainDataService
                 'id' => $this->_user->id,
                 'name' => $this->_user->full_name,
                 'vatsim_id' => $this->_user->vatsim_id,
+                'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
+                'online_as' => null,
             ],
             'loww' => (new LowwDataService($this->_feed, $this->_metar))->getData(),
             'lowi' => (new LowiDataService($this->_feed, $this->_metar))->getData(),
         ];
     }
 
-    public function setUser(Identity $user): void
+    public function setUser(IdentityInterface $user): void
     {
         $this->_user = $user;
     }

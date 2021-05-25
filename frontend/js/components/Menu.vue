@@ -4,9 +4,12 @@
             <h2 class="text-sm font-medium text-gray-400  mr-8">
                 Servus, {{ user.name }} ({{ user.vatsim_id }})
             </h2>
-            <!-- <div class="text-sm font-medium text-gray-400 mr-8">
-                Online as <strong class="text-gray-300">LOWW_APP</strong>
-            </div> -->
+            <div
+                v-if="user.online_as"
+                class="text-sm font-medium text-gray-400 mr-8"
+            >
+                Online as <strong class="text-gray-300">{{ user.online_as }}</strong>
+            </div>
             <div class="flex items-center text-sm font-medium text-gray-400">
                 Connection
                 <i

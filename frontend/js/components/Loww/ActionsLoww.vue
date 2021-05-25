@@ -1,111 +1,142 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <dl class="grid grid-cols-3 gap-3">
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    Visual Depatures
-                </dt>
-                <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                    <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                        <button 
-                            @click="triggerVisualDepature('north')"
-                            class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                            :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('north') }"
-                        >
-                            North
-                        </button>
-                        <button 
-                            @click="triggerVisualDepature('east')"
-                            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                            :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('east') }"
-                        >
-                            East
-                        </button>
-                        <button
-                            @click="triggerVisualDepature('south')"
-                            class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                            :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('south') }"
-                        >
-                            South
-                        </button>
-                        <button
-                            @click="triggerVisualDepature('west')"
-                            class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                            :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('west') }"
-                        >
-                            West
-                        </button>
-                    </span>
-                </dd>
-            </div>
 
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    Runway Closed
-                </dt>
-                <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                    <template v-if="closedRunwaysDisabled">
+            <template v-if="user.can_trigger_actions">
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Visual Depatures
+                    </dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
                         <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                            <span
-                                class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-l-md rounded-r-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
-                            >
-                                <i class="far fa-spinner mr-2"></i> In progress... {{ closedRunwaysTimer }}
-                            </span>
-                        </span>
-                    </template>
-                    <template v-else>
-                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                            <button
-                                @click="triggerRunwayClosed('16/34')"
+                            <button 
+                                @click="triggerVisualDepature('north')"
                                 class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('16/34') }"
+                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('north') }"
                             >
-                                <i v-if="loww.closed_runways.includes('16/34')" class="far fa-times mr-1 text-red-800"></i> 16 / 34
+                                North
                             </button>
                             <button 
-                                @click="triggerRunwayClosed('29/11')"
-                                class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('29/11') }"
+                                @click="triggerVisualDepature('east')"
+                                class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('east') }"
                             >
-                                <i v-if="loww.closed_runways.includes('29/11')" class="far fa-times mr-1 text-red-800"></i> 29 / 11
+                                East
+                            </button>
+                            <button
+                                @click="triggerVisualDepature('south')"
+                                class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('south') }"
+                            >
+                                South
+                            </button>
+                            <button
+                                @click="triggerVisualDepature('west')"
+                                class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('west') }"
+                            >
+                                West
                             </button>
                         </span>
-                    </template>
-                </dd>
-            </div>
+                    </dd>
+                </div>
 
-            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
-                    Missed Approach
-                </dt>
-                <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                    <template v-if="missedApporachDisabled">
-                        <span
-                            class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
-                        >
-                            <i class="far fa-spinner mr-2"></i>
-                            In progress... {{ missedApporachTimer }}
-                        </span>
-                    </template>
-                    <template v-else>
-                        <button
-                            v-if="loww.missed_approach"
-                            @click="triggerMissedApproach"
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >
-                            <i class="far fa-times mr-2"></i>
-                            Remove Notification
-                        </button>
-                        <button
-                            v-else
-                            @click="triggerMissedApproach"
-                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >
-                            <i class="far fa-bells mr-2"></i> Trigger Notification
-                        </button>
-                    </template>
-                </dd>
-            </div>
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Runway Closed
+                    </dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                        <template v-if="closedRunwaysDisabled">
+                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                                <span
+                                    class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-l-md rounded-r-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
+                                >
+                                    <i class="far fa-spinner mr-2"></i> In progress... {{ closedRunwaysTimer }}
+                                </span>
+                            </span>
+                        </template>
+                        <template v-else>
+                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                                <button
+                                    @click="triggerRunwayClosed('16/34')"
+                                    class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('16/34') }"
+                                >
+                                    <i v-if="loww.closed_runways.includes('16/34')" class="far fa-times mr-1 text-red-800"></i> 16 / 34
+                                </button>
+                                <button 
+                                    @click="triggerRunwayClosed('29/11')"
+                                    class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('29/11') }"
+                                >
+                                    <i v-if="loww.closed_runways.includes('29/11')" class="far fa-times mr-1 text-red-800"></i> 29 / 11
+                                </button>
+                            </span>
+                        </template>
+                    </dd>
+                </div>
+
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Missed Approach
+                    </dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                        <template v-if="missedApporachDisabled">
+                            <span
+                                class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
+                            >
+                                <i class="far fa-spinner mr-2"></i>
+                                In progress... {{ missedApporachTimer }}
+                            </span>
+                        </template>
+                        <template v-else>
+                            <button
+                                v-if="loww.missed_approach"
+                                @click="triggerMissedApproach"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                <i class="far fa-times mr-2"></i>
+                                Remove Notification
+                            </button>
+                            <button
+                                v-else
+                                @click="triggerMissedApproach"
+                                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            >
+                                <i class="far fa-bells mr-2"></i> Trigger Notification
+                            </button>
+                        </template>
+                    </dd>
+                </div>
+            </template>
+            <template v-else>
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Visual Depatures
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Could not find VATSIM session
+                    </dd>
+                </div>
+
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Runway Closed
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Could not find VATSIM session
+                    </dd>
+                </div>
+
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Missed Approach
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Could not find VATSIM session
+                    </dd>
+                </div>
+            </template>
 
         </dl>
     </div>
@@ -123,6 +154,7 @@ export default {
 
         return {
             loww: computed(() => store.getters.loww),
+            user: computed(() => store.getters.user),
             missedApporachDisabled: computed(() => {
                 let timestamp = Math.round((new Date()).getTime() / 1000)
                 return timestamp < store.getters.loww.missed_approach_timeout

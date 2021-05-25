@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Authentication\IdentityInterface as AuthenticationIdentity;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\IdentityInterface as AuthorizationIdentity;
+use Authorization\Policy\ResultInterface;
 use Cake\ORM\Entity;
+use RuntimeException;
 
 /**
  * User Entity
@@ -16,10 +20,12 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $created
  */
-class User extends Entity
+class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
 
     const SUBDIVISION_ID = 'AUST';
+
+    const CONTROLER_PREFIX = 'LO';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -33,4 +39,71 @@ class User extends Entity
     protected $_accessible = [
         '*' => false,
     ];
+
+    /**
+     * @var \Authorization\AuthorizationServiceInterface|null
+     */
+    protected $authorization = null;
+
+    /**
+     * Authorization\IdentityInterface method
+     */
+    public function getIdentifier(): int
+    {
+        return $this->get('id');
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     */
+    public function can($action, $resource): bool
+    {
+        if (!$this->authorization) {
+            throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
+        }
+
+        return $this->authorization->can($this, $action, $resource);
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     */
+    public function canResult($action, $resource): ResultInterface
+    {
+        if (!$this->authorization) {
+            throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
+        }
+
+        return $this->authorization->canResult($this, $action, $resource);
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     */
+    public function applyScope($action, $resource)
+    {
+        if (!$this->authorization) {
+            throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
+        }
+
+        return $this->authorization->applyScope($this, $action, $resource);
+    }
+
+    /**
+     * Authorization\IdentityInterface method
+     */
+    public function getOriginalData()
+    {
+        return $this;
+    }
+
+    /**
+     * Setter to be used by the middleware.
+     */
+    public function setAuthorization(AuthorizationServiceInterface $service)
+    {
+        $this->authorization = $service;
+
+        return $this;
+    }
 }

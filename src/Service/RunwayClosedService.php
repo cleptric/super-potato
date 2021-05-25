@@ -20,21 +20,8 @@ class RunwayClosedService
         $this->loadModel('Airports');
     }
 
-    public function isRunwayClosedTriggerable(string $airportIcao): bool
+    public function toggleRunwayClosed(Airport $airport, string $runways): void
     {
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
-        return !($airport->closed_runways_timeout > new FrozenTime());
-    }
-
-    public function toggleRunwayClosed(string $airportIcao, string $runways): void
-    {
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
         $data = (array)$airport->closed_runways;
         $closedRunwaysTimeout = new FrozenTime();
 

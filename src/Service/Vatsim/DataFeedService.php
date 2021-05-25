@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Vatsim;
 
 use App\Model\Entity\Airport;
+use App\Model\Entity\User;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -30,11 +31,6 @@ class DataFeedService
      * @var string
      */
     protected string $_vatsimFeedVersion = 'v3';
-
-    /**
-     * @var string
-     */
-    protected string $_controllerPrefix = 'LO';
 
     /**
      * @var array
@@ -86,7 +82,7 @@ class DataFeedService
                 }
             }
             foreach ($parsedFeed['controllers'] as $controller) {
-                if (substr($controller['callsign'], 0, 2) === $this->_controllerPrefix) {
+                if (substr($controller['callsign'], 0, 2) === User::CONTROLER_PREFIX) {
                     $data['controllers'][] = [
                         'vatsim_id' => $controller['cid'],
                         'callsign' => $controller['callsign'],
