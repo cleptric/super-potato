@@ -49,7 +49,7 @@ INSERT INTO `airports` (
     `modified`
 ) VALUES (
     UUID(),
-    'lowg',
+    'lowk',
     NOW(),
     NOW()
 );
