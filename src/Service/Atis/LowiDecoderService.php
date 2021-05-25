@@ -21,15 +21,15 @@ class LowiDecoderService extends AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_depatureRunwayPattern = '/(?<=DEPARTURE RUNWAY )(\d\d AND \d\d|\d\d)(?= )|(?<=DEPARTURE RUNWAY )\d\d(?= )/s';
+    protected string $_depatureRunwayPattern = '/(?<=RUNWAY IN USE )(\w\w\s\w\w\w)(?= )/s';
 
     /**
      * @var string
      */
-    protected string $_arrivalRunwayPattern = '/(?<=ARRIVAL RUNWAY )(\d\d AND \d\d|\d\d)(?= )|(?<=ARRIVAL RUNWAY )\d\d(?= )/s';
+    protected string $_arrivalRunwayPattern = '/(?<=RUNWAY IN USE )(\w\w\s\w\w\w)(?= )/s';
 
     /**
      * @var string
      */
-    protected string $_transitionLevelPattern = '/(?<=TRANSITION LEVEL )(\w\w\s\w\w\w)(?= )/s';
+    protected string $_transitionLevelPattern = '/(?<=TRANSITION LEVEL )(\w\w\w\s\w\w\w\w\w\w\w\w\w\w)(?= )/s';
 }
