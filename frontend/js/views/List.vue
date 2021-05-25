@@ -117,7 +117,7 @@
                             </div>
                         </template>
 
-                        <template v-if="airport.metar.mean_speed && airport.metar.mean_direction">
+                        <template v-if="airport.metar.mean_speed && airport.metar.mean_direction || airport.metar.is_variable && airport.metar.mean_speed">
                             <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                                 <dt class="text-sm font-medium text-gray-500 truncate">
                                     Wind
