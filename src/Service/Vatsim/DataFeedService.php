@@ -36,12 +36,12 @@ class DataFeedService
      * @var array
      */
     protected array $_atisStations = [
-        Airport::LOWW_ICAO,
-        Airport::LOWI_ICAO,
-        Airport::LOWS_ICAO,
-        Airport::LOWG_ICAO,
-        Airport::LOWK_ICAO,
-        Airport::LOWL_ICAO,
+        Airport::LOWW_ATIS_CALLSIGN,
+        Airport::LOWI_ATIS_CALLSIGN,
+        Airport::LOWS_ATIS_CALLSIGN,
+        Airport::LOWG_ATIS_CALLSIGN,
+        Airport::LOWK_ATIS_CALLSIGN,
+        Airport::LOWL_ATIS_CALLSIGN,
     ];
 
     public function __construct()
