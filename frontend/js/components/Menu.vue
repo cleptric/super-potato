@@ -31,9 +31,9 @@
             <div class="flex items-center justify-between h-12 xl:h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <router-link to="/" class="flex items-center text-white text-2xl font-extrabold">
+                        <a href="/" class="flex items-center text-white text-2xl font-extrabold">
                             Super <img class="h-7 w-7 ml-2" :src="logoUrl">
-                        </router-link>
+                        </a>
                     </div>
                     <div>
                         <div class="ml-10 flex items-baseline space-x-4">
