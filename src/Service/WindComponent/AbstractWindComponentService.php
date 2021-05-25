@@ -55,12 +55,12 @@ abstract class AbstractWindComponentService
 
     protected function _calcutlateHeadTailWindComponent($trueHeading): string
     {
-        $headTailWind = abs(round(cos(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed));
+        $headTailWind = round(cos(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed);
 
         if ($headTailWind > 0) {
-            return $headTailWind . 'H';
+            return abs($headTailWind) . 'H';
         } else {
-            return $headTailWind . 'T';
+            return abs($headTailWind) . 'T';
         }
     }
 }
