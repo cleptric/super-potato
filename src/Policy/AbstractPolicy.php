@@ -27,9 +27,9 @@ abstract class AbstractPolicy
             return false;
         }
 
-        if (!empty($feed['controllers'])) {
-            foreach ($feed['controllers'] as $controller) {
-                if ($controller['vatsim_id'] === $user->vatsim_id) {
+        if (!empty($feed['data']['controllers'])) {
+            foreach ($feed['data']['controllers'] as $controller) {
+                if ((string)$controller['vatsim_id'] === $user->vatsim_id) {
                     return true;
                 }
             }
