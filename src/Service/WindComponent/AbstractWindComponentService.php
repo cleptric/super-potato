@@ -7,12 +7,12 @@ abstract class AbstractWindComponentService
 {
 
     /**
-     * @var int
+     * @var int|null
      */
     protected ?int $_meanDirection;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected ?int $_meanSpeed;
 

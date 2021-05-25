@@ -147,7 +147,7 @@ import { useStore } from 'vuex'
 import { api } from '@/api'
 
 export default {
-    name: 'Actions',
+    name: 'ActionsLoww',
     setup () {
         const store = useStore()
 
@@ -204,7 +204,9 @@ export default {
     methods: {
         async triggerMissedApproach() {
             try {
-                await api.post('data/update-missed-approach')
+                await api.post('data/update-missed-approach', {
+                    airport: 'loww',
+                })
             } catch (error) {
 
             }
@@ -213,6 +215,7 @@ export default {
         async triggerRunwayClosed(runways) {
             try {
                 await api.post('data/update-runway-closed', {
+                    airport: 'loww',
                     runways: runways,
                 })
             } catch (error) {
@@ -222,6 +225,7 @@ export default {
         },
         triggerVisualDepature(direction) {
             api.post('data/update-visual-depature', {
+                airport: 'loww',
                 direction: direction,
             })
         },

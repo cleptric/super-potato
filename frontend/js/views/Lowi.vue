@@ -2,22 +2,22 @@
     <header class="hidden bg-white shadow-sm xl:block">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <h1 class="text-lg leading-6 font-semibold text-gray-900">
-                {{ loww.atis.airport_name }}
+                {{ lowi.atis.airport_name }}
             </h1>
         </div>
     </header>
 
     <main>
         <AtisMetarRow
-            :airport="loww"
+            :airport="lowi"
         />
 
-        <RunwayLoww />
+        <RunwayLowi />
 
-        <ActionsLoww />
+        <ActionsLowi />
 
         <RawMetar
-            :airport="loww"
+            :airport="lowi"
         />
     </main>
 </template>
@@ -27,23 +27,23 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import AtisMetarRow from '@/components/AtisMetarRow.vue'
-import RunwayLoww from '@/components/Loww/RunwayLoww.vue'
-import ActionsLoww from '@/components/Loww/ActionsLoww.vue'
+import RunwayLowi from '@/components/Lowi/RunwayLowi.vue'
+import ActionsLowi from '@/components/Lowi/ActionsLowi.vue'
 import RawMetar from '@/components/RawMetar.vue'
 
 export default {
-    name: 'Loww',
+    name: 'Lowi',
     components: {
         AtisMetarRow,
-        RunwayLoww,
-        ActionsLoww,
+        RunwayLowi,
+        ActionsLowi,
         RawMetar,
     },
     setup () {
         const store = useStore()
 
         return {
-            loww: computed(() => store.getters.loww),
+            lowi: computed(() => store.getters.lowi),
         }
     },
 }

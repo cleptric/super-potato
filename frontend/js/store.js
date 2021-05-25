@@ -8,6 +8,7 @@ export const store = createStore({
             websocket: false,
             airports: {
                 loww: null,
+                lowi: null,
             },
         }
     },
@@ -16,7 +17,7 @@ export const store = createStore({
         websocket: state => state.websocket,
         airports: state => state.airports,
         loww: state => state.airports.loww,
-        lows: state => state.airports.lows,
+        lowi: state => state.airports.lowi,
     },
     actions: {
         async loadData({ commit }) {
@@ -30,6 +31,7 @@ export const store = createStore({
     mutations: {
         SET_DATA(state, data) {
             state.airports.loww = data.loww
+            state.airports.lowi = data.lowi
             state.user = data.user
         },
         SET_WEBSOCKET(state, connected) {

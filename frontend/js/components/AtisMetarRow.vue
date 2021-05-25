@@ -1,13 +1,13 @@
 <template>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <dl class="mt-3 grid grid-cols-6 gap-3">
-            <template v-if="!loww.atis.outdated">
+            <template v-if="!airport.atis.outdated">
                 <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         ATIS Information
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                        {{ loww.atis.atis_letter }}
+                        {{ airport.atis.atis_letter }}
                     </dd>
                 </div>
             </template>
@@ -22,13 +22,13 @@
                 </div>
             </template>
 
-            <template v-if="!loww.atis.outdated">
+            <template v-if="!airport.atis.outdated">
                 <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Transition Level
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                        FL {{ loww.atis.transition_level }}
+                        {{ airport.atis.transition_level }}
                     </dd>
                 </div>
             </template>
@@ -48,9 +48,9 @@
                     QNH
                 </dt>
                 <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ loww.metar.qnh_value }}
+                    {{ airport.metar.qnh_value }}
                     <span class="text-lg font-medium text-gray-500">
-                        {{ loww.metar.qnh_unit }}
+                        {{ airport.metar.qnh_unit }}
                     </span>
                 </dd>
             </div>
@@ -59,23 +59,23 @@
                     Wind
                 </dt>
                 <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    <template v-if="loww.metar.is_variable">
-                        VRB {{ loww.metar.mean_speed }}kts
+                    <template v-if="airport.metar.is_variable">
+                        VRB {{ airport.metar.mean_speed }}kts
                     </template>
                     <template v-else>
-                        {{ loww.metar.mean_direction }}° / {{ loww.metar.mean_speed }}kts
+                        {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
                     </template>
                 </dd>
             </div>
             <div
-                v-if="loww.metar.speed_variations"
+                v-if="airport.metar.speed_variations"
                 class="p-3 bg-white shadow rounded-lg overflow-hidden"
             >
                 <dt class="text-sm font-medium text-gray-500 truncate">
                     Maximum
                 </dt>
                 <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ loww.metar.speed_variations }}kts
+                    {{ airport.metar.speed_variations }}kts
                 </dd>
             </div>
             <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
@@ -83,7 +83,7 @@
                     Conditions
                 </dt>
                 <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ loww.metar.condition }}
+                    {{ airport.metar.condition }}
                 </dd>
             </div>
         </dl>
@@ -96,12 +96,8 @@ import { useStore } from 'vuex'
 
 export default {
     name: 'AtisMetarRow',
-    setup () {
-        const store = useStore()
-
-        return {
-            loww: computed(() => store.getters.loww),
-        }
+    props: {
+        airport: Object
     },
 }
 </script>

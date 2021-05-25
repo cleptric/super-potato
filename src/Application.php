@@ -28,12 +28,14 @@ use Cake\Datasource\FactoryLocator;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
+use Cake\Http\Middleware\CspMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
 use Cake\Routing\Router;
+use ParagonIE\CSPBuilder\CSPBuilder;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -89,9 +91,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ]))
             ->add(new RoutingMiddleware($this))
             ->add(new BodyParserMiddleware())
-            // ->add(new CsrfProtectionMiddleware([
-            //     'httponly' => true,
-            // ]))
+            ->add(new CsrfProtectionMiddleware())
+            // ->add(new CspMiddleware($this->getCspPolicy()))
             ->add(new AuthenticationMiddleware($this));
 
         return $middlewareQueue;
@@ -126,6 +127,21 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Migrations');
 
         // Load more plugins here
+    }
+
+    protected function getCspPolicy()
+    {
+        $csp = new CSPBuilder([
+            // 'font-src' => ['self' => true],
+            'form-action' => ['self' => true],
+            'img-src' => ['self' => true],
+            'script-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => ['data', 'https://kit.fontawesome.com']],
+            'style-src' => ['self' => true, 'unsafe-inline' => true],
+            'object-src' => [],
+            'plugin-types' => [],
+        ]);
+
+        return $csp;
     }
 
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface

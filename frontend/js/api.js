@@ -14,6 +14,7 @@ export const api = {
     },
 
     post(resource, params) {
+        console.log(params);
         return axios.post(`${resource}`, params);
     },
 

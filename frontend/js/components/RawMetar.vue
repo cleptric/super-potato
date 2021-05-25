@@ -6,7 +6,7 @@
                     METAR
                 </dt>
                 <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                    {{ loww.metar.raw_metar }}
+                    {{ airport.metar.raw_metar }}
                 </dd>
             </div>
         </dl>
@@ -19,12 +19,8 @@ import { useStore } from 'vuex'
 
 export default {
     name: 'RawMetar',
-    setup () {
-        const store = useStore()
-
-        return {
-            loww: computed(() => store.getters.loww),
-        }
+    props: {
+        airport: Object
     },
 }
 </script>

@@ -3,17 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Model\Entity\Airport;
-use App\Service\Vatsim\DataFeedService;
-use App\Service\Vatsim\MetarService;
-use App\Service\Metar\MetarDecoderService;
-use App\Service\Atis\LowwDecoderService;
-use App\Service\WindComponent\LowwWindComponentService;
+use App\Service\MissedApproachService;
+use App\Service\RunwayClosedService;
+use App\Service\VisualDepatureService;
+use App\Service\Data\MainDataService;
 use Cake\Controller\Controller;
-use Cake\I18n\FrozenTime;
-use Cake\Utility\Hash;
-use ZMQContext;
-use ZMQ;
 
 class DataController extends Controller
 {
@@ -29,53 +23,9 @@ class DataController extends Controller
     {
         $this->request->allowMethod('get');
 
-        $this->loadModel('Feeds');
-        $feed = $this->Feeds->find()
-            ->order(['created' => 'DESC'])
-            ->first()
-            ->toArray();
-
-        $atisService = new LowwDecoderService();
-        $atisService->setDataFeed($feed);
-        $atis = $atisService->getData();
-
-        $this->loadModel('Metar');
-        $metar = $this->Metar->find()
-            ->order(['created' => 'DESC'])
-            ->first()
-            ->toArray();
-
-        $metarDecoderService = new MetarDecoderService();
-        $metarDecoderService->setMetar($metar['data']['LOWW']);
-        $metar = $metarDecoderService->getData();
-
-        $windComponentService = new LowwWindComponentService();
-        $windComponentService->setMeanDirection($metar['mean_direction']);
-        $windComponentService->setMeanSpeed($metar['mean_speed']);
-        $windComponents = $windComponentService->getData();
-
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => 'loww'])
-            ->first();
-
-        $data = [
-            'user' => [
-                'id' => $this->Authentication->getIdentityData('id'),
-                'name' => $this->Authentication->getIdentityData('full_name'),
-                'vatsim_id' => $this->Authentication->getIdentityData('vatsim_id'),
-            ],
-            'loww' => [
-                'atis' => $atis,
-                'metar' => $metar,
-                'wind_components' => $windComponents,
-                'missed_approach' => $airport->missed_approach,
-                'missed_approach_timeout' => $airport->missed_approach_timeout->toUnixString(),
-                'closed_runways' => $airport->closed_runways ?? [],
-                'closed_runways_timeout' => $airport->closed_runways_timeout->toUnixString(),
-                'visual_depature' => $airport->visual_depatures ?? [],
-            ],
-        ];
+        $service = new MainDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $data = $service->getData();
 
         return $this->response
             ->withStatus(200)
@@ -85,49 +35,17 @@ class DataController extends Controller
 
     public function updateMissedApproach()
     {
-        //$this->request->allowMethod('post');
+        $this->request->allowMethod('post');
 
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => 'loww'])
-            ->first();
+        $airport = $this->request->getData('airport');
 
-        if ($airport->missed_approach_timeout > new FrozenTime()) {
+        $service = new MissedApproachService();
+
+        if ($service->isMissedApproachTriggerable($airport) === false) {
             return $this->response
                 ->withStatus(400);
         }
-
-        $missedApproach = $airport->missed_approach;
-        $missedApproachTimeout = new FrozenTime();
-
-        if ($missedApproach === false) {
-            $missedApproach = true;
-            $missedApproachTimeout = new FrozenTime(Airport::MISSED_APPROACH_TIMEOUT);
-
-            $context = new ZMQContext();
-            $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
-            $socket->send(json_encode(['type' => 'missed-approach']));
-        } else {
-            $missedApproach = false;
-        }
-
-        $airport = $this->Airports->patchEntity($airport, [
-            'missed_approach' => $missedApproach,
-            'missed_approach_timeout' => $missedApproachTimeout,
-        ], [
-            'accessibleFields' => [
-                'missed_approach' => true,
-                'missed_approach_timeout' => true,
-            ],
-        ]);
-
-        $this->Airports->save($airport);
-
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
-        $socket->send(json_encode(['type' => 'refresh']));
+        $service->toggleMissedApproach($airport);
 
         return $this->response
             ->withStatus(200);
@@ -137,53 +55,16 @@ class DataController extends Controller
     {
         $this->request->allowMethod('post');
 
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => 'loww'])
-            ->first();
+        $airport = $this->request->getData('airport');
+        $runways = $this->request->getData('runways');
 
-        if ($airport->closed_runways_timeout > new FrozenTime()) {
+        $service = new RunwayClosedService();
+
+        if ($service->isRunwayClosedTriggerable($airport) === false) {
             return $this->response
                 ->withStatus(400);
         }
-
-        $data = (array)$airport->closed_runways;
-        $runways = $this->request->getData('runways');
-        $closedRunwaysTimeout = new FrozenTime();
-
-        if (($key = array_search($runways, $data)) !== false) {
-            unset($data[$key]);
-            $data = array_values($data);
-
-            $context = new ZMQContext();
-            $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
-            $socket->send(json_encode(['type' => 'runway-reopened']));
-        } else {
-            $data = Hash::merge($data, $runways);
-            $closedRunwaysTimeout = new FrozenTime(Airport::RUNWAY_CLOSED_TIMEOUT);
-
-            $context = new ZMQContext();
-            $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
-            $socket->send(json_encode(['type' => 'runway-closed']));
-        }
-
-        $airport = $this->Airports->patchEntity($airport, [
-            'closed_runways' => $data,
-            'closed_runways_timeout' => $closedRunwaysTimeout,
-        ], [
-            'accessibleFields' => [
-                'closed_runways' => true,
-                'closed_runways_timeout' => true,
-            ],
-        ]);
-        $this->Airports->save($airport);
-
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
-        $socket->send(json_encode(['type' => 'refresh']));
+        $service->toggleRunwayClosed($airport, $runways);
 
         return $this->response
             ->withStatus(200);
@@ -193,33 +74,12 @@ class DataController extends Controller
     {
         $this->request->allowMethod('post');
 
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => 'loww'])
-            ->first();
+        $service = new VisualDepatureService();
 
-        $data = (array)$airport->visual_depatures;
-        $runway = $this->request->getData('direction');
-        if (($key = array_search($runway, $data)) !== false) {
-            unset($data[$key]);
-            $data = array_values($data);
-        } else {
-            $data = Hash::merge($data, $runway);
-        }
+        $airport = $this->request->getData('airport');
+        $direction = $this->request->getData('direction');
 
-        $airport = $this->Airports->patchEntity($airport, [
-            'visual_depatures' => $data,
-        ], [
-            'accessibleFields' => [
-                'visual_depatures' => true,
-            ],
-        ]);
-        $this->Airports->save($airport);
-
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
-        $socket->send(json_encode(['type' => 'refresh']));
+        $service->toggleVisualDepature($airport, $direction);
 
         return $this->response
             ->withStatus(200);

@@ -51,7 +51,13 @@
                             >
                                 LOWW
                             </router-link>
-                            <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWI</a>
+                            <router-link
+                                to="/lowi"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowi' }"
+                            >
+                                LOWI
+                            </router-link>
                             <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWS</a>
                             <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWG</a>
                             <a href="#" class="pointer-events-none text-gray-600 px-3 py-2 rounded-md text-sm font-medium">LOWK</a>
