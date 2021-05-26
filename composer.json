@@ -16,7 +16,8 @@
         "mobiledetect/mobiledetectlib": "^2.8",
         "paragonie/csp-builder": "^2.5",
         "react/zmq": "^0.4.0",
-        "safran-cassiopee/php-metar-decoder": "^0.8.0"
+        "safran-cassiopee/php-metar-decoder": "^0.8.0",
+        "sentry/sdk": "^3.1"
     },
     "require-dev": {
         "cakephp/bake": "^2.3",

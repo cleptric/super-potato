@@ -66,6 +66,10 @@ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
         ->toServer();
 }
 
+Sentry\init([
+    'dsn' => env('SENTRY_DSN'),
+]);
+
 /*
  * Read configuration file and inject configuration into various
  * CakePHP classes.
