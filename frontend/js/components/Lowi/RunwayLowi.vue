@@ -57,6 +57,17 @@
                     class="w-[850px] h-[120px] flex items-center justify-between border border-gray-300 rounded-lg"
                     :class="{ 'bg-red-200 border-red-300': lowi.closed_runways.includes('08/26') }"
                 >
+                    <div
+                        v-if="lowi.visual_depature.includes('south')"
+                        class="absolute w-[155px] flex items-center text-md font-medium" style="left: 50%; bottom: 190px; transform: translateX(-50%);"
+                    >
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-blue-100 text-blue-800">
+                          <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-blue-400" fill="currentColor" viewBox="0 0 8 8">
+                            <circle cx="4" cy="4" r="3" />
+                          </svg>
+                          Visual Departure
+                        </span>
+                    </div>
 
                     <div
                         class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"

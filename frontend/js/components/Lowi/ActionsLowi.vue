@@ -5,6 +5,23 @@
             <template v-if="user.can_trigger_actions">
                 <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
+                        Visual Depatures
+                    </dt>
+                    <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                            <button
+                                @click="triggerVisualDepature('south')"
+                                class="-ml-px relative inline-flex items-center px-4 py-2 rounded-l-md rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': lowi.visual_depature.includes('south') }"
+                            >
+                                South
+                            </button>
+                        </span>
+                    </dd>
+                </div>
+
+                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
                         Runway Closed
                     </dt>
                     <dd class="mt-1 text-3xl font-semibold text-gray-900">
@@ -65,6 +82,15 @@
                 </div>
             </template>
             <template v-else>
+                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                    <dt class="text-sm font-medium text-gray-500 truncate">
+                        Visual Depatures
+                    </dt>
+                    <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
+                        Could not find VATSIM session
+                    </dd>
+                </div>
+
                 <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Runway Closed
@@ -170,6 +196,12 @@ export default {
 
             }
             this.startClosedRunwaysTimer()
+        },
+        triggerVisualDepature(direction) {
+            api.post('data/update-visual-depature', {
+                airport: 'LOWI',
+                direction: direction,
+            })
         },
         startMissedApproachTimer() {
             if (this.missedApporachInterval === null && this.missedApporachDisabled) {
