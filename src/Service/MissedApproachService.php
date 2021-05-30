@@ -31,7 +31,10 @@ class MissedApproachService
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
             $socket->connect("tcp://localhost:5555");
-            $socket->send(json_encode(['type' => 'missed-approach']));
+            $socket->send(json_encode([
+                'type' => 'missed-approach',
+                'airport' => $airport->name,
+            ]));
         } else {
             $missedApproach = false;
         }

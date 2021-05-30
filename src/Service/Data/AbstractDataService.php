@@ -53,6 +53,12 @@ abstract class AbstractDataService
             'closed_runways' => $this->_airport->closed_runways ?? [],
             'closed_runways_timeout' => $this->_airport->closed_runways_timeout->toUnixString(),
             'visual_depature' => $this->_airport->visual_depatures ?? [],
+            'notification' => $this->_hasNotification(),
         ];
+    }
+
+    protected function _hasNotification(): bool
+    {
+        return $this->_airport->missed_approach || !empty($this->_airport->closed_runways);
     }
 }

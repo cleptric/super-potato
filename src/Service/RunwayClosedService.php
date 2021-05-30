@@ -40,7 +40,10 @@ class RunwayClosedService
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
             $socket->connect("tcp://localhost:5555");
-            $socket->send(json_encode(['type' => 'runway-closed']));
+            $socket->send(json_encode([
+                'type' => 'runway-closed',
+                'airport' => $airport->name,
+            ]));
         }
 
         $airport = $this->Airports->patchEntity($airport, [

@@ -27,10 +27,12 @@ export default {
         return {
             setWebsockt: (connected) => store.dispatch('setWebsockt', connected),
             oisOasch: store.getters.oisOasch,
+            notifications: false,
         }
     },
     mounted() {
         this.setupWebsocket();
+        this.setupNotifications();
     },
     methods: {
         setupWebsocket() {
@@ -59,11 +61,15 @@ export default {
                     const audio = new Audio('/sounds/bell.wav')
                     audio.volume = 0.2;
                     audio.play()
+
+                    this.triggerNotification(`${data.airport} Missed Apporach`);
                 }
                 if (data.type == 'runway-closed') {
                     const audio = new Audio('/sounds/alert.wav')
                     audio.volume = 0.2;
                     audio.play()
+
+                    this.triggerNotification(`${data.airport} Runway Closed`);
                 }
                 if (data.type == 'runway-reopened') {
                     const audio = new Audio('/sounds/success.wav')
@@ -71,6 +77,20 @@ export default {
                     audio.play()
                 }
             });
+        },
+        setupNotifications() {
+            if (Notification.permission !== 'denied') {
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        this.notifications = true
+                    }
+                })
+            }
+        },
+        triggerNotification(message) {
+            if (this.notifications) {
+                new Notification(message);
+            }
         },
     }
 }

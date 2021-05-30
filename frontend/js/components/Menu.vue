@@ -42,52 +42,58 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <router-link
                                 to="/"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'List' }"
                             >
-                                Dashboard
+                                Dashboard <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">1</span>
                             </router-link>
                             <router-link
                                 to="/loww"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Loww' }"
                             >
-                                LOWW
+                                <Notification :airport="loww" />
+                                LOWW <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
                             </router-link>
                             <router-link
                                 to="/lowi"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowi' }"
                             >
-                                LOWI
+                                <Notification :airport="lowi" />
+                                LOWI <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">3</span>
                             </router-link>
                             <router-link
                                 to="/lows"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lows' }"
                             >
-                                LOWS
+                                <Notification :airport="lows" />
+                                LOWS <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">4</span>
                             </router-link>
                             <router-link
                                 to="/lowg"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowg' }"
                             >
-                                LOWG
+                                <Notification :airport="lowg" />
+                                LOWG <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">5</span>
                             </router-link>
                             <router-link
                                 to="/lowk"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowk' }"
                             >
-                                LOWK
+                                <Notification :airport="lowk" />
+                                LOWK <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">6</span>
                             </router-link>
                             <router-link
                                 to="/lowl"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                 :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowl' }"
                             >
-                                LOWL
+                                <Notification :airport="lowl" />
+                                LOWL <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">7</span>
                             </router-link>
                         </div>
                     </div>
@@ -101,8 +107,13 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 
+import Notification from './Notification.vue'
+
 export default {
     name: 'Menu',
+    components: {
+        Notification,
+    },
     setup () {
         const store = useStore()
 
@@ -110,7 +121,38 @@ export default {
             logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
             websocket: computed(() => store.getters.websocket),
+            loww: computed(() => store.getters.loww),
+            lowi: computed(() => store.getters.lowi),
+            lows: computed(() => store.getters.lows),
+            lowg: computed(() => store.getters.lowg),
+            lowk: computed(() => store.getters.lowk),
+            lowl: computed(() => store.getters.lowl),
         }
+    },
+    created() {
+        document.addEventListener('keyup', (e) => {
+            if (e.keyCode === 49) {
+                this.$router.push('/')
+            }
+            if (e.keyCode === 50) {
+                this.$router.push('/loww')
+            }
+            if (e.keyCode === 51) {
+                this.$router.push('/lowi')
+            }
+            if (e.keyCode === 52) {
+                this.$router.push('/lows')
+            }
+            if (e.keyCode === 53) {
+                this.$router.push('/lowg')
+            }
+            if (e.keyCode === 54) {
+                this.$router.push('/lowk')
+            }
+            if (e.keyCode === 55) {
+                this.$router.push('/lowl')
+            }
+        })
     },
 }
 </script>
