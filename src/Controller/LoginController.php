@@ -72,11 +72,12 @@ class LoginController extends AppController
                 $responseJson = $response->getJson();
 
                 // Only allow login/signup for VACC Austria members
-                if ($responseJson['data']['vatsim']['subdivision']['id'] !== User::SUBDIVISION_ID) {
-                    $this->Flash->error('Your division has no access');
+                // if () {
+                //     $this->Flash->error('You are not part of the VACC Austria');
+                //
+                //     return $this->redirect(['action' => 'login']);
+                // }
 
-                    return $this->redirect(['action' => 'login']);
-                }
                 // Only allow login/signup for whitelisted VATSIM IDs
                 if (!in_array($responseJson['data']['cid'], explode(';', env('VATSIM_ID_WHITELIST')))) {
                     $this->Flash->error('You VATSIM ID is not whitelisted yet');
@@ -100,12 +101,10 @@ class LoginController extends AppController
                     $user = $this->Users->newEntity([
                         'vatsim_id' => $responseJson['data']['cid'],
                         'full_name' => $responseJson['data']['personal']['name_full'],
-                        'subdivision' => $responseJson['data']['vatsim']['subdivision']['id'],
                     ], [
                         'accessibleFields' => [
                             'vatsim_id' => true,
                             'full_name' => true,
-                            'subdivision' => true,
                         ],
                     ]);
 
