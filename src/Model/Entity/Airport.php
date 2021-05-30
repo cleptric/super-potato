@@ -48,7 +48,8 @@ class Airport extends Entity
     const LOXZ_ATIS_CALLSIGN = 'LOXZ_ATIS';
     const LOXZ_AIPORT_NAME = 'Zeltweg (LOXZ)';
 
-    const MISSED_APPROACH_TIMEOUT = '+30 seconds';
+    const MISSED_APPROACH_TIMEOUT = '+10 seconds';
+    const MISSED_APPROACH_RESET = '5 minutes ago';
 
     const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
 

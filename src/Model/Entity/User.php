@@ -16,16 +16,21 @@ use RuntimeException;
  * @property string $id
  * @property string $vatsim_id
  * @property string $full_name
- * @property string|null $subdivision
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $created
  */
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
 
-    const SUBDIVISION_ID = 'AUST';
-
-    const CONTROLER_PREFIX = 'LO';
+    const CONTROLER_PREFIX = [
+        'LOVV',
+        'LOWW',
+        'LOWI',
+        'LOWS',
+        'LOWG',
+        'LOWK',
+        'LOWL',
+    ];
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

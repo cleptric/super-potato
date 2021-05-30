@@ -5,6 +5,7 @@ namespace App\Service\Vatsim;
 
 use App\Model\Entity\Airport;
 use App\Model\Entity\User;
+use App\Service\AirportsService;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -48,6 +49,7 @@ class DataFeedService
     public function __construct()
     {
         $this->loadModel('Feeds');
+        $this->loadModel('Airports');
     }
 
     public function fetchFeed(): void
@@ -83,7 +85,8 @@ class DataFeedService
                 }
             }
             foreach ($parsedFeed['controllers'] as $controller) {
-                if (substr($controller['callsign'], 0, 2) === User::CONTROLER_PREFIX) {
+                // Only store Austrian controllers
+                if (in_array(substr($controller['callsign'], 0, 4), User::CONTROLER_PREFIX)) {
                     $data['controllers'][] = [
                         'vatsim_id' => $controller['cid'],
                         'callsign' => $controller['callsign'],
@@ -103,6 +106,12 @@ class DataFeedService
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
                 $socket->connect("tcp://localhost:5555");
                 $socket->send(json_encode(['type' => 'refresh']));
+            }
+
+
+            // Nobody is online any more, reset airports state
+            if (empty($data['controllers'])) {
+                (new AirportsService())->resetState();
             }
         }
     }

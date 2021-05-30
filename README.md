@@ -139,3 +139,12 @@ Thereafter, add a `ProxPass` config to your apache `VirtualHost` config.
         ...
 </VirtualHost>
 ```
+
+### Cron Jobs
+
+Add two cron jobs for the deployer user.
+
+```
+0 5 * * * sudo supervisorctl restart all
+* * * * * cd /var/www/super-potato/; bin/cake reset_missed_approach
+```
