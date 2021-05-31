@@ -109,6 +109,16 @@
                             </i>
                         </div>
                     </template>
+                    <template v-else-if="lowg.metar.is_variable">
+                        <div class="relative flex items-center justify-center text-blue-300">
+                            <temlate v-if="lowg.metar.mean_speed >= 3">
+                                <i class="fad fa-3x fa-exclamation-circle"></i>
+                            </temlate>
+                            <template v-else>
+                                <i class="fad fa-3x fa-circle"></i>
+                            </template>
+                        </div>
+                    </template>
 
                     <div
                         class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
