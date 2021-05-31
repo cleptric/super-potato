@@ -14,7 +14,7 @@
                 Connection
                 <i
                     class="fas fa-circle text-xs ml-3"
-                    :class="{ 'text-green-300': websocket, 'text-red-300': !websocket }"
+                    :class="{ 'text-green-400': websocket, 'text-red-400': !websocket }"
                 ></i>
             </div>
             <!-- <div class="ml-auto mr-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
