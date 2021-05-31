@@ -6,6 +6,7 @@ namespace App\Service\Vatsim;
 use App\Model\Entity\Airport;
 use App\Model\Entity\User;
 use App\Service\AirportsService;
+use App\Service\LogsService;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -118,9 +119,10 @@ class DataFeedService
                 $socket->send(json_encode(['type' => 'refresh']));
             }
 
-            // Nobody is online any more, reset airports state
+            // Nobody is online any more, reset airports state and delete all logs
             if (empty($data['controllers'])) {
                 (new AirportsService())->resetState();
+                (new LogsService())->deleteAllLogs();
 
                 $context = new ZMQContext();
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);

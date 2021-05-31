@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Authorization\IdentityInterface;
 use App\Model\Entity\Airport;
+use App\Service\LogsService;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 use ZMQContext;
@@ -19,7 +21,7 @@ class MissedApproachService
         $this->loadModel('Airports');
     }
 
-    public function toggleMissedApproach(Airport $airport): void
+    public function toggleMissedApproach(Airport $airport, IdentityInterface $user): void
     {
         $missedApproach = $airport->missed_approach;
         $missedApproachTimeout = new FrozenTime();
@@ -27,6 +29,8 @@ class MissedApproachService
         if ($missedApproach === false) {
             $missedApproach = true;
             $missedApproachTimeout = new FrozenTime(Airport::MISSED_APPROACH_TIMEOUT);
+
+            (new LogsService())->createLog($user, $airport, LogsService::TYPE_MISSED_APPROACH);
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);

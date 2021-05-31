@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Authorization\IdentityInterface;
 use App\Model\Entity\Airport;
+use App\Service\LogsService;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 use Cake\Utility\Hash;
@@ -20,14 +22,17 @@ class RunwayClosedService
         $this->loadModel('Airports');
     }
 
-    public function toggleRunwayClosed(Airport $airport, string $runways): void
+    public function toggleRunwayClosed(Airport $airport, string $runways, IdentityInterface $user): void
     {
         $data = (array)$airport->closed_runways;
         $closedRunwaysTimeout = new FrozenTime();
+        $logsService = new LogsService();
 
         if (($key = array_search($runways, $data)) !== false) {
             unset($data[$key]);
             $data = array_values($data);
+
+            $logsService->createLog($user, $airport, LogsService::TYPE_OPENED_RUNWAY);
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
@@ -36,6 +41,8 @@ class RunwayClosedService
         } else {
             $data = Hash::merge($data, $runways);
             $closedRunwaysTimeout = new FrozenTime(Airport::RUNWAY_CLOSED_TIMEOUT);
+
+            $logsService->createLog($user, $airport, LogsService::TYPE_CLOSED_RUNWAY);
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);

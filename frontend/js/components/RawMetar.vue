@@ -17,7 +17,7 @@
                         METAR
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>

@@ -10,6 +10,7 @@ use App\Service\Data\LowkDataService;
 use App\Service\Data\LowlDataService;
 use App\Service\Data\LowsDataService;
 use App\Service\Data\LowwDataService;
+use App\Service\LogsService;
 use App\Service\Metar\MetarDecoderService;
 use App\Service\WindComponent\LowwWindComponentService;
 use Cake\Datasource\ModelAwareTrait;
@@ -57,6 +58,7 @@ class MainDataService
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
                 'online_as' => null,
             ],
+            'logs' => (new LogsService())->getData(),
             'loww' => (new LowwDataService($this->_feed, $this->_metar))->getData(),
             'lowi' => (new LowiDataService($this->_feed, $this->_metar))->getData(),
             'lows' => (new LowsDataService($this->_feed, $this->_metar))->getData(),

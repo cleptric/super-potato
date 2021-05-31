@@ -6,6 +6,7 @@ export const store = createStore({
         return {
             oisOasch: false,
             user: null,
+            logs: null,
             websocket: false,
             airports: {
                 loww: null,
@@ -20,6 +21,7 @@ export const store = createStore({
     getters: {
         oisOasch: state => state.oisOasch,
         user: state => state.user,
+        logs: state => state.logs,
         websocket: state => state.websocket,
         airports: state => state.airports,
         loww: state => state.airports.loww,
@@ -51,6 +53,7 @@ export const store = createStore({
             state.airports.lowk = data.lowk
             state.airports.lowl = data.lowl
             state.user = data.user
+            state.logs = data.logs
         },
         SET_OIS_OASCH(state) {
             state.oisOasch = true

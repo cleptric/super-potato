@@ -17,7 +17,7 @@
                         ATIS Information
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>
@@ -38,7 +38,7 @@
                         Transition Level
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>
@@ -62,7 +62,7 @@
                         QNH
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>
@@ -88,7 +88,7 @@
                         Wind
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>
@@ -121,7 +121,7 @@
                         Conditions
                     </dt>
                     <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                        Data unavailable
+                        No data
                     </dd>
                 </div>
             </template>

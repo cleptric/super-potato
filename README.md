@@ -16,19 +16,30 @@ The login is only possible via VATSIM Connect.
 The data displayed by `Super Potato` is fetched from the VATSIM data feed as well as the VATSIM METAR API.
 `Super Potato` can only display data if an ATIS is set online on the concerning airports.
 
+#### Notifications
+
+If you first enter `Super Potato`, your browser may ask for permissions to let `Super Potato` send notifications.
+If you grant permission, you'll get notifications for events such as missed approached and closed runways including the concering airport.
+
+#### Menu
+
+In the menu, you can navigate between the dashboard and all supported airports by clicking on the menu item or pressing the numeric key displayed on the menu items on your keyboard.
+If certain conditions are met (missed approach, closed runway), you'll see a red notification dot on the corresponding airport menu item.
+
 #### Dashboard
 
 The dashboard displays the arrival runway(s), departure runway(s) as well as the transition level of all supported airports.
+Additionally, a log of all users who triggered certain actions (missed approach, closed runway and reopened runway) will be displayed if such events occurred.
 
 #### Airport view
 
-Each airport view is divided into the atis/METAR widget, the runway widget, the action widget and the raw METAR widget
+Each airport view is divided into the ATIS/METAR widget, the runway widget, the action widget and the raw METAR widget
 
-##### Atis/METAR Widget
+##### ATIS/METAR Widget
 
 This widgets displays the current ATIS Letter, the transition level, the QNH, the wind (mean speed, mean direction), gusts (if present) and the current MET conditions (VMC, LVP1, LVP2 and LVP3). 
 
-#### Runway Widget
+##### Runway Widget
 
 This widget displays the following data
 
@@ -42,23 +53,23 @@ This widget displays the following data
 - A missed approach indicator, if present
 - A wind shear indicator, if present
 
-#### Action Widget
+##### Action Widget
 
 This widget allows certain actions to be triggered
 
-##### Visual Departures
+###### Visual Departures
 
 A controller can indicate that visual departures are approved to one or many of the four cardinal directions.
 
-##### Closed Runways
+###### Closed Runways
 
 A controller can indicate that a certain runway is currently closed. This action triggers an audible warning and has a time out of 30 seconds before it can be canceled and re-triggered. Once a runway is reopened, an audible sound will be triggered.
 
-##### Missed Approach
+###### Missed Approach
 
 A controller can indicate that a missed approach is in progress. This action triggers an audible warning and has a time out of 30 seconds before it be canceled and re-triggered.
 
-#### Raw METAR Widget
+##### Raw METAR Widget
 
 This widget displays the current raw METAR
 

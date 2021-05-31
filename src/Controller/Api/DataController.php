@@ -49,7 +49,7 @@ class DataController extends Controller
         $this->Authorization->authorize($airport, 'updateMissedApporach');
 
         $service = new MissedApproachService();
-        $service->toggleMissedApproach($airport);
+        $service->toggleMissedApproach($airport, $this->Authentication->getIdentity());
 
         return $this->response
             ->withStatus(200);
@@ -70,7 +70,7 @@ class DataController extends Controller
         $this->Authorization->authorize($airport, 'updateRunwayClosed');
 
         $service = new RunwayClosedService();
-        $service->toggleRunwayClosed($airport, $runways);
+        $service->toggleRunwayClosed($airport, $runways, $this->Authentication->getIdentity());
 
         return $this->response
             ->withStatus(200);
