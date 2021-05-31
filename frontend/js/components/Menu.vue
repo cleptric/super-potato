@@ -131,25 +131,25 @@ export default {
     },
     created() {
         document.addEventListener('keyup', (e) => {
-            if (e.keyCode === 49) {
+            if (e.keyCode === 49 || e.keyCode === 97) {
                 this.$router.push('/')
             }
-            if (e.keyCode === 50) {
+            if (e.keyCode === 50 || e.keyCode === 98) {
                 this.$router.push('/loww')
             }
-            if (e.keyCode === 51) {
+            if (e.keyCode === 51 || e.keyCode === 99) {
                 this.$router.push('/lowi')
             }
-            if (e.keyCode === 52) {
+            if (e.keyCode === 52 || e.keyCode === 100) {
                 this.$router.push('/lows')
             }
-            if (e.keyCode === 53) {
+            if (e.keyCode === 53 || e.keyCode === 101) {
                 this.$router.push('/lowg')
             }
-            if (e.keyCode === 54) {
+            if (e.keyCode === 54 || e.keyCode === 102) {
                 this.$router.push('/lowk')
             }
-            if (e.keyCode === 55) {
+            if (e.keyCode === 55 || e.keyCode === 103) {
                 this.$router.push('/lowl')
             }
         })
