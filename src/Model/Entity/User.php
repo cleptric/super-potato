@@ -16,6 +16,7 @@ use RuntimeException;
  * @property string $id
  * @property string $vatsim_id
  * @property string $full_name
+ * @property bool $admin
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $created
  */

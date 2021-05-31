@@ -18,6 +18,11 @@ abstract class AbstractPolicy
 
         $feed = [];
 
+        // Admins can always trigger actions
+        if ($user->admin === true) {
+            return true;
+        }
+
         try {
             $feed = $this->Feeds->find()
                 ->order(['created' => 'DESC'])
