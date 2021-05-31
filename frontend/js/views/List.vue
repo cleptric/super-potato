@@ -7,146 +7,91 @@
         </div>
     </header>
     <main>
-        <div
-            v-for="(airport, airportName) in airports"
-            :key="airportName"
-            class="max-w-7xl mx-auto py-3 sm:px-6 lg:px-8"
-        >
-            <div class="px-4 py-4 sm:px-0">
-                <div>
-                    <h3 class="flex items-center text-lg leading-6 font-medium text-gray-900">
-                        <span class="text-gray-700 mr-2">
-                            {{ airport.atis.airport_name }}
-                        </span>
-                        <template v-if="!airport.atis.outdated">
-                            <span class="text-gray-500 mr-2">ATIS Information</span>
-                            <span class="font-bold mr-2">
-                                {{ airport.atis.atis_letter }}
-                            </span>
-                            <span class="text-gray-500 mr-2">at time</span>
-                            <span class="font-bold mr-2">
-                                {{ airport.atis.time }}
-                            </span>
-                        </template>
-                    </h3>
-                    <dl class="mt-3 grid grid-cols-5 gap-3">
-                        <template v-if="!airport.atis.outdated">
-                            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Depature Runway
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-900">
-                                    {{ airport.atis.depature_runway.join(' & ') }}
-                                </dd>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-400 truncate">
-                                    Depature Runway
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-500">
-                                    Data unavailable
-                                </dd>
-                            </div>
-                        </template>
 
-                        <template v-if="!airport.atis.outdated">
-                            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Arrival Runway
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-900">
-                                    {{ airport.atis.arrival_runway.join(' & ') }}
-                                </dd>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-400 truncate">
-                                    Arrival Runway
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-500">
-                                    Data unavailable
-                                </dd>
-                            </div>
-                        </template>
-
-                        <template v-if="!airport.atis.outdated">
-                            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Transition Level
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-900">
-                                    {{ airport.atis.transition_level }}
-                                </dd>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-400 truncate">
-                                    Transition Level
-                                </dt>
-                                <dd class="mt-1 text-xl font-semibold text-gray-500">
-                                    Data unavailable
-                                </dd>
-                            </div>
-                        </template>
-
-                        <template v-if="airport.metar.qnh_value && airport.metar.qnh_unit">
-                            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    QNH
-                                </dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                                    {{ airport.metar.qnh_value }}
-                                    <span class="text-lg font-medium text-gray-500">
-                                        {{ airport.metar.qnh_unit }}
-                                    </span>
-                                </dd>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-400 truncate">
-                                    QNH
-                                </dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                                    Data unavailable
-                                </dd>
-                            </div>
-                        </template>
-
-                        <template v-if="airport.metar.mean_speed && airport.metar.mean_direction || airport.metar.is_variable && airport.metar.mean_speed">
-                            <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-500 truncate">
-                                    Wind
-                                </dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
-                                    <template v-if="airport.metar.is_variable">
-                                        VRB {{ airport.metar.mean_speed }}kts
-                                    </template>
-                                    <template v-else>
-                                        {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
-                                    </template>
-                                </dd>
-                            </div>
-                        </template>
-                        <template v-else>
-                            <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
-                                <dt class="text-sm font-medium text-gray-400 truncate">
-                                    Wind
-                                </dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-500 xl:text-xl">
-                                    Data unavailable
-                                </dd>
-                            </div>
-                        </template>
-
-                    </dl>
+        <div class="max-w-7xl mx-auto py-7 sm:px-6 lg:px-8">
+            <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Airport
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            ATIS
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Runway
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Transition Level
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            QNH
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Wind
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Odd row -->
+                                    <tr
+                                        v-for="(airport, icao) in airports"
+                                        :key="icao"
+                                        :class="counter % 2 == 0 ? 'bg-gray-100' : 'bg-white'"
+                                    >
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            {{ airport.atis.airport_name }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ airport.atis.atis_letter }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <template v-if="airport.atis.depature_runway.length && airport.atis.arrival_runway.length">
+                                                DEP {{ airport.atis.depature_runway.join(' & ') }}
+                                                <span>&nbsp;|&nbsp;</span>
+                                                ARR {{ airport.atis.arrival_runway.join(' & ') }}
+                                            </template>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ airport.atis.transition_level }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ airport.metar.qnh_value }}
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <template v-if="airport.metar.is_variable">
+                                                VRB {{ airport.metar.mean_speed }}kts
+                                            </template>
+                                            <template v-else>
+                                                {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
+                                            </template>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                            <template v-if="airport.missed_approach">
+                                                <i class="far fa-plane-departure text-yellow-400"></i>
+                                            </template>
+                                            <template v-if="airport.closed_runways.length">
+                                                <i class="far fa-times mr-1 text-red-800 ml-2"></i>
+                                            </template>
+                                        </td>
+                                        <template>
+                                            {{ counter++ }}
+                                        </template>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </main>
     
 </template>
@@ -161,6 +106,7 @@ export default {
         const store = useStore()
 
         return {
+            counter: 1,
             airports: computed(() => store.getters.airports),
         }
     },
