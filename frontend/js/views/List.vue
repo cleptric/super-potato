@@ -43,6 +43,8 @@
                                         v-for="(airport, icao) in airports"
                                         :key="icao"
                                         :class="counter % 2 == 0 ? 'bg-gray-100' : 'bg-white'"
+                                        class="cursor-pointer hover:bg-gray-200"
+                                        @click="$router.push(`/${icao}`)"
                                     >
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ airport.atis.airport_name }}
