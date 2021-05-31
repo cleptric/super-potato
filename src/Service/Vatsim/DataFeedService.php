@@ -33,6 +33,8 @@ class DataFeedService
      */
     protected string $_vatsimFeedVersion = 'v3';
 
+    const FEED_MAX_AGE = '15 minutes ago';
+
     /**
      * @var array
      */
@@ -106,12 +108,24 @@ class DataFeedService
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
                 $socket->connect("tcp://localhost:5555");
                 $socket->send(json_encode(['type' => 'refresh']));
-            }
+            } else if ($lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
+                // Delete an outdated feed
+                $this->Feeds->delete($lastFeed);
 
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect("tcp://localhost:5555");
+                $socket->send(json_encode(['type' => 'refresh']));
+            }
 
             // Nobody is online any more, reset airports state
             if (empty($data['controllers'])) {
                 (new AirportsService())->resetState();
+
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect("tcp://localhost:5555");
+                $socket->send(json_encode(['type' => 'refresh']));
             }
         }
     }
