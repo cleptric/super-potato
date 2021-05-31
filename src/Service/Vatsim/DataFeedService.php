@@ -108,7 +108,7 @@ class DataFeedService
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
                 $socket->connect("tcp://localhost:5555");
                 $socket->send(json_encode(['type' => 'refresh']));
-            } else if ($lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
+            } else if (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
                 // Delete an outdated feed
                 $this->Feeds->delete($lastFeed);
 
