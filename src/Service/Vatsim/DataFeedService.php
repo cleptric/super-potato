@@ -34,7 +34,7 @@ class DataFeedService
      */
     protected string $_vatsimFeedVersion = 'v3';
 
-    const FEED_MAX_AGE = '15 minutes ago';
+    const FEED_MAX_AGE = '5 minutes ago';
 
     /**
      * @var array
