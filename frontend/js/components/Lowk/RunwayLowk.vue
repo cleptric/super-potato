@@ -111,9 +111,9 @@
                     </template>
                     <template v-else-if="lowk.metar.is_variable">
                         <div class="relative flex items-center justify-center text-blue-300">
-                            <temlate v-if="lowk.metar.mean_speed >= 3">
+                            <template v-if="lowk.metar.mean_speed >= 3">
                                 <i class="fad fa-3x fa-exclamation-circle"></i>
-                            </temlate>
+                            </template>
                             <template v-else>
                                 <i class="fad fa-3x fa-circle"></i>
                             </template>
