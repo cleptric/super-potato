@@ -13,7 +13,7 @@ class LogsService
 
     use ModelAwareTrait;
 
-    const TYPE_MISSED_APPROACH = 'Activated missed appraoch at ';
+    const TYPE_MISSED_APPROACH = 'Activated missed approach at ';
     const TYPE_CLOSED_RUNWAY = 'Closed runway at ';
     const TYPE_OPENED_RUNWAY = 'Opened runway at ';
 
