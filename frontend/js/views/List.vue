@@ -70,7 +70,7 @@
                                                 VRB {{ airport.metar.mean_speed }}kts
                                             </template>
                                             <template v-else>
-                                                {{ airport.metar.mean_direction }}° / {{ airport.metar.mean_speed }}kts
+                                                {{ airport.metar.mean_direction.toString().padStart(3, '0') }}° / {{ airport.metar.mean_speed }}kts
                                             </template>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
