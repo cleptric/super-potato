@@ -26,7 +26,7 @@ class Airport extends Entity
 
     const LOWI_ICAO = 'LOWI';
     const LOWI_ATIS_CALLSIGN = 'LOWI_ATIS';
-    const LOWI_AIPORT_NAME = 'Innsburck (LOWI)';
+    const LOWI_AIPORT_NAME = 'Innsbruck (LOWI)';
 
     const LOWS_ICAO = 'LOWS';
     const LOWS_ATIS_CALLSIGN = 'LOWS_ATIS';
