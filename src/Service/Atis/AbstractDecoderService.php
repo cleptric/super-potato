@@ -43,16 +43,6 @@ abstract class AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_depatureRunwayPattern = '/(?<=DEPARTURE RUNWAY )(\d\d AND \d\d|\d\d)(?= )/s';
-
-    /**
-     * @var string
-     */
-    protected string $_arrivalRunwayPattern = '/(?<=ARRIVAL RUNWAY )(\d\d)(?= )|(?<=LANDING RUNWAY )(\d\d AND \d\d)(?= )/s';
-
-    /**
-     * @var string
-     */
     protected string $_transitionLevelPattern = '/(?<=TRANSITION LEVEL )(\d\d|\d\d\d)(?= )/s';
 
     /**
