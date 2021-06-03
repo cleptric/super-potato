@@ -27,7 +27,7 @@
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Transition Level
                     </dt>
-                    <dd class="mt-1 text-lg font-semibold text-gray-900 xl:text-xl">
+                    <dd class="mt-1 text-lg font-semibold text-gray-900 truncate xl:text-xl">
                         {{ airport.atis.transition_level }}
                     </dd>
                 </div>
