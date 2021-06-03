@@ -66,8 +66,8 @@
 </IfModule>
 
 <IfModule mod_expires.c>
-	# Enable expirations
-	ExpiresActive On
+    # Enable expirations
+    ExpiresActive On
     ExpiresDefault                                      "access plus 1 month"
 
     # CSS
