@@ -55,7 +55,7 @@ class LoginController extends AppController
             'code' => $code,
         ]);
 
-        if ($response->isOk()) {
+        if ($response->isSuccess()) {
             $responseJson = $response->getJson();
 
             $accessToken = $responseJson['access_token'];
@@ -68,15 +68,23 @@ class LoginController extends AppController
                 ],
             ]);
 
-            if ($response->isOk()) {
+            if ($response->isSuccess()) {
                 $responseJson = $response->getJson();
 
-                // Only allow login/signup for VACC Austria members
-                // if () {
-                //     $this->Flash->error('You are not part of the VACC Austria');
-                //
-                //     return $this->redirect(['action' => 'login']);
-                // }
+                // Only allow login for VACC Austria members
+                $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
+                    'vatsimid' =>$responseJson['data']['cid'],
+                ], [
+                    'headers' => [
+                        'Authorization' => 'Bearer '. env('VACC_AUTH_TOKEN'),
+                    ],
+                ]);
+
+                if ($response->isSuccess() === false) {
+                    $this->Flash->error('You are not part of the VACC Austria');
+
+                    return $this->redirect(['action' => 'login']);
+                }
 
                 // Only allow login/signup for whitelisted VATSIM IDs
                 if (!in_array($responseJson['data']['cid'], explode(';', env('VATSIM_ID_WHITELIST')))) {
