@@ -83,7 +83,7 @@
                                 {{ lowk.wind_components['10L'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">10L</span>
+                        <span class="w-12 transform -rotate-90">10L</span>
                     </div>
 
                     <template v-if="lowk.closed_runways.includes('10L/28R')">
@@ -145,7 +145,7 @@
                                 {{ lowk.wind_components['28R'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">28R</span>
+                        <span class="w-12 transform -rotate-90">28R</span>
                     </div>
                 </div>
             </div>

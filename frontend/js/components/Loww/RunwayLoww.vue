@@ -106,7 +106,7 @@
                             {{ loww.wind_components['34'] }}
                         </span>
                     </div>
-                    34
+                    <span class="w-12">34</span>
                 </div>
 
                 <template v-if="loww.closed_runways.includes('16/34')">
@@ -170,7 +170,7 @@
                             {{ loww.wind_components['16'] }}
                         </span>
                     </div>
-                    16
+                    <span class="w-12">16</span>
                 </div>
             </div>
             <div
@@ -227,7 +227,7 @@
                             {{ loww.wind_components['29'] }}
                         </span>
                     </div>
-                    29
+                    <span class="w-12">29</span>
                 </div>
 
                 <template v-if="loww.closed_runways.includes('29/11')">
@@ -291,7 +291,7 @@
                             {{ loww.wind_components['11'] }}
                         </span>
                     </div>
-                    11
+                    <span class="w-12">11</span>
                 </div>
             </div>
         </div>

@@ -83,7 +83,7 @@
                                 {{ lowg.wind_components['16C'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">16C</span>
+                        <span class="w-12 transform -rotate-90">16C</span>
                     </div>
 
                     <template v-if="lowg.closed_runways.includes('16C/34C')">
@@ -145,7 +145,7 @@
                                 {{ lowg.wind_components['34C'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">34C</span>
+                        <span class="w-12 transform -rotate-90">34C</span>
                     </div>
                 </div>
             </div>

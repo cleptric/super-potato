@@ -83,7 +83,7 @@
                                 {{ lows.wind_components['15'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">15</span>
+                        <span class="w-12 transform -rotate-90">15</span>
                     </div>
 
                     <template v-if="lows.closed_runways.includes('15/33')">
@@ -145,7 +145,7 @@
                                 {{ lows.wind_components['33'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">33</span>
+                        <span class="w-12 transform -rotate-90">33</span>
                     </div>
                 </div>
             </div>

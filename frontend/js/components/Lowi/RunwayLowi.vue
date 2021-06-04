@@ -94,7 +94,7 @@
                                 {{ lowi.wind_components['08'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">08</span>
+                        <span class="w-12 transform -rotate-90">08</span>
                     </div>
 
                     <template v-if="lowi.closed_runways.includes('08/26')">
@@ -156,7 +156,7 @@
                                 {{ lowi.wind_components['26'] }}
                             </span>
                         </div>
-                        <span class="transform -rotate-90">26</span>
+                        <span class="w-12 transform -rotate-90">26</span>
                     </div>
                 </div>
             </div>
