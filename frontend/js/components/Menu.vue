@@ -11,7 +11,7 @@
                 Online as <strong class="text-gray-300">{{ user.online_as }}</strong>
             </div>
             <div class="flex items-center text-sm font-medium text-gray-400">
-                Connection
+                Live Updates
                 <i
                     class="fas fa-circle text-xs ml-3"
                     :class="{ 'text-green-400': websocket, 'text-red-400': !websocket }"
