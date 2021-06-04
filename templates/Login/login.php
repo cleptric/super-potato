@@ -13,7 +13,7 @@
                 </h2>
 
                 <div class="leading-tight my-4 text-gray-600">
-                    You have to be a member of the <a href="https://www.vacc-austria.org/index.php?page=content/disclaimer&language=en" target="_blank" rel="noopener" class="underline">VACC&nbsp;Austria</a> to use this service.
+                    You have to be a member of the <a href="https://www.vacc-austria.org" target="_blank" rel="noopener" class="underline">VACC&nbsp;Austria</a> to use this service.
                 </div>
 
                 <div class="relative my-4">
