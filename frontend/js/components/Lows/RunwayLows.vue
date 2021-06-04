@@ -80,7 +80,7 @@
                             class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lows.wind_components[15] }}
+                                {{ lows.wind_components['15'] }}
                             </span>
                         </div>
                         <span class="transform -rotate-90">15</span>
@@ -142,7 +142,7 @@
                             class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lows.wind_components[33] }}
+                                {{ lows.wind_components['33'] }}
                             </span>
                         </div>
                         <span class="transform -rotate-90">33</span>

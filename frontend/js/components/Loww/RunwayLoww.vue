@@ -103,7 +103,7 @@
                         class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 40px; right: -100px;"
                     >
                         <span class="ml-1">
-                            {{ loww.wind_components[34] }}
+                            {{ loww.wind_components['34'] }}
                         </span>
                     </div>
                     34
@@ -167,7 +167,7 @@
                         class="absolute flex items-center text-gray-400 font-medium transform rotate-40" style="top: 0px; left: -100px;"
                     >
                         <span class="ml-1">
-                            {{ loww.wind_components[16] }}
+                            {{ loww.wind_components['16'] }}
                         </span>
                     </div>
                     16
@@ -224,7 +224,7 @@
                         class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 30px; right: -70px;"
                     >
                         <span class="ml-1">
-                            {{ loww.wind_components[29] }}
+                            {{ loww.wind_components['29'] }}
                         </span>
                     </div>
                     29
@@ -288,7 +288,7 @@
                         class="absolute flex items-center text-gray-400 font-medium transform rotate-90" style="top: 10px; right: -70px;"
                     >
                         <span class="ml-1">
-                            {{ loww.wind_components[11] }}
+                            {{ loww.wind_components['11'] }}
                         </span>
                     </div>
                     11

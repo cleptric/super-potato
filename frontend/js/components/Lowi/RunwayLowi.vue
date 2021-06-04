@@ -91,7 +91,7 @@
                             class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lowi.wind_components[8] }}
+                                {{ lowi.wind_components['08'] }}
                             </span>
                         </div>
                         <span class="transform -rotate-90">08</span>
@@ -153,7 +153,7 @@
                             class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lowi.wind_components[26] }}
+                                {{ lowi.wind_components['26'] }}
                             </span>
                         </div>
                         <span class="transform -rotate-90">26</span>
