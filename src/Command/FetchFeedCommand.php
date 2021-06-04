@@ -29,8 +29,9 @@ class FetchFeedCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
+        $feedService = new DataFeedService();
+
         while (true) {
-            $feedService = new DataFeedService();
             $feedService->fetchFeed();
             $feedService->persistFeed();
 

@@ -34,6 +34,11 @@ class DataFeedService
      */
     protected string $_vatsimFeedVersion = 'v3';
 
+    /**
+     * @var \Cake\Http\Client
+     */
+    protected Client $_client;
+
     const FEED_MAX_AGE = '5 minutes ago';
 
     /**
@@ -53,14 +58,15 @@ class DataFeedService
     {
         $this->loadModel('Feeds');
         $this->loadModel('Airports');
+
+        $this->_client = new Client();
     }
 
     public function fetchFeed(): void
     {
         $feedUrl = $this->_getFeedUrl();
 
-        $client = new Client();
-        $response = $client->get($feedUrl);
+        $response = $this->_client->get($feedUrl);
 
         $this->_rawFeed = $response->getStringBody();
     }
@@ -135,7 +141,7 @@ class DataFeedService
     protected function _getFeedUrl(): string
     {
         $client = new Client();
-        $response = $client->get($this->_vatsimStatusUrl);
+        $response = $this->_client->get($this->_vatsimStatusUrl);
         $responseBody = json_decode($response->getStringBody(), true);
 
         return $responseBody['data'][$this->_vatsimFeedVersion][0];

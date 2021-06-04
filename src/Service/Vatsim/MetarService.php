@@ -26,6 +26,11 @@ class MetarService
     protected ?array $_rawMetar = null;
 
     /**
+     * @var \Cake\Http\Client
+     */
+    protected Client $_client;
+
+    /**
      * @var array
      */
     protected array $_metarStations = [
@@ -40,6 +45,8 @@ class MetarService
     public function __construct()
     {
         $this->loadModel('Metar');
+
+        $this->_client = new Client();
     }
 
     public function fetchMetar(): void
@@ -47,9 +54,8 @@ class MetarService
         $metarUrl = $this->_getMetarUrl();
         $metar = [];
 
-        $client = new Client();
         foreach ($this->_metarStations as $station) {
-            $response = $client->get($metarUrl, [
+            $response = $this->_client->get($metarUrl, [
                 'id' => $station,
             ]);
             $this->_rawMetar[$station] = $response->getStringBody();
@@ -76,8 +82,7 @@ class MetarService
 
     protected function _getMetarUrl():string
     {
-        $client = new Client();
-        $response = $client->get($this->_vatsimStatusUrl);
+        $response = $this->_client->get($this->_vatsimStatusUrl);
         $responseBody = json_decode($response->getStringBody(), true);
 
         return $responseBody['metar'][0];

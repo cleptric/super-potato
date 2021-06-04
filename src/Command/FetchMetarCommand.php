@@ -29,8 +29,9 @@ class FetchMetarCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
+        $feedService = new MetarService();
+
         while (true) {
-            $feedService = new MetarService();
             $feedService->fetchMetar();
             $feedService->persistMetar();
 
