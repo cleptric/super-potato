@@ -12,7 +12,7 @@
                     Servus!
                 </h2>
 
-                <div class="leading-tight my-4 text-gray-600">
+                <div class="leading-tight my-4 text-gray-500">
                     You have to be a member of the <a href="https://www.vacc-austria.org" target="_blank" rel="noopener" class="underline">VACC&nbsp;Austria</a> to use this service.
                 </div>
 
