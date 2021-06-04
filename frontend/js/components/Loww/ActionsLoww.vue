@@ -12,28 +12,28 @@
                             <button 
                                 @click="triggerVisualDepature('north')"
                                 class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('north') }"
+                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('north') }"
                             >
                                 North
                             </button>
                             <button 
                                 @click="triggerVisualDepature('east')"
                                 class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('east') }"
+                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('east') }"
                             >
                                 East
                             </button>
                             <button
                                 @click="triggerVisualDepature('south')"
                                 class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('south') }"
+                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('south') }"
                             >
                                 South
                             </button>
                             <button
                                 @click="triggerVisualDepature('west')"
                                 class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ 'border-blue-300 bg-blue-200 text-blue-700 hover:bg-blue-100': loww.visual_depature.includes('west') }"
+                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('west') }"
                             >
                                 West
                             </button>
