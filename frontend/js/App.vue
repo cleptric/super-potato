@@ -31,8 +31,8 @@ export default {
         }
     },
     mounted() {
-        this.setupWebsocket();
-        this.setupNotifications();
+        this.setupWebsocket()
+        this.setupNotifications()
     },
     methods: {
         setupWebsocket() {
@@ -40,17 +40,17 @@ export default {
             const store = useStore()
 
             socket.addEventListener('open', () => {
-                this.setWebsockt(true);
-            });
+                this.setWebsockt(true)
+            })
             socket.addEventListener('close', () => {
-                this.setWebsockt(false);
+                this.setWebsockt(false)
                 setTimeout(() => {
                     this.setupWebsocket()
                 }, 2500)
-            });
+            })
             socket.addEventListener('error', () => {
-                this.setWebsockt(false);
-            });
+                this.setWebsockt(false)
+            })
             socket.addEventListener('message', (e) => {
                 let data = JSON.parse(e.data)
 
@@ -59,24 +59,24 @@ export default {
                 }
                 if (data.type == 'missed-approach') {
                     const audio = new Audio('/sounds/bell.wav')
-                    audio.volume = 0.2;
+                    audio.volume = 0.2
                     audio.play()
 
-                    this.triggerNotification(`${data.airport} Missed Apporach`);
+                    this.triggerNotification(`${data.airport} Missed Apporach`)
                 }
                 if (data.type == 'runway-closed') {
                     const audio = new Audio('/sounds/alert.wav')
-                    audio.volume = 0.2;
+                    audio.volume = 0.2
                     audio.play()
 
-                    this.triggerNotification(`${data.airport} Runway Closed`);
+                    this.triggerNotification(`${data.airport} Runway Closed`)
                 }
                 if (data.type == 'runway-reopened') {
                     const audio = new Audio('/sounds/success.wav')
-                    audio.volume = 0.2;
+                    audio.volume = 0.2
                     audio.play()
                 }
-            });
+            })
         },
         setupNotifications() {
             if (Notification.permission !== 'denied') {
@@ -89,7 +89,7 @@ export default {
         },
         triggerNotification(message) {
             if (this.notifications) {
-                new Notification(message);
+                new Notification(message)
             }
         },
     }
