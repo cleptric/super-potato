@@ -105,7 +105,7 @@
                 </dd>
             </div>
 
-            <template v-if="airport.metar.condition">
+            <!-- <template v-if="airport.metar.condition">
                 <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Conditions
@@ -124,7 +124,7 @@
                         No data
                     </dd>
                 </div>
-            </template>
+            </template> -->
 
         </dl>
     </div>
