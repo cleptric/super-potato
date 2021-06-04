@@ -3,39 +3,30 @@
         <dl class="grid grid-cols-3 gap-3">
 
             <template v-if="user.can_trigger_actions">
-                <div class="p-3 bg-white shadow rounded-lg overflow-hidden">
+                <div
+                    v-if="airport.visual_depature_directions.length"
+                    class="p-3 bg-white shadow rounded-lg overflow-hidden"
+                >
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Visual Depatures
                     </dt>
                     <dd class="mt-1 text-3xl font-semibold text-gray-900">
-                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                            <button 
-                                @click="triggerVisualDepature('north')"
-                                class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('north') }"
-                            >
-                                North
-                            </button>
-                            <button 
-                                @click="triggerVisualDepature('east')"
-                                class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('east') }"
-                            >
-                                East
-                            </button>
+                        <span
+                            class="relative z-0 inline-flex shadow-sm rounded-md"
+                        >
                             <button
-                                @click="triggerVisualDepature('south')"
-                                class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('south') }"
+                                v-for="(depature, index) in airport.visual_depature_directions"
+                                :key="index"
+                                @click="triggerVisualDepature(depature)"
+                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white capitalize text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                :class="{
+                                    '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': airport.visual_depature.includes(depature),
+                                    '-ml-px ': index !== 0,
+                                    'rounded-l-md': index === 0,
+                                    'rounded-r-md': index === airport.visual_depature_directions.length - 1
+                                }"
                             >
-                                South
-                            </button>
-                            <button
-                                @click="triggerVisualDepature('west')"
-                                class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                :class="{ '!border-blue-300 bg-blue-200 text-blue-700 hover:!bg-blue-100': loww.visual_depature.includes('west') }"
-                            >
-                                West
+                                {{ depature }}
                             </button>
                         </span>
                     </dd>
@@ -49,27 +40,29 @@
                         <template v-if="closedRunwaysDisabled">
                             <span class="relative z-0 inline-flex shadow-sm rounded-md">
                                 <span
-                                    class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-l-md rounded-r-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
+                                    class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
                                 >
-                                    <i class="far fa-spinner mr-2"></i> In progress... {{ closedRunwaysTimer }}
+                                    In progress... {{ closedRunwaysTimer }}
                                 </span>
                             </span>
                         </template>
                         <template v-else>
-                            <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                            <span
+                                class="relative z-0 inline-flex shadow-sm rounded-md"
+                            >
                                 <button
-                                    @click="triggerRunwayClosed('16/34')"
-                                    class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('16/34') }"
+                                    v-for="(runway, index) in airport.runways"
+                                    :key="index"
+                                    @click="triggerRunwayClosed(runway)"
+                                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    :class="{
+                                        'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': airport.closed_runways.includes(runway),
+                                        '-ml-px ': index !== 0,
+                                        'rounded-l-md': index === 0,
+                                        'rounded-r-md': index === airport.runways.length - 1
+                                    }"
                                 >
-                                    <i v-if="loww.closed_runways.includes('16/34')" class="far fa-times mr-1 text-red-800"></i> 16 / 34
-                                </button>
-                                <button 
-                                    @click="triggerRunwayClosed('29/11')"
-                                    class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-                                    :class="{ 'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': loww.closed_runways.includes('29/11') }"
-                                >
-                                    <i v-if="loww.closed_runways.includes('29/11')" class="far fa-times mr-1 text-red-800"></i> 29 / 11
+                                    {{ runway }}
                                 </button>
                             </span>
                         </template>
@@ -85,17 +78,15 @@
                             <span
                                 class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
                             >
-                                <i class="far fa-spinner mr-2"></i>
                                 In progress... {{ missedApporachTimer }}
                             </span>
                         </template>
                         <template v-else>
                             <button
-                                v-if="loww.missed_approach"
+                                v-if="airport.missed_approach"
                                 @click="triggerMissedApproach"
                                 class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
-                                <i class="far fa-times mr-2"></i>
                                 Remove Notification
                             </button>
                             <button
@@ -103,14 +94,17 @@
                                 @click="triggerMissedApproach"
                                 class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
-                                <i class="far fa-bells mr-2"></i> Trigger Notification
+                                Trigger Notification
                             </button>
                         </template>
                     </dd>
                 </div>
             </template>
             <template v-else>
-                <div class="p-3 bg-gray-100 rounded-lg overflow-hidden">
+                <div
+                    v-if="airport.visual_depature_directions.length"
+                    class="p-3 bg-gray-100 rounded-lg overflow-hidden"
+                >
                     <dt class="text-sm font-medium text-gray-500 truncate">
                         Visual Depatures
                     </dt>
@@ -148,20 +142,22 @@ import { useStore } from 'vuex'
 import { api } from '@/api'
 
 export default {
-    name: 'ActionsLoww',
-    setup () {
+    name: 'Actions',
+    props: {
+        airport: Object,
+    },
+    setup (props) {
         const store = useStore()
 
         return {
-            loww: computed(() => store.getters.loww),
             user: computed(() => store.getters.user),
             missedApporachDisabled: computed(() => {
                 let timestamp = Math.round((new Date()).getTime() / 1000)
-                return timestamp < store.getters.loww.missed_approach_timeout
+                return timestamp < props.airport.missed_approach_timeout
             }),
             closedRunwaysDisabled: computed(() => {
                 let timestamp = Math.round((new Date()).getTime() / 1000)
-                return timestamp < store.getters.loww.closed_runways_timeout
+                return timestamp < props.airport.closed_runways_timeout
             }),
         }
     },
@@ -174,20 +170,6 @@ export default {
         }
     },
     watch: {
-        missedApporachTimer(newValue) {
-            if (newValue === 0) {
-                clearInterval(this.missedApporachInterval)
-                this.missedApporachInterval = null
-                this.$store.dispatch('loadData')
-            }
-        },
-        closedRunwaysTimer(newValue) {
-            if (newValue === 0) {
-                clearInterval(this.closedRunwaysInterval)
-                this.closedRunwaysInterval = null
-                this.$store.dispatch('loadData')
-            }
-        },
         missedApporachDisabled() {
             this.startMissedApproachTimer()
         },
@@ -207,7 +189,7 @@ export default {
         async triggerMissedApproach() {
             try {
                 await api.post('data/update-missed-approach', {
-                    airport: 'LOWW',
+                    airport: this.airport.icao,
                 })
             } catch (error) {
 
@@ -217,7 +199,7 @@ export default {
         async triggerRunwayClosed(runways) {
             try {
                 await api.post('data/update-runway-closed', {
-                    airport: 'LOWW',
+                    airport: this.airport.icao,
                     runways: runways,
                 })
             } catch (error) {
@@ -227,28 +209,32 @@ export default {
         },
         triggerVisualDepature(direction) {
             api.post('data/update-visual-depature', {
-                airport: 'LOWW',
+                airport: this.airport.icao,
                 direction: direction,
             })
         },
         startMissedApproachTimer() {
             if (this.missedApporachInterval === null && this.missedApporachDisabled) {
                 this.missedApporachInterval = setInterval(() => {
-                    let timer = this.$store.getters.loww.missed_approach_timeout - Math.round((new Date()).getTime() / 1000)
-                    if (timer < 0) {
-                        timer = 0
+                    let timer = this.airport.missed_approach_timeout - Math.round((new Date()).getTime() / 1000)
+                    if (timer <= 0) {
+                        clearInterval(this.missedApporachInterval)
+                        this.missedApporachInterval = null
+                        this.$store.dispatch('loadData')
                     }
 
-                    this.missedApporachTimer = timer;
+                    this.missedApporachTimer = timer
                 }, 1000)
             }
         },
         startClosedRunwaysTimer() {
             if (this.closedRunwaysInterval === null && this.closedRunwaysDisabled) {
                 this.closedRunwaysInterval = setInterval(() => {
-                    let timer = this.$store.getters.loww.closed_runways_timeout - Math.round((new Date()).getTime() / 1000)
-                    if (timer < 0) {
-                        timer = 0
+                    let timer = this.airport.closed_runways_timeout - Math.round((new Date()).getTime() / 1000)
+                    if (timer <= 0) {
+                        clearInterval(this.closedRunwaysInterval)
+                        this.closedRunwaysInterval = null
+                        this.$store.dispatch('loadData')
                     }
 
                     this.closedRunwaysTimer = timer

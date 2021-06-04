@@ -11,6 +11,14 @@ class LowiDataService extends AbstractDataService
 {
     protected string $_airportIcao = Airport::LOWI_ICAO;
 
+    protected array $_airportRunways = [
+        '08/26',
+    ];
+
+    protected array $_visualDepatureDirections = [
+        'south',
+    ];
+
     protected string $_atisDecoderService = LowiDecoderService::class;
 
     protected string $_windComponentService = LowiWindComponentService::class;

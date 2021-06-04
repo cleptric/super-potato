@@ -45,6 +45,8 @@ abstract class AbstractDataService
         $windComponents = $windComponentService->getData();
 
         return [
+            'icao' => $this->_airportIcao,
+            'runways' => $this->_airportRunways,
             'atis' => $atis,
             'metar' => $metar,
             'wind_components' => $windComponents,
@@ -53,6 +55,7 @@ abstract class AbstractDataService
             'closed_runways' => $this->_airport->closed_runways ?? [],
             'closed_runways_timeout' => $this->_airport->closed_runways_timeout->toUnixString(),
             'visual_depature' => $this->_airport->visual_depatures ?? [],
+            'visual_depature_directions' => $this->_visualDepatureDirections,
             'notification' => $this->_hasNotification(),
         ];
     }

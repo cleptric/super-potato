@@ -14,7 +14,9 @@
 
         <RunwayLowg />
 
-        <ActionsLowg />
+        <Actions
+            :airport="lowg"
+        />
 
         <RawMetar
             :airport="lowg"
@@ -28,7 +30,7 @@ import { useStore } from 'vuex'
 
 import AtisMetarRow from '@/components/AtisMetarRow.vue'
 import RunwayLowg from '@/components/Lowg/RunwayLowg.vue'
-import ActionsLowg from '@/components/Lowg/ActionsLowg.vue'
+import Actions from '@/components/Actions.vue'
 import RawMetar from '@/components/RawMetar.vue'
 
 export default {
@@ -36,7 +38,7 @@ export default {
     components: {
         AtisMetarRow,
         RunwayLowg,
-        ActionsLowg,
+        Actions,
         RawMetar,
     },
     setup () {

@@ -11,6 +11,12 @@ class LowsDataService extends AbstractDataService
 {
     protected string $_airportIcao = Airport::LOWS_ICAO;
 
+    protected array $_airportRunways = [
+        '15/33',
+    ];
+
+    protected array $_visualDepatureDirections = [];
+
     protected string $_atisDecoderService = LowsDecoderService::class;
 
     protected string $_windComponentService = LowsWindComponentService::class;
