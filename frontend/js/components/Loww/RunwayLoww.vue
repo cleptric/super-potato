@@ -134,7 +134,7 @@
                 </template>
                 <template v-else-if="loww.metar.is_variable">
                     <div class="relative flex items-center justify-center text-blue-300">
-                        <template v-if="loww.metar.mean_speed >= 3">
+                        <template v-if="loww.metar.mean_speed >= 4">
                             <i class="fad fa-3x fa-exclamation-circle"></i>
                         </template>
                         <template v-else>
@@ -255,7 +255,7 @@
                 </template>
                 <template v-else-if="loww.metar.is_variable">
                     <div class="relative flex items-center justify-center text-blue-300">
-                        <template v-if="loww.metar.mean_speed >= 3">
+                        <template v-if="loww.metar.mean_speed >= 4">
                             <i class="fad fa-3x fa-exclamation-circle"></i>
                         </template>
                         <template v-else>
