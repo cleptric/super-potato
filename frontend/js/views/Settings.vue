@@ -268,12 +268,12 @@ export default {
                 await this.$store.dispatch('saveSettings')
                 this.message = {
                     type: 'success',
-                    text: 'Your settings have been updated',
+                    text: 'Your settings have been saved',
                 }
             } catch (error) {
                 this.message = {
                     type: 'error',
-                    text: 'Your settings could not be updated',
+                    text: 'Your settings could not be saved',
                 }
             } finally {
                 setTimeout(() => {
