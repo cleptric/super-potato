@@ -66,6 +66,9 @@ export const store = createStore({
         setWebsockt({ commit }, connected) {
             commit('SET_WEBSOCKET', connected)
         },
+        setUser({ commit }, data) {
+            commit('SET_USER', data)
+        },
     },
     mutations: {
         SET_DATA(state, data) {
@@ -86,6 +89,12 @@ export const store = createStore({
         },
         SET_WEBSOCKET(state, connected) {
             state.websocket = connected
+        },
+        SET_USER(state, data) {
+            state.user = {
+                ...state.user,
+                ...data,
+            }
         },
     },
 })

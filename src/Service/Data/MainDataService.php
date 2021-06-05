@@ -55,7 +55,7 @@ class MainDataService
                 'name' => $this->_user->full_name,
                 'vatsim_id' => $this->_user->vatsim_id,
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
-                'online_as' => null,
+                'onboarded' => $this->_user->onboarded,
             ],
             'logs' => (new LogsService())->getData(),
             'loww' => (new LowwDataService($this->_feed, $this->_metar))->getData(),

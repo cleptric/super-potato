@@ -65,6 +65,27 @@ class DataController extends Controller
             ->withType('application/json');
     }
 
+    public function completeOnboarding()
+    {
+        $this->request->allowMethod('post');
+        $this->Authorization->skipAuthorization();
+
+        $this->loadModel('Users');
+        $user = $this->Authentication->getIdentity();
+        $user = $this->Users->patchEntity($user, [
+            'onboarded' => true,
+        ], [
+            'accessibleFields' => [
+                'onboarded' => true,
+            ],
+        ]);
+        $this->Users->save($user);
+
+        return $this->response
+            ->withStatus(200)
+            ->withType('application/json');
+    }
+
     public function updateMissedApproach()
     {
         $this->request->allowMethod('post');

@@ -1,33 +1,40 @@
 <template>
-    <template v-if="oisOasch === false">
+    <template v-if="oisOasch">
+        <OisOasch />
+    </template>
+    <template v-else>
         <Menu />
         <Settings />
         <router-view></router-view>
     </template>
-    <template v-else>
-        <OisOasch />
-    </template>
+    <Onboarding
+        v-if="!user.onboarded"
+    />
 </template>
 
 <script>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import Menu from './components/Menu.vue'
 import Settings from './components/Settings.vue'
 import OisOasch from './components/OisOasch.vue'
+import Onboarding from './components/Onboarding.vue'
 
 export default {
     components: {
         Menu,
         Settings,
         OisOasch,
+        Onboarding,
     },
     setup () {
         const store = useStore()
 
         return {
             setWebsockt: (connected) => store.dispatch('setWebsockt', connected),
-            settings: store.getters.settings,
-            oisOasch: store.getters.oisOasch,
+            settings: computed(() => store.getters.settings),
+            oisOasch: computed(() => store.getters.oisOasch),
+            user: computed(() => store.getters.user),
         }
     },
     mounted() {
