@@ -26,16 +26,24 @@ class LowiDecoderService extends AbstractDecoderService
     protected function _getDepatureRunway(): array
     {
         // Handle wierd LOWI ATIS format
-        return [
-            'BY ATC',
-        ];
+        if ($this->_atisString) {
+            return [
+                'BY ATC',
+            ];
+        }
+
+        return [];
     }
 
     protected function _getArrivalRunway(): array
     {
         // Handle wierd LOWI ATIS format
-        return [
-            'BY ATC',
-        ];
+        if ($this->_atisString) {
+            return [
+                'BY ATC',
+            ];
+        }
+
+        return [];
     }
 }
