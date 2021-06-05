@@ -10,6 +10,7 @@ import App from '@/App.vue'
 (async () => {
     api.init()
     await store.dispatch('loadData')
+    await store.dispatch('loadSettings')
 
     const app = createApp(App)
     app.use(store)

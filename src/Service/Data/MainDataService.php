@@ -52,7 +52,6 @@ class MainDataService
     {
         return [
             'user' => [
-                'id' => $this->_user->id,
                 'name' => $this->_user->full_name,
                 'vatsim_id' => $this->_user->vatsim_id,
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),

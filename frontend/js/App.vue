@@ -26,8 +26,8 @@ export default {
 
         return {
             setWebsockt: (connected) => store.dispatch('setWebsockt', connected),
+            settings: store.getters.settings,
             oisOasch: store.getters.oisOasch,
-            notifications: false,
         }
     },
     mounted() {
@@ -58,40 +58,35 @@ export default {
                     store.dispatch('loadData')
                 }
                 if (data.type == 'missed-approach') {
-                    const audio = new Audio('/sounds/bell.wav')
-                    audio.volume = 0.2
-                    audio.play()
-
+                    this.triggerSound('/sounds/bell.wav')
                     this.triggerNotification(`${data.airport} Missed Apporach`)
                 }
                 if (data.type == 'runway-closed') {
-                    const audio = new Audio('/sounds/alert.wav')
-                    audio.volume = 0.2
-                    audio.play()
-
+                    this.triggerSound('/sounds/alert.wav')
                     this.triggerNotification(`${data.airport} Runway Closed`)
                 }
                 if (data.type == 'runway-reopened') {
-                    const audio = new Audio('/sounds/success.wav')
-                    audio.volume = 0.2
-                    audio.play()
+                    this.triggerSound('/sounds/success.wav')
                 }
             })
         },
         setupNotifications() {
             if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then((permission) => {
-                    if (permission === 'granted') {
-                        this.notifications = true
-                    }
-                })
+                Notification.requestPermission()
             }
         },
         triggerNotification(message) {
-            if (this.notifications) {
+            if (this.settings.notifications) {
                 new Notification(message)
             }
         },
+        triggerSound(sound) {
+            if (this.settings.sounds) {
+                const audio = new Audio(sound)
+                audio.volume = this.settings.volume
+                audio.play()
+            }
+        }
     }
 }
 </script>

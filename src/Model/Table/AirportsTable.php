@@ -65,7 +65,6 @@ class AirportsTable extends Table
             ->notEmptyString('name');
 
         $validator
-            // Add value validation
             ->allowEmptyString('visual_depatures');
 
         $validator

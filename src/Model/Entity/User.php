@@ -17,6 +17,8 @@ use RuntimeException;
  * @property string $vatsim_id
  * @property string $full_name
  * @property bool $admin
+ * @property bool $onboarded
+ * @property array|null $settings
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $created
  */
@@ -50,6 +52,19 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      * @var \Authorization\AuthorizationServiceInterface|null
      */
     protected $authorization = null;
+
+    protected function _getSettings($settings)
+    {
+        if (empty($settings)) {
+            return [
+                'notifications' => true,
+                'sounds' => true,
+                'volume' => 0.5,
+            ];
+        }
+
+        return $settings;
+    }
 
     /**
      * Authorization\IdentityInterface method

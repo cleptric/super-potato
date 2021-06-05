@@ -425,7 +425,7 @@ return [
      */
     'Session' => [
         'cookie' => 'super-potato',
-        'defaults' => 'php',
+        'defaults' => 'database',
         'timeout' => 60 * 24 * 14, // 2 weeks
         'ini' => [
             'session.gc_maxlifetime' => 60 * 60 * 24 * 14, // 2 weeks

@@ -16,6 +16,11 @@ export const store = createStore({
                 lowk: null,
                 lowl: null,
             },
+            settings: {
+                notifications: true,
+                sounds: true,
+                volume: 0.5,
+            },
         }
     },
     getters: {
@@ -24,6 +29,7 @@ export const store = createStore({
         logs: state => state.logs,
         websocket: state => state.websocket,
         airports: state => state.airports,
+        settings: state => state.settings,
         loww: state => state.airports.loww,
         lowi: state => state.airports.lowi,
         lows: state => state.airports.lows,
@@ -34,15 +40,32 @@ export const store = createStore({
     actions: {
         async loadData({ commit }) {
             try {
-                const response = await api.get('data');
-                commit('SET_DATA', response.data);
+                const response = await api.get('data/get-data')
+                commit('SET_DATA', response.data)
             } catch (error) {
-                commit('SET_OIS_OASCH');
+                commit('SET_OIS_OASCH')
+            }
+        },
+        async loadSettings({ commit, state }) {
+            try {
+                const response = await api.get('data/get-settings')
+                commit('SET_SETTINGS', response.data)
+            } catch (error) {
+                commit('SET_OIS_OASCH')
+            }
+        },
+        async saveSettings({ commit, state }) {
+            try {
+                await api.post('data/save-settings', {
+                    settings: state.settings,
+                })
+            } catch (error) {
+                throw error
             }
         },
         setWebsockt({ commit }, connected) {
-            commit('SET_WEBSOCKET', connected);
-        }
+            commit('SET_WEBSOCKET', connected)
+        },
     },
     mutations: {
         SET_DATA(state, data) {
@@ -54,6 +77,9 @@ export const store = createStore({
             state.airports.lowl = data.lowl
             state.user = data.user
             state.logs = data.logs
+        },
+        SET_SETTINGS(state, data) {
+            state.settings = data.settings
         },
         SET_OIS_OASCH(state) {
             state.oisOasch = true

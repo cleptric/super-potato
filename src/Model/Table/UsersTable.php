@@ -59,21 +59,21 @@ class UsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('vatsim_id')
-            ->maxLength('vatsim_id', 255)
-            ->requirePresence('vatsim_id', 'create')
-            ->notEmptyString('vatsim_id');
-
-        $validator
             ->scalar('full_name')
             ->maxLength('full_name', 255)
             ->requirePresence('full_name', 'create')
             ->notEmptyString('full_name');
 
         $validator
-            ->scalar('subdivision')
-            ->maxLength('subdivision', 255)
-            ->allowEmptyString('subdivision');
+            ->boolean('admin')
+            ->notEmptyString('admin');
+
+        $validator
+            ->boolean('onboarded')
+            ->notEmptyString('onboarded');
+
+        $validator
+            ->allowEmptyString('settings');
 
         return $validator;
     }

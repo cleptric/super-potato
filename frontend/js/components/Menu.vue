@@ -17,12 +17,18 @@
                     :class="{ 'text-green-400': websocket, 'text-red-400': !websocket }"
                 ></i>
             </div>
-            <!-- <div class="ml-auto mr-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
-                <a href="/settings" class="flex items-center">
+            <div
+                class="ml-auto px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white"
+                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Settings' }"
+            >
+                <router-link
+                    to="/settings"
+                    class="flex items-center"
+                >
                     <i class="far fa-cog text-xs text-gray-300 mr-1"></i> Settings
-                </a>
-            </div> -->
-            <div class="ml-auto px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
+                </router-link>
+            </div>
+            <div class="ml-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
                 <a href="/logout" class="flex items-center">
                     <i class="far fa-sign-out text-xs text-gray-300 mr-1"></i> Sign out
                 </a>
@@ -43,14 +49,14 @@
                             <router-link
                                 to="/"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'List' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'List' }"
                             >
                                 Dashboard <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">1</span>
                             </router-link>
                             <router-link
                                 to="/loww"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Loww' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Loww' }"
                             >
                                 <Notification :airport="loww" />
                                 LOWW <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
@@ -58,7 +64,7 @@
                             <router-link
                                 to="/lowi"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowi' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowi' }"
                             >
                                 <Notification :airport="lowi" />
                                 LOWI <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">3</span>
@@ -66,7 +72,7 @@
                             <router-link
                                 to="/lows"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lows' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lows' }"
                             >
                                 <Notification :airport="lows" />
                                 LOWS <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">4</span>
@@ -74,7 +80,7 @@
                             <router-link
                                 to="/lowg"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowg' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowg' }"
                             >
                                 <Notification :airport="lowg" />
                                 LOWG <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">5</span>
@@ -82,7 +88,7 @@
                             <router-link
                                 to="/lowk"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowk' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowk' }"
                             >
                                 <Notification :airport="lowk" />
                                 LOWK <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">6</span>
@@ -90,7 +96,7 @@
                             <router-link
                                 to="/lowl"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 text-white': this.$route.name === 'Lowl' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowl' }"
                             >
                                 <Notification :airport="lowl" />
                                 LOWL <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">7</span>

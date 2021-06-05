@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import List from '@/views/List.vue'
+import Settings from '@/views/Settings.vue'
 import Loww from '@/views/Loww.vue'
 import Lowi from '@/views/Lowi.vue'
 import Lows from '@/views/Lows.vue'
@@ -43,6 +44,11 @@ const routes = [
         path: '/lowl',
         name: 'Lowl',
         component: Lowl,
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        component: Settings,
     },
 ]
 

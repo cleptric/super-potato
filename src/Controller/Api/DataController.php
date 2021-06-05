@@ -7,6 +7,7 @@ use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
 use App\Service\VisualDepatureService;
 use App\Service\Data\MainDataService;
+use App\Service\Data\SettingsDataService;
 use Cake\Controller\Controller;
 
 class DataController extends Controller
@@ -20,7 +21,7 @@ class DataController extends Controller
         $this->loadComponent('Authorization.Authorization');
     }
 
-    public function index()
+    public function getData()
     {
         $this->request->allowMethod('get');
         $this->Authorization->skipAuthorization();
@@ -33,6 +34,35 @@ class DataController extends Controller
             ->withStatus(200)
             ->withType('application/json')
             ->withStringBody(json_encode($data));
+    }
+
+    public function getSettings()
+    {
+        $this->request->allowMethod('get');
+        $this->Authorization->skipAuthorization();
+
+        $service = new SettingsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $data = $service->getData();
+
+        return $this->response
+            ->withStatus(200)
+            ->withType('application/json')
+            ->withStringBody(json_encode($data));
+    }
+
+    public function saveSettings()
+    {
+        $this->request->allowMethod('post');
+        $this->Authorization->skipAuthorization();
+
+        $service = new SettingsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $service->saveData($this->request->getData('settings'));
+
+        return $this->response
+            ->withStatus(200)
+            ->withType('application/json');
     }
 
     public function updateMissedApproach()

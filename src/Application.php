@@ -66,7 +66,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         } else {
             FactoryLocator::add(
                 'Table',
-                (new TableLocator())->allowFallbackClass(false)
+                (new TableLocator())->allowFallbackClass(true)
             );
         }
 
