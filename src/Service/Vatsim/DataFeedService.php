@@ -10,9 +10,10 @@ use App\Service\LogsService;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
-use Exception;
+use Throwable;
 use ZMQContext;
 use ZMQ;
+use function Sentry\captureMessage;
 
 class DataFeedService
 {
@@ -35,11 +36,18 @@ class DataFeedService
     protected string $_vatsimFeedVersion = 'v3';
 
     /**
+     * @var int
+     */
+    protected int $_retries = 0;
+
+    /**
      * @var \Cake\Http\Client
      */
     protected Client $_client;
 
     const FEED_MAX_AGE = '5 minutes ago';
+
+    const MAX_RETRIES = 9;
 
     /**
      * @var array
@@ -62,19 +70,32 @@ class DataFeedService
         $this->_client = new Client();
     }
 
-    public function fetchFeed(): void
+    public function getFeed()
+    {
+        try {
+            $this->_fetchFeed();
+            $this->_persistFeed();
+        } catch (Throwable $t) {
+            $this->_retries = $this->_retries + 1;
+            if ($this->_retries > self::MAX_RETRIES) {
+                captureMessage('Could not fetch VATSIM data feed after 10 tries');
+                $this->_retries = 0;
+            }
+        }
+    }
+
+    protected function _fetchFeed(): void
     {
         $feedUrl = $this->_getFeedUrl();
-
         $response = $this->_client->get($feedUrl);
 
         $this->_rawFeed = $response->getStringBody();
     }
 
-    public function persistFeed(): void
+    protected function _persistFeed(): void
     {
         if (empty($this->_rawFeed)) {
-            throw new Exception('Feed is empty. Did you fetch it first?');
+            return;
         }
 
         $lastFeed = $this->Feeds->find()
@@ -138,7 +159,7 @@ class DataFeedService
         }
     }
 
-    protected function _getFeedUrl(): string
+    protected function _getFeedUrl(): ?string
     {
         $client = new Client();
         $response = $this->_client->get($this->_vatsimStatusUrl);

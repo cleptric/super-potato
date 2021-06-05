@@ -6,9 +6,10 @@ namespace App\Service\Vatsim;
 use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
-use Exception;
+use Throwable;
 use ZMQContext;
 use ZMQ;
+use function Sentry\captureMessage;
 
 class MetarService
 {
@@ -26,9 +27,16 @@ class MetarService
     protected ?array $_rawMetar = null;
 
     /**
+     * @var int
+     */
+    protected int $_retries = 0;
+
+    /**
      * @var \Cake\Http\Client
      */
     protected Client $_client;
+
+    const MAX_RETRIES = 5;
 
     /**
      * @var array
@@ -49,7 +57,21 @@ class MetarService
         $this->_client = new Client();
     }
 
-    public function fetchMetar(): void
+    public function getMetar(): void
+    {
+        try {
+            $this->_fetchMetar();
+            $this->_persistMetar();
+        } catch (Throwable $t) {
+            $this->_retries = $this->_retries + 1;
+            if ($this->_retries > self::MAX_RETRIES) {
+                captureMessage('Could not fetch VATSIM METAR after 10 tries');
+                $this->_retries = 0;
+            }
+        }
+    }
+
+    protected function _fetchMetar(): void
     {
         $metarUrl = $this->_getMetarUrl();
         $metar = [];
@@ -62,10 +84,10 @@ class MetarService
         }
     }
 
-    public function persistMetar(): void
+    protected function _persistMetar(): void
     {
         if (empty($this->_rawMetar)) {
-            throw new Exception('METAR is empty. Did you fetch it first?');
+            return;
         }
 
         $metarEntity = $this->Metar->newEntity([
@@ -80,7 +102,7 @@ class MetarService
         $socket->send(json_encode(['type' => 'refresh']));
     }
 
-    protected function _getMetarUrl():string
+    protected function _getMetarUrl(): ?string
     {
         $response = $this->_client->get($this->_vatsimStatusUrl);
         $responseBody = json_decode($response->getStringBody(), true);

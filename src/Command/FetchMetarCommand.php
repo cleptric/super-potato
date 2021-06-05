@@ -32,8 +32,7 @@ class FetchMetarCommand extends Command
         $feedService = new MetarService();
 
         while (true) {
-            $feedService->fetchMetar();
-            $feedService->persistMetar();
+            $feedService->getMetar();
 
             sleep(60);
         }

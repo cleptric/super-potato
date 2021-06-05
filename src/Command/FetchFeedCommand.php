@@ -32,9 +32,7 @@ class FetchFeedCommand extends Command
         $feedService = new DataFeedService();
 
         while (true) {
-            $feedService->fetchFeed();
-            $feedService->persistFeed();
-
+            $feedService->getFeed();
             sleep(5);
         }
     }
