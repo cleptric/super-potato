@@ -243,7 +243,7 @@ export default {
     methods: {
         setupNotifications() {
             if (Notification.permission !== 'denied') {
-                Notification.requestPermission().then((permission) => {
+                Notification.requestPermission((permission) => {
                     if (permission === 'granted') {
                         this.browserNotifications = true
                     }
