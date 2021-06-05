@@ -21,15 +21,21 @@ class LowiDecoderService extends AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_depatureRunwayPattern = '/(?<=RUNWAY IN USE )(\w\w\s\w\w\w)(?= )/s';
-
-    /**
-     * @var string
-     */
-    protected string $_arrivalRunwayPattern = '/(?<=RUNWAY IN USE )(\w\w\s\w\w\w)(?= )/s';
-
-    /**
-     * @var string
-     */
     protected string $_transitionLevelPattern = '/(?<=TRANSITION LEVEL )(\w\w\w\s\w\w\w\w\w\w\w\w\w\w)(?= )/s';
+
+    protected function _getDepatureRunway(): array
+    {
+        // Handle wierd LOWI ATIS format
+        return [
+            'BY ATC',
+        ];
+    }
+
+    protected function _getArrivalRunway(): array
+    {
+        // Handle wierd LOWI ATIS format
+        return [
+            'BY ATC',
+        ];
+    }
 }
