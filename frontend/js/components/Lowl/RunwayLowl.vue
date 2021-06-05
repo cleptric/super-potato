@@ -70,7 +70,7 @@
                         </div>
                         <div
                             v-if="lowl.atis.depature_runway.includes('08') && lowl.closed_runways.includes('08/26') === false"
-                            class="absolute left-[80px] h-6 w-6 transform rotate-90"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>

@@ -70,7 +70,7 @@
                         </div>
                         <div
                             v-if="lowg.atis.depature_runway.includes('16C') && lowg.closed_runways.includes('16C/34C') === false"
-                            class="absolute left-[80px] h-6 w-6 transform rotate-90"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>

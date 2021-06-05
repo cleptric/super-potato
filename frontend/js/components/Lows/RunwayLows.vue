@@ -70,7 +70,7 @@
                         </div>
                         <div
                             v-if="lows.atis.depature_runway.includes('15') && lows.closed_runways.includes('15/33') === false"
-                            class="absolute left-[80px] h-6 w-6 transform rotate-90"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
