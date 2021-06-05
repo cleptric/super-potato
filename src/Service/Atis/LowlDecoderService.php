@@ -26,5 +26,5 @@ class LowlDecoderService extends AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_arrivalRunwayPattern = '/(?<=ARRIVAL RUNWAY )(\d\d AND \d\d|\d\d)(?= )|(?<=RUNWAY )(\d\d AND \d\d|\d\d)(?= IN USE)/s';
+    protected string $_arrivalRunwayPattern = '/(?<=ARRIVAL RUNWAY )(\d\d AND \d\d|\d\d)(?= )|(?<=RUNWAY )(\d\d AND \d\d|\d\d)(?= IN USE)|(?<=LANDING RUNWAY )(\d\d AND \d\d|\d\d)(?= )/s';
 }
