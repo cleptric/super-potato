@@ -17,7 +17,9 @@ abstract class AbstractDataService
 
     protected ?array $_metar = null;
 
-    public function __construct(?array $feed, ?array $metar)
+    protected ?array $_taf = null;
+
+    public function __construct(?array $feed, ?array $metar, ?array $taf)
     {
         $this->loadModel('Airports');
 
@@ -27,6 +29,7 @@ abstract class AbstractDataService
 
         $this->_feed = $feed;
         $this->_metar = $metar;
+        $this->_taf = $taf;
     }
 
     public function getData(): array
@@ -39,6 +42,8 @@ abstract class AbstractDataService
         $metarDecoderService->setMetar($this->_metar['data'][strtoupper($this->_airportIcao)] ?? null);
         $metar = $metarDecoderService->getData();
 
+        $taf = $this->_taf['data'][strtoupper($this->_airportIcao)]['raw_text'];
+
         $windComponentService = new $this->_windComponentService();
         $windComponentService->setMeanDirection($metar['mean_direction']);
         $windComponentService->setMeanSpeed($metar['mean_speed']);
@@ -49,6 +54,7 @@ abstract class AbstractDataService
             'runways' => $this->_airportRunways,
             'atis' => $atis,
             'metar' => $metar,
+            'taf' => $taf,
             'wind_components' => $windComponents,
             'missed_approach' => $this->_airport->missed_approach,
             'missed_approach_timeout' => $this->_airport->missed_approach_timeout->toUnixString(),

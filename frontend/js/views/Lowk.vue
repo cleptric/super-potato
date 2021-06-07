@@ -21,6 +21,10 @@
         <RawMetar
             :airport="lowk"
         />
+
+        <RawTaf
+            :airport="lowk"
+        />
     </main>
 </template>
 
@@ -32,6 +36,7 @@ import AtisMetarRow from '@/components/AtisMetarRow.vue'
 import RunwayLowk from '@/components/Lowk/RunwayLowk.vue'
 import Actions from '@/components/Actions.vue'
 import RawMetar from '@/components/RawMetar.vue'
+import RawTaf from '@/components/RawTaf.vue'
 
 export default {
     name: 'Lowk',
@@ -40,6 +45,7 @@ export default {
         RunwayLowk,
         Actions,
         RawMetar,
+        RawTaf,
     },
     setup () {
         const store = useStore()
