@@ -158,4 +158,5 @@ Add two cron jobs for the deployer user.
 ```
 0 5 * * * sudo supervisorctl restart all
 * * * * * cd /var/www/super-potato/; bin/cake reset_missed_approach
+0 * * * * cd /var/www/super-potato/; bin/cake fetch_taf
 ```

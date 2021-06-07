@@ -24,12 +24,15 @@ class MainDataService
 
     protected ?array $_metar = null;
 
+    protected ?array $_taf = null;
+
     protected ?IdentityInterface $_user;
 
     public function __construct()
     {
         $this->loadModel('Feeds');
         $this->loadModel('Metar');
+        $this->loadModel('Taf');
 
         try {
             $this->_feed = $this->Feeds->find()
@@ -41,6 +44,14 @@ class MainDataService
 
         try {
             $this->_metar = $this->Metar->find()
+                ->order(['created' => 'DESC'])
+                ->firstOrFail()
+                ->toArray();
+        } catch (Throwable $t) {
+        }
+
+        try {
+            $this->_taf = $this->Taf->find()
                 ->order(['created' => 'DESC'])
                 ->firstOrFail()
                 ->toArray();
@@ -58,12 +69,12 @@ class MainDataService
                 'onboarded' => $this->_user->onboarded,
             ],
             'logs' => (new LogsService())->getData(),
-            'loww' => (new LowwDataService($this->_feed, $this->_metar))->getData(),
-            'lowi' => (new LowiDataService($this->_feed, $this->_metar))->getData(),
-            'lows' => (new LowsDataService($this->_feed, $this->_metar))->getData(),
-            'lowg' => (new LowgDataService($this->_feed, $this->_metar))->getData(),
-            'lowk' => (new LowkDataService($this->_feed, $this->_metar))->getData(),
-            'lowl' => (new LowlDataService($this->_feed, $this->_metar))->getData(),
+            'loww' => (new LowwDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'lowi' => (new LowiDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'lows' => (new LowsDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'lowg' => (new LowgDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'lowk' => (new LowkDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'lowl' => (new LowlDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 
