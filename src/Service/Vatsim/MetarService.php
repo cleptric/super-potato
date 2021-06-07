@@ -22,7 +22,7 @@ class MetarService
     protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
 
     /**
-     * @var string
+     * @var array
      */
     protected ?array $_rawMetar = null;
 
@@ -64,8 +64,8 @@ class MetarService
             $this->_persistMetar();
         } catch (Throwable $t) {
             $this->_retries = $this->_retries + 1;
-            if ($this->_retries > self::MAX_RETRIES) {
-                captureMessage('Could not fetch VATSIM METAR after 10 tries');
+            if ($this->_retries >= self::MAX_RETRIES) {
+                captureMessage('Could not fetch VATSIM METAR after 5 tries');
                 $this->_retries = 0;
             }
         }
