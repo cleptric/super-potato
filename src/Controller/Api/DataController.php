@@ -97,7 +97,7 @@ class DataController extends Controller
             ->where(['name' => $airportIcao])
             ->first();
 
-        $this->Authorization->authorize($airport, 'updateMissedApporach');
+        $this->Authorization->authorize($airport, 'updateMissedApproach');
 
         $service = new MissedApproachService();
         $service->toggleMissedApproach($airport, $this->Authentication->getIdentity());
