@@ -43,6 +43,8 @@ class UsersTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->getSchema()->setColumnType('settings', 'json');
+
         $this->addBehavior('Timestamp');
     }
 
