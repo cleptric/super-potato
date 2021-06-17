@@ -43,6 +43,8 @@ class TafTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->getSchema()->setColumnType('data', 'json');
+
         $this->addBehavior('Timestamp');
     }
 

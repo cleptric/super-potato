@@ -163,8 +163,8 @@ export default {
     },
     data() {
         return {
-            missedApporachTimer: null,
-            closedRunwaysTimer: null,
+            missedApporachTimer: 10,
+            closedRunwaysTimer: 30,
             missedApporachInterval: null,
             closedRunwaysInterval: null,
         }
@@ -221,6 +221,9 @@ export default {
                         clearInterval(this.missedApporachInterval)
                         this.missedApporachInterval = null
                         this.$store.dispatch('loadData')
+                        this.missedApporachTimer = 10
+
+                        return
                     }
 
                     this.missedApporachTimer = timer
@@ -235,6 +238,9 @@ export default {
                         clearInterval(this.closedRunwaysInterval)
                         this.closedRunwaysInterval = null
                         this.$store.dispatch('loadData')
+                        this.closedRunwaysTimer = 30
+
+                        return
                     }
 
                     this.closedRunwaysTimer = timer

@@ -9,7 +9,7 @@ use Cake\I18n\FrozenTime;
 
 class AirportPolicy extends AbstractPolicy
 {
-    public function canUpdateMissedApporach(IdentityInterface $user, Airport $airport): bool
+    public function canUpdateMissedApproach(IdentityInterface $user, Airport $airport): bool
     {
         $userOnline = parent::_isUserOnline($user);
 

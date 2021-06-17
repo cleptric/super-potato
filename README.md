@@ -73,6 +73,10 @@ A controller can indicate that a missed approach is in progress. This action tri
 
 This widget displays the current raw METAR
 
+##### Raw TAF Widget
+
+This widget displays the current raw TAF
+
 ## Setup
 
 ### Requirements

@@ -23,7 +23,7 @@
     </nav>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <h1 class="pt-[25%] mb-2 text-2xl text-center font-semibold">
-            Looks like the Super Potato is broken behind repair
+            Looks like the Super Potato is broken beyond repair
         </h1>
         <p class="mb-16 text-center text-sm text-gray-500 italic">
             Ois Oasch hoid...

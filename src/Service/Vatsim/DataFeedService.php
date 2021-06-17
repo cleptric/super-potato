@@ -47,7 +47,7 @@ class DataFeedService
 
     const FEED_MAX_AGE = '5 minutes ago';
 
-    const MAX_RETRIES = 9;
+    const MAX_RETRIES = 10;
 
     /**
      * @var array
@@ -77,7 +77,7 @@ class DataFeedService
             $this->_persistFeed();
         } catch (Throwable $t) {
             $this->_retries = $this->_retries + 1;
-            if ($this->_retries > self::MAX_RETRIES) {
+            if ($this->_retries >= self::MAX_RETRIES) {
                 captureMessage('Could not fetch VATSIM data feed after 10 tries');
                 $this->_retries = 0;
             }
