@@ -4,26 +4,22 @@
     </template>
     <template v-else>
         <Menu />
-        <Settings />
+        <Onboarding v-if="!user.onboarded" />
+
         <router-view></router-view>
     </template>
-    <Onboarding
-        v-if="!user.onboarded"
-    />
 </template>
 
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 import Menu from './components/Menu.vue'
-import Settings from './components/Settings.vue'
 import OisOasch from './components/OisOasch.vue'
 import Onboarding from './components/Onboarding.vue'
 
 export default {
     components: {
         Menu,
-        Settings,
         OisOasch,
         Onboarding,
     },
