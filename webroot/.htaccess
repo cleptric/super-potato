@@ -13,9 +13,7 @@
     RewriteCond %{REQUEST_URI} !^/build
     RewriteCond %{REQUEST_URI} !^/js
     RewriteCond %{REQUEST_URI} !^/css
-    RewriteCond %{REQUEST_URI} !^/cache_img
     RewriteCond %{REQUEST_URI} !^/img
-    RewriteCond %{REQUEST_URI} !^/img-v2
 
     # Crawlers
     RewriteCond %{REQUEST_URI} !^/blog
