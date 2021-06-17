@@ -27,16 +27,16 @@ class MetarDecoderService
     {
         if (empty($this->_metar)) {
             return [
-                'qnh_value' => '',
-                'qnh_unit' => '',
+                'qnh_value' => null,
+                'qnh_unit' => null,
                 'mean_direction' => null,
-                'is_variable' => '',
+                'is_variable' => null,
                 'mean_speed' => null,
-                'speed_variations' => '',
-                'wind_shear_runways' => '',
-                'wind_shear_all_runways' => '',
-                'condition' => '',
-                'raw_metar' => '',
+                'speed_variations' => null,
+                'wind_shear_runways' => null,
+                'wind_shear_all_runways' => null,
+                'condition' => null,
+                'raw_metar' => null,
             ];
         }
 
@@ -44,26 +44,20 @@ class MetarDecoderService
         $this->_decoder = $decoder->parse($this->_metar);
 
         return [
-            'qnh_value' => $this->_decoder->getPressure()->getValue(),
-            'qnh_unit' => $this->_decoder->getPressure()->getUnit(),
-            'mean_direction' => !empty($this->_decoder->getSurfaceWind()->getMeanDirection()) ? $this->_decoder->getSurfaceWind()->getMeanDirection()->getValue() : null,
-            'is_variable' => $this->_decoder->getSurfaceWind()->withVariableDirection(),
-            'mean_speed' => $this->_decoder->getSurfaceWind()->getMeanSpeed()->getValue(),
-            'speed_variations' => !empty($this->_decoder->getSurfaceWind()->getSpeedVariations()) ? $this->_decoder->getSurfaceWind()->getSpeedVariations()->getValue() : null,
-            'wind_shear_runways' => $this->_decoder->getWindshearRunways(),
-            'wind_shear_all_runways' => $this->_decoder->getWindshearAllRunways(),
-            'condition' => $this->getConditions(),
-            'raw_metar' => $this->_decoder->getRawMetar(),
-        ];
+            'qnh_value' => !empty($this->_decoder->getPressure()) ? $this->_decoder->getPressure()->getValue() : null,
+            'qnh_unit' => !empty($this->_decoder->getPressure()) ? $this->_decoder->getPressure()->getUnit() : null,
+            'mean_direction' => !empty($this->_decoder->getSurfaceWind()) && !empty($this->_decoder->getSurfaceWind()->getMeanDirection()) ? $this->_decoder->getSurfaceWind()->getMeanDirection()->getValue() : null,
+            'is_variable' => !empty($this->_decoder->getSurfaceWind()) ? $this->_decoder->getSurfaceWind()->withVariableDirection() : null,
+            'mean_speed' => !empty($this->_decoder->getSurfaceWind()) ? $this->_decoder->getSurfaceWind()->getMeanSpeed()->getValue() : null,
+            'speed_variations' => !empty($this->_decoder->getSurfaceWind()) && !empty($this->_decoder->getSurfaceWind()->getSpeedVariations()) ? $this->_decoder->getSurfaceWind()->getSpeedVariations()->getValue() : null,
+            'wind_shear_runways' => !empty($this->_decoder->getWindshearRunways()) ? $this->_decoder->getWindshearRunways() : null,
+            'wind_shear_all_runways' => !empty($this->_decoder->getWindshearAllRunways()) ? $this->_decoder->getWindshearAllRunways() : null,
+            'raw_metar' => !empty($this->_decoder->getRawMetar()) ? $this->_decoder->getRawMetar() : null,
+        ];  
     }
 
     public function setMetar(?string $metar): void
     {
         $this->_metar = $metar;
-    }
-
-    public function getConditions(): string 
-    {
-        return 'VMC';
     }
 }

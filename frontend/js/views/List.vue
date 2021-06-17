@@ -66,11 +66,13 @@
                                             {{ airport.metar.qnh_value }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            <template v-if="airport.metar.is_variable">
-                                                VRB {{ airport.metar.mean_speed }}kts
-                                            </template>
-                                            <template v-else>
-                                                {{ airport.metar.mean_direction.toString().padStart(3, '0') }}° / {{ airport.metar.mean_speed }}kts
+                                            <template v-if="airport.metar.mean_speed && airport.metar.mean_direction || airport.metar.is_variable && airport.metar.mean_speed">
+                                                <template v-if="airport.metar.is_variable">
+                                                    VRB {{ airport.metar.mean_speed }}kts
+                                                </template>
+                                                <template v-else>
+                                                    {{ airport.metar.mean_direction.toString().padStart(3, '0') }}° / {{ airport.metar.mean_speed }}kts
+                                                </template>
                                             </template>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
