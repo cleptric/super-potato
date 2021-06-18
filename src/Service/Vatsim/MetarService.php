@@ -80,9 +80,8 @@ class MetarService
             $response = $this->_client->get($metarUrl, [
                 'id' => $station,
             ]);
-            $this->_rawMetar[] = $response->getStringBody();
+            $this->_rawMetar[$station] = $response->getStringBody();
         }
-        sort($this->_rawMetar, SORT_NATURAL);
     }
 
     protected function _persistMetar(): void
@@ -94,16 +93,6 @@ class MetarService
         $currentMetar = $this->Metar->find()
             ->order(['created' => 'DESC'])
             ->first();
-
-        if ($currentMetar) {
-            $currentMetarHash = md5(serialize($currentMetar->data));
-            $newMetarHash = md5(serialize($this->_rawMetar));
-
-            // The METAR did not change
-            if ($currentMetarHash === $newMetarHash) {
-                return;
-            }
-        }
 
         $metarEntity = $this->Metar->newEntity([
             'data' => $this->_rawMetar,
