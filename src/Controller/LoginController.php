@@ -86,13 +86,6 @@ class LoginController extends AppController
                     return $this->redirect(['action' => 'login']);
                 }
 
-                // Only allow login/signup for whitelisted VATSIM IDs
-                if (!in_array($responseJson['data']['cid'], explode(';', env('VATSIM_ID_WHITELIST')))) {
-                    $this->Flash->error('You VATSIM ID is not whitelisted yet');
-
-                    return $this->redirect(['action' => 'login']);
-                }
-
                 $this->loadModel('Users');
                 $user = $this->Users->find()
                     ->where([
