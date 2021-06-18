@@ -13,8 +13,8 @@ The tool displays valuable information for online vATC like active runways, deco
 To use `Super Potato`, you need a VATSIM account which is associated to the VACC Austria sub-divison.
 The login is only possible via VATSIM Connect.
 
-The data displayed by `Super Potato` is fetched from the VATSIM data feed as well as the VATSIM METAR API.
-`Super Potato` can only display data if an ATIS is set online on the concerning airports.
+The data displayed by `Super Potato` is fetched from the VATSIM data feed, the VATSIM METAR API and CheckWX (https://www.checkwxapi.com/).
+`Super Potato` can only display certain data if an ATIS is set online on the concerning airports.
 
 #### Notifications
 
@@ -75,7 +75,11 @@ This widget displays the current raw METAR
 
 ##### Raw TAF Widget
 
-This widget displays the current raw TAF
+This widget displays the current raw TAF (data fetchd from https://www.checkwxapi.com/)
+
+#### Settings
+
+The settings page allows you to change various parameters how notifications behvae.
 
 ## Setup
 
@@ -157,7 +161,7 @@ Thereafter, add a `ProxPass` config to your apache `VirtualHost` config.
 
 ### Cron Jobs
 
-Add two cron jobs for the deployer user.
+Add three cron jobs for the deployer user.
 
 ```
 0 5 * * * sudo supervisorctl restart all
