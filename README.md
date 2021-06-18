@@ -1,5 +1,7 @@
 # Super Potato 🥔
 
+![Screenshot 2021-06-18 at 02 44 11](https://user-images.githubusercontent.com/6617432/122489056-18766100-cfdf-11eb-8fcd-84598817af24.png)
+
 `Super Potato` is an ADD (Aerodrom Data Display) used by controllers on the VATSIM online flying network.
 
 The tool displays valuable information for online vATC like active runways, decoded METAR information, visual departures, closed runways and missed approaches.
