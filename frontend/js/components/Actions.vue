@@ -42,7 +42,7 @@
                                 <span
                                     class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
                                 >
-                                    In progress... {{ closedRunwaysTimer }}
+                                    In progress...
                                 </span>
                             </span>
                         </template>
@@ -78,7 +78,7 @@
                             <span
                                 class="inline-flex items-center px-4 py-2 pointer-events-none border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-300"
                             >
-                                In progress... {{ missedApporachTimer }}
+                                In progress...
                             </span>
                         </template>
                         <template v-else>
@@ -163,8 +163,6 @@ export default {
     },
     data() {
         return {
-            missedApporachTimer: 10,
-            closedRunwaysTimer: 30,
             missedApporachInterval: null,
             closedRunwaysInterval: null,
         }
@@ -221,12 +219,9 @@ export default {
                         clearInterval(this.missedApporachInterval)
                         this.missedApporachInterval = null
                         this.$store.dispatch('loadData')
-                        this.missedApporachTimer = 10
 
                         return
                     }
-
-                    this.missedApporachTimer = timer
                 }, 1000)
             }
         },
@@ -238,12 +233,9 @@ export default {
                         clearInterval(this.closedRunwaysInterval)
                         this.closedRunwaysInterval = null
                         this.$store.dispatch('loadData')
-                        this.closedRunwaysTimer = 30
 
                         return
                     }
-
-                    this.closedRunwaysTimer = timer
                 }, 1000)
             }
         },
