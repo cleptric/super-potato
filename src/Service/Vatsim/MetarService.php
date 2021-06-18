@@ -74,20 +74,35 @@ class MetarService
     protected function _fetchMetar(): void
     {
         $metarUrl = $this->_getMetarUrl();
-        $metar = [];
+        $this->_rawMetar = [];
 
         foreach ($this->_metarStations as $station) {
             $response = $this->_client->get($metarUrl, [
                 'id' => $station,
             ]);
-            $this->_rawMetar[$station] = $response->getStringBody();
+            $this->_rawMetar[] = $response->getStringBody();
         }
+        sort($this->_rawMetar, SORT_NATURAL);
     }
 
     protected function _persistMetar(): void
     {
         if (empty($this->_rawMetar)) {
             return;
+        }
+
+        $currentMetar = $this->Metar->find()
+            ->order(['created' => 'DESC'])
+            ->first();
+
+        if ($currentMetar) {
+            $currentMetarHash = md5(serialize($currentMetar->data));
+            $newMetarHash = md5(serialize($this->_rawMetar));
+
+            // The METAR did not change
+            if ($currentMetarHash === $newMetarHash) {
+                return;
+            }
         }
 
         $metarEntity = $this->Metar->newEntity([
