@@ -105,7 +105,7 @@
                                                         </div>
                                                     </span>
                                                 </div>
-                                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Visual Depatures</h3>
+                                                <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Visual Departures</h3>
                                                 <p class="mt-5 text-base text-gray-500">
                                                     Let the TWR controller know if visual departures are approved. Supported at LOWW and LOWI.
                                                 </p>
