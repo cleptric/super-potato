@@ -44,6 +44,7 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->getSchema()->setColumnType('settings', 'json');
+        $this->getSchema()->setColumnType('notifications', 'json');
 
         $this->addBehavior('Timestamp');
     }
