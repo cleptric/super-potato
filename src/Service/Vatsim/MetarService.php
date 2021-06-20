@@ -7,13 +7,12 @@ use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Throwable;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 use function Sentry\captureMessage;
 
 class MetarService
 {
-
     use ModelAwareTrait;
 
     /**
@@ -36,7 +35,7 @@ class MetarService
      */
     protected Client $_client;
 
-    const MAX_RETRIES = 5;
+    public const MAX_RETRIES = 5;
 
     /**
      * @var array
@@ -102,7 +101,7 @@ class MetarService
 
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
+        $socket->connect('tcp://localhost:5555');
         $socket->send(json_encode(['type' => 'refresh']));
     }
 

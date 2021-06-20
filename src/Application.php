@@ -33,7 +33,6 @@ use Cake\Datasource\FactoryLocator;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
-use Cake\Http\Middleware\CspMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
@@ -172,7 +171,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         $fields = [
             IdentifierInterface::CREDENTIAL_USERNAME => 'username',
-            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+            IdentifierInterface::CREDENTIAL_PASSWORD => 'password',
         ];
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');

@@ -3,17 +3,15 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authorization\IdentityInterface;
 use App\Model\Entity\Airport;
-use App\Service\LogsService;
+use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 
 class MissedApproachService
 {
-
     use ModelAwareTrait;
 
     public function __construct()
@@ -34,7 +32,7 @@ class MissedApproachService
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
+            $socket->connect('tcp://localhost:5555');
             $socket->send(json_encode([
                 'type' => 'missed-approach',
                 'airport' => $airport->name,
@@ -57,7 +55,7 @@ class MissedApproachService
 
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
+        $socket->connect('tcp://localhost:5555');
         $socket->send(json_encode(['type' => 'refresh']));
     }
 }

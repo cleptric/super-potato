@@ -6,13 +6,11 @@ namespace App\Service\CheckWx;
 use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
-use Throwable;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 
 class TafService
 {
-
     use ModelAwareTrait;
 
     /**
@@ -85,7 +83,7 @@ class TafService
 
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
+        $socket->connect('tcp://localhost:5555');
         $socket->send(json_encode(['type' => 'refresh']));
     }
 }

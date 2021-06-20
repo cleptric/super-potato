@@ -6,12 +6,11 @@ namespace App\Service;
 use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Utility\Hash;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 
 class VisualDepatureService
 {
-
     use ModelAwareTrait;
 
     public function __construct()
@@ -22,7 +21,8 @@ class VisualDepatureService
     public function toggleVisualDepature(Airport $airport, string $direction): void
     {
         $data = (array)$airport->visual_depatures;
-        if (($key = array_search($direction, $data)) !== false) {
+        $key = array_search($direction, $data);
+        if ($key !== false) {
             unset($data[$key]);
             $data = array_values($data);
         } else {
@@ -41,7 +41,7 @@ class VisualDepatureService
 
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
+        $socket->connect('tcp://localhost:5555');
         $socket->send(json_encode(['type' => 'refresh']));
     }
 }

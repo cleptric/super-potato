@@ -11,13 +11,12 @@ use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
 use Throwable;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 use function Sentry\captureMessage;
 
 class DataFeedService
 {
-
     use ModelAwareTrait;
 
     /**
@@ -45,9 +44,9 @@ class DataFeedService
      */
     protected Client $_client;
 
-    const FEED_MAX_AGE = '5 minutes ago';
+    public const FEED_MAX_AGE = '5 minutes ago';
 
-    const MAX_RETRIES = 10;
+    public const MAX_RETRIES = 10;
 
     /**
      * @var array
@@ -134,15 +133,15 @@ class DataFeedService
 
                 $context = new ZMQContext();
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect("tcp://localhost:5555");
+                $socket->connect('tcp://localhost:5555');
                 $socket->send(json_encode(['type' => 'refresh']));
-            } else if (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
+            } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
                 // Delete an outdated feed
                 $this->Feeds->delete($lastFeed);
 
                 $context = new ZMQContext();
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect("tcp://localhost:5555");
+                $socket->connect('tcp://localhost:5555');
                 $socket->send(json_encode(['type' => 'refresh']));
             }
 
@@ -153,7 +152,7 @@ class DataFeedService
 
                 $context = new ZMQContext();
                 $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect("tcp://localhost:5555");
+                $socket->connect('tcp://localhost:5555');
                 $socket->send(json_encode(['type' => 'refresh']));
             }
         }

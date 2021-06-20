@@ -3,18 +3,16 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authorization\IdentityInterface;
 use App\Model\Entity\Airport;
-use App\Service\LogsService;
+use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 use Cake\Utility\Hash;
-use ZMQContext;
 use ZMQ;
+use ZMQContext;
 
 class RunwayClosedService
 {
-
     use ModelAwareTrait;
 
     public function __construct()
@@ -28,7 +26,8 @@ class RunwayClosedService
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();
 
-        if (($key = array_search($runways, $data)) !== false) {
+        $key = array_search($runways, $data);
+        if ($key !== false) {
             unset($data[$key]);
             $data = array_values($data);
 
@@ -36,7 +35,7 @@ class RunwayClosedService
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
+            $socket->connect('tcp://localhost:5555');
             $socket->send(json_encode(['type' => 'runway-reopened']));
         } else {
             $data = Hash::merge($data, $runways);
@@ -46,7 +45,7 @@ class RunwayClosedService
 
             $context = new ZMQContext();
             $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect("tcp://localhost:5555");
+            $socket->connect('tcp://localhost:5555');
             $socket->send(json_encode([
                 'type' => 'runway-closed',
                 'airport' => $airport->name,
@@ -67,7 +66,7 @@ class RunwayClosedService
 
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
+        $socket->connect('tcp://localhost:5555');
         $socket->send(json_encode(['type' => 'refresh']));
     }
 }

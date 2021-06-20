@@ -1,17 +1,15 @@
 <?php
 declare(strict_types=1);
+
 namespace App\View\Helper;
 
-use Assert\Assertion;
 use Cake\View\Helper;
-use RuntimeException;
 
 /**
  * @property \Cake\View\Helper\HtmlHelper $Html
  */
 class ViteHelper extends Helper
 {
-
     /**
      * @var array<string>
      */
@@ -57,7 +55,7 @@ class ViteHelper extends Helper
 
     protected function _getManifestFilePath(): string
     {
-        return  ROOT . $this->getConfig('buildDirectory') . $this->getConfig('manifest');
+        return ROOT . $this->getConfig('buildDirectory') . $this->getConfig('manifest');
     }
 
     protected function _resolveDevServerFileName(string $file): string
@@ -126,7 +124,8 @@ class ViteHelper extends Helper
         return \json_decode($fileContent, true);
     }
 
-    public function script(string $script, array $options = []): ?string {
+    public function script(string $script, array $options = []): ?string
+    {
         $options = ['type' => 'module'] + $options;
 
         if ($this->isDevServerEnabled()) {
