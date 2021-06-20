@@ -53,11 +53,25 @@ class MetarDecoderService
             'wind_shear_runways' => !empty($this->_decoder->getWindshearRunways()) ? $this->_decoder->getWindshearRunways() : null,
             'wind_shear_all_runways' => !empty($this->_decoder->getWindshearAllRunways()) ? $this->_decoder->getWindshearAllRunways() : null,
             'raw_metar' => !empty($this->_decoder->getRawMetar()) ? $this->_decoder->getRawMetar() : null,
+            'rvr' => $this->_getRvr(),
         ];  
     }
 
     public function setMetar(?string $metar): void
     {
         $this->_metar = $metar;
+    }
+
+    protected function _getRvr(): array
+    {
+        $rvr = $this->_decoder->getRunwaysVisualRange();
+        $runwayRvr = [];
+        if (!empty($rvr)) {
+            foreach ($rvr as $rwy) {
+                $runwayRvr[$rwy->getRunway()] = $rwy->getVisualRange()->getValue() . $rwy->getPastTendency();
+            }
+        }
+
+        return $runwayRvr;
     }
 }

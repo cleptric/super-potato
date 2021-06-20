@@ -144,6 +144,19 @@
                 </template>
 
                 <div
+                    v-if="loww.metar.rvr[29]"
+                    class="transform rotate-40 text-center text-xl font-bold"
+                >
+                    {{ loww.metar.rvr[29] }}
+                </div>
+                <div
+                    v-if="loww.metar.rvr[11]"
+                    class="transform rotate-40 text-center text-xl font-bold"
+                >
+                    {{ loww.metar.rvr[11] }}
+                </div>
+
+                <div
                     class="relative px-4 py-5 text-center text-2xl font-black"
                     :class="{ 'rounded-lg bg-blue-200': loww.closed_runways.includes('16/34') === false && (loww.atis.arrival_runway.includes('16') || loww.atis.depature_runway.includes('16')) }"
                 >
@@ -263,6 +276,19 @@
                         </template>
                     </div>
                 </template>
+
+                <div
+                    v-if="loww.metar.rvr[16]"
+                    class="transform rotate-90 text-center text-xl font-bold"
+                >
+                    {{ loww.metar.rvr[16] }}
+                </div>
+                <div
+                    v-if="loww.metar.rvr[34]"
+                    class="transform rotate-90 text-center text-xl font-bold"
+                >
+                    {{ loww.metar.rvr[34] }}
+                </div>
 
                 <div
                     class="relative px-4 py-5 text-center text-2xl font-black"
