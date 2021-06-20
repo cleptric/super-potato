@@ -8,6 +8,7 @@ use App\Service\RunwayClosedService;
 use App\Service\VisualDepatureService;
 use App\Service\Data\MainDataService;
 use App\Service\Data\SettingsDataService;
+use App\Service\Data\NotificationsDataService;
 use Cake\Controller\Controller;
 
 class DataController extends Controller
@@ -59,6 +60,35 @@ class DataController extends Controller
         $service = new SettingsDataService();
         $service->setUser($this->Authentication->getIdentity());
         $service->saveData($this->request->getData('settings'));
+
+        return $this->response
+            ->withStatus(200)
+            ->withType('application/json');
+    }
+
+    public function getNotifications()
+    {
+        $this->request->allowMethod('get');
+        $this->Authorization->skipAuthorization();
+
+        $service = new NotificationsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $data = $service->getData();
+
+        return $this->response
+            ->withStatus(200)
+            ->withType('application/json')
+            ->withStringBody(json_encode($data));
+    }
+
+    public function saveNotifications()
+    {
+        $this->request->allowMethod('post');
+        $this->Authorization->skipAuthorization();
+
+        $service = new NotificationsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $service->saveData($this->request->getData('notifications'));
 
         return $this->response
             ->withStatus(200)

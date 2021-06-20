@@ -7,7 +7,7 @@ use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
-class SettingsDataService
+class NotificationsDataService
 {
     use ModelAwareTrait;
 
@@ -21,7 +21,7 @@ class SettingsDataService
 
         try {
             $this->_settings = $this->Users->find()
-                ->select('settings')
+                ->select('notifications')
                 ->where(['id' => $this->_user->id])
                 ->firstOrFail()
                 ->toArray();
@@ -34,7 +34,7 @@ class SettingsDataService
         $user = $this->Users->get($this->_user->id);
 
         return [
-            'settings' => $user->settings,
+            'notifications' => $user->notifications,
         ];
     }
 
@@ -42,14 +42,17 @@ class SettingsDataService
     {
         $user = $this->Users->get($this->_user->id);
         $user = $this->Users->patchEntity($user, [
-            'settings' => [
-                'notifications' => filter_var($data['notifications'], FILTER_VALIDATE_BOOLEAN),
-                'sounds' => filter_var($data['sounds'], FILTER_VALIDATE_BOOLEAN),
-                'volume' => $data['volume'],
+            'notifications' => [
+                'loww' => filter_var($data['loww'], FILTER_VALIDATE_BOOLEAN),
+                'lowi' => filter_var($data['lowi'], FILTER_VALIDATE_BOOLEAN),
+                'lows' => filter_var($data['lows'], FILTER_VALIDATE_BOOLEAN),
+                'lowg' => filter_var($data['lowg'], FILTER_VALIDATE_BOOLEAN),
+                'lowk' => filter_var($data['lowk'], FILTER_VALIDATE_BOOLEAN),
+                'lowl' => filter_var($data['lowl'], FILTER_VALIDATE_BOOLEAN),
             ],
         ], [
             'accessibleFields' => [
-                'settings' => true,
+                'notifications' => true,
             ],
         ]);
         $this->Users->saveOrFail($user);

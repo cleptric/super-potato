@@ -4,16 +4,16 @@ declare(strict_types=1);
 namespace App\Service\CheckWx;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Throwable;
-use ZMQContext;
-use ZMQ;
 
 class TafService
 {
 
     use ModelAwareTrait;
+    use ZMQContextTrait;
 
     /**
      * @var string
@@ -83,9 +83,6 @@ class TafService
         $savedTaf = $this->Taf->save($metarEntity);
         $this->Taf->deleteAll(['id IS NOT' => $savedTaf->id]);
 
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
-        $socket->send(json_encode(['type' => 'refresh']));
+        $this->pushMessage('refresh');
     }
 }

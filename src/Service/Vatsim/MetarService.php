@@ -4,17 +4,17 @@ declare(strict_types=1);
 namespace App\Service\Vatsim;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Throwable;
-use ZMQContext;
-use ZMQ;
 use function Sentry\captureMessage;
 
 class MetarService
 {
 
     use ModelAwareTrait;
+    use ZMQContextTrait;
 
     /**
      * @var string
@@ -100,10 +100,7 @@ class MetarService
         $savedMetar = $this->Metar->save($metarEntity);
         $this->Metar->deleteAll(['id IS NOT' => $savedMetar->id]);
 
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect("tcp://localhost:5555");
-        $socket->send(json_encode(['type' => 'refresh']));
+        $this->pushMessage('refresh');
     }
 
     protected function _getMetarUrl(): ?string

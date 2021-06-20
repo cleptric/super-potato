@@ -77,6 +77,9 @@ class UsersTable extends Table
         $validator
             ->allowEmptyString('settings');
 
+        $validator
+            ->allowEmptyString('notifications');
+
         return $validator;
     }
 

@@ -234,7 +234,7 @@ export default {
         return {
             message: message,
             browserNotifications: browserNotifications,
-            settings: computed(() =>store.getters.settings),
+            settings: computed(() => store.getters.settings),
         }
     },
     mounted() {

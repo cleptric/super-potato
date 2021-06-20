@@ -17,6 +17,9 @@
                                 <thead class="bg-gray-100">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Notifications
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Airport
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -46,6 +49,22 @@
                                         class="cursor-pointer hover:bg-gray-200"
                                         @click="$router.push(`/${icao}`)"
                                     >
+                                        <td
+                                            class="px-6"
+                                            @click.stop
+                                        >
+                                            <button
+                                                class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                                :class="{ 'bg-blue-600': notifications[icao], 'bg-gray-200': !notifications[icao] }"
+                                                @click.stop="toggleNotification(icao)"
+                                            >
+                                                <span
+                                                    class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"
+                                                    :class="{ 'translate-x-5': notifications[icao], 'translate-x-0': !notifications[icao] }"
+                                                >
+                                                </span>
+                                            </button>
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                             {{ airport.atis.airport_name }}
                                         </td>
@@ -157,8 +176,18 @@ export default {
         return {
             counter: 1,
             airports: computed(() => store.getters.airports),
+            notifications: computed(() => store.getters.notifications),
             logs: computed(() => store.getters.logs),
         }
+    },
+    methods: {
+        async toggleNotification(icao) {
+            this.$store.dispatch('toggleNotification', icao)
+            try {
+                this.$store.dispatch('saveNotifications')
+            } catch (error) {
+            }
+        },
     },
 }
 </script>
