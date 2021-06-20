@@ -60,30 +60,30 @@
 
                     <div
                         class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
-                        :class="{ 'rounded-lg bg-blue-200': lowg.closed_runways.includes('16C/34C') === false && (lowg.atis.arrival_runway.includes('16C') || lowg.atis.depature_runway.includes('16C')) }"
+                        :class="{ 'rounded-lg bg-blue-200': lowg.closed_runways.includes('16C/34C') === false && (lowg.atis.arrival_runway.includes('34C') || lowg.atis.depature_runway.includes('34C')) }"
                     >
                         <div
-                            v-if="lowg.atis.arrival_runway.includes('16C') && lowg.closed_runways.includes('16C/34C') === false"
-                            class="absolute left-[-40px] h-6 w-6 transform rotate-90"
+                            v-if="lowg.atis.arrival_runway.includes('34C') && lowg.closed_runways.includes('16C/34C') === false"
+                            class="absolute right-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
-                            v-if="lowg.atis.depature_runway.includes('16C') && lowg.closed_runways.includes('16C/34C') === false"
-                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
+                            v-if="lowg.atis.depature_runway.includes('34C') && lowg.closed_runways.includes('16C/34C') === false"
+                            class="absolute left-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
                         <div
                             v-if="!lowg.metar.is_variable"
-                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lowg.wind_components['16C'] }}
+                                {{ lowg.wind_components['34C'] }}
                             </span>
                         </div>
-                        <span class="w-12 transform -rotate-90">16C</span>
+                        <span class="w-12 transform -rotate-90">34C</span>
                     </div>
 
                     <template v-if="lowg.closed_runways.includes('16C/34C')">
@@ -122,30 +122,30 @@
 
                     <div
                         class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
-                        :class="{ 'rounded-lg bg-blue-200': lowg.closed_runways.includes('16C/34C') === false && (lowg.atis.arrival_runway.includes('34C') || lowg.atis.depature_runway.includes('34C')) }"
+                        :class="{ 'rounded-lg bg-blue-200': lowg.closed_runways.includes('16C/34C') === false && (lowg.atis.arrival_runway.includes('16C') || lowg.atis.depature_runway.includes('16C')) }"
                     >
                         <div
-                            v-if="lowg.atis.arrival_runway.includes('34C') && lowg.closed_runways.includes('16C/34C') === false"
-                            class="absolute right-[-40px] h-6 w-6 transform -rotate-90"
+                            v-if="lowg.atis.arrival_runway.includes('16C') && lowg.closed_runways.includes('16C/34C') === false"
+                            class="absolute left-[-40px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
-                            v-if="lowg.atis.depature_runway.includes('34C') && lowg.closed_runways.includes('16C/34C') === false"
-                            class="absolute left-[-40px] h-6 w-6 transform -rotate-90"
+                            v-if="lowg.atis.depature_runway.includes('16C') && lowg.closed_runways.includes('16C/34C') === false"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
                         <div
                             v-if="!lowg.metar.is_variable"
-                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
-                                {{ lowg.wind_components['34C'] }}
+                                {{ lowg.wind_components['16C'] }}
                             </span>
                         </div>
-                        <span class="w-12 transform -rotate-90">34C</span>
+                        <span class="w-12 transform -rotate-90">16C</span>
                     </div>
                 </div>
             </div>
