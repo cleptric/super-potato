@@ -8,11 +8,11 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Console\ConsoleOptionParser;
-use React\EventLoop\Factory;
 use Ratchet\Http\HttpServer;
 use Ratchet\Server\IoServer;
-use React\Socket\Server;
 use Ratchet\WebSocket\WsServer;
+use React\EventLoop\Factory;
+use React\Socket\Server;
 use React\ZMQ\Context;
 use ZMQ;
 
@@ -47,7 +47,7 @@ class PushCommand extends Command
         $io->out('Push shell started');
 
         $loop = Factory::create();
-        $pusher = new Pusher;
+        $pusher = new Pusher();
 
         $context = new Context($loop);
         $pull = $context->getSocket(ZMQ::SOCKET_PULL);

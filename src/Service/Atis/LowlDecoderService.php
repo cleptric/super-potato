@@ -7,7 +7,6 @@ use App\Model\Entity\Airport;
 
 class LowlDecoderService extends AbstractDecoderService
 {
-
     /**
      * @var string
      */

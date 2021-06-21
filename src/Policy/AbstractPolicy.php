@@ -9,7 +9,6 @@ use Throwable;
 
 abstract class AbstractPolicy
 {
-
     use ModelAwareTrait;
 
     protected function _isUserOnline(IdentityInterface $user): bool

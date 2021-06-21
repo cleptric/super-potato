@@ -3,19 +3,18 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authorization\IdentityInterface;
 use App\Model\Entity\Airport;
-use \Cake\Collection\CollectionInterface;
+use Authorization\IdentityInterface;
+use Cake\Collection\CollectionInterface;
 use Cake\Datasource\ModelAwareTrait;
 
 class LogsService
 {
-
     use ModelAwareTrait;
 
-    const TYPE_MISSED_APPROACH = 'Activated missed approach at ';
-    const TYPE_CLOSED_RUNWAY = 'Closed runway at ';
-    const TYPE_OPENED_RUNWAY = 'Opened runway at ';
+    public const TYPE_MISSED_APPROACH = 'Activated missed approach at ';
+    public const TYPE_CLOSED_RUNWAY = 'Closed runway at ';
+    public const TYPE_OPENED_RUNWAY = 'Opened runway at ';
 
     public function __construct()
     {

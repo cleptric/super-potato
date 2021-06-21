@@ -3,16 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service\Data;
 
-use Authorization\IdentityInterface;
-use App\Service\Data\LowiDataService;
-use App\Service\Data\LowgDataService;
-use App\Service\Data\LowkDataService;
-use App\Service\Data\LowlDataService;
-use App\Service\Data\LowsDataService;
-use App\Service\Data\LowwDataService;
 use App\Service\LogsService;
-use App\Service\Metar\MetarDecoderService;
-use App\Service\WindComponent\LowwWindComponentService;
+use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 

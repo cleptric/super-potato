@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace App\Service\Metar;
 
 use Cake\Datasource\ModelAwareTrait;
-use Exception;
 use MetarDecoder\Entity\DecodedMetar;
 use MetarDecoder\MetarDecoder;
 
 class MetarDecoderService
 {
-
     use ModelAwareTrait;
 
     /**
@@ -19,7 +17,7 @@ class MetarDecoderService
     protected ?string $_metar = null;
 
     /**
-     * @var MetarDecoder
+     * @var \MetarDecoder\MetarDecoder
      */
     protected ?DecodedMetar $_decoder = null;
 
@@ -54,7 +52,7 @@ class MetarDecoderService
             'wind_shear_all_runways' => !empty($this->_decoder->getWindshearAllRunways()) ? $this->_decoder->getWindshearAllRunways() : null,
             'raw_metar' => !empty($this->_decoder->getRawMetar()) ? $this->_decoder->getRawMetar() : null,
             'rvr' => $this->_getRvr(),
-        ];  
+        ];
     }
 
     public function setMetar(?string $metar): void
