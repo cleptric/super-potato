@@ -4,6 +4,13 @@ declare(strict_types=1);
 namespace App\Service\Vatsim;
 
 use App\Model\Entity\Airport;
+use App\Model\Entity\User;
+use App\Service\AirportsService;
+use App\Service\LogsService;
+use Cake\Datasource\ModelAwareTrait;
+use Cake\Http\Client;
+use Cake\I18n\FrozenTime;
+use Throwable;
 use function Sentry\captureMessage;
 
 class DataFeedService

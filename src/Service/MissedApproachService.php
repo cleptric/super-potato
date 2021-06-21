@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Model\Entity\Airport;
 use App\Traits\ZMQContextTrait;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
