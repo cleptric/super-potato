@@ -11,6 +11,7 @@ import App from '@/App.vue'
     api.init()
     await store.dispatch('loadData')
     await store.dispatch('loadSettings')
+    await store.dispatch('loadNotifications')
 
     const app = createApp(App)
     app.use(store)

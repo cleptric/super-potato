@@ -31,6 +31,10 @@ If certain conditions are met (missed approach, closed runway), you'll see a red
 #### Dashboard
 
 The dashboard displays the arrival runway(s), departure runway(s) as well as the transition level of all supported airports.
+Each row will also display if a missed approach or a closed runway is present at the given airport.
+
+You can also filter out airports and won't receive any notifications for these airports anymore.
+
 Additionally, a log of all users who triggered certain actions (missed approach, closed runway and reopened runway) will be displayed if such events occurred.
 
 #### Airport view

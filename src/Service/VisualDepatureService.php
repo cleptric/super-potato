@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Utility\Hash;
-use ZMQ;
-use ZMQContext;
 
 class VisualDepatureService
 {
     use ModelAwareTrait;
+    use ZMQContextTrait;
 
     public function __construct()
     {
@@ -39,9 +39,6 @@ class VisualDepatureService
 
         $this->Airports->save($airport);
 
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect('tcp://localhost:5555');
-        $socket->send(json_encode(['type' => 'refresh']));
+        $this->pushMessage('refresh');
     }
 }
