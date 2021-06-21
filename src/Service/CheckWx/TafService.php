@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Service\CheckWx;
 
-use Throwable;
-
 class TafService
 {
     use ModelAwareTrait;

@@ -3,11 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
-<<  << <<< HEAD
-=======
-use ZMQ;
-use ZMQContext;
->>>>>>> main
+use App\Model\Entity\Airport;
 use function Sentry\captureMessage;
 
 class DataFeedService
@@ -127,27 +123,12 @@ class DataFeedService
                 $savedFeed = $this->Feeds->save($feedEntity);
                 $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
 
-<<<<<<< HEAD
                 $this->pushMessage('refresh');
-            } else if (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
-                // Delete an outdated feed
-                $this->Feeds->delete($lastFeed);
-
-                $this->pushMessage('refresh');
-=======
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
             } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
                 // Delete an outdated feed
                 $this->Feeds->delete($lastFeed);
 
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
->>>>>>> main
+                $this->pushMessage('refresh');
             }
 
             // Nobody is online any more, reset airports state and delete all logs
@@ -155,14 +136,7 @@ class DataFeedService
                 (new AirportsService())->resetState();
                 (new LogsService())->deleteAllLogs();
 
-<<<<<<< HEAD
                 $this->pushMessage('refresh');
-=======
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
->>>>>>> main
             }
         }
     }

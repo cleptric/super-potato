@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Service\Data\MainDataService;
+use App\Service\Data\NotificationsDataService;
 use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
 use App\Service\VisualDepatureService;
-use App\Service\Data\MainDataService;
-use App\Service\Data\SettingsDataService;
-use App\Service\Data\NotificationsDataService;
 use Cake\Controller\Controller;
 
 class DataController extends Controller

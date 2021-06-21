@@ -3,17 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Service\LogsService;
 use App\Traits\ZMQContextTrait;
-use Cake\Datasource\ModelAwareTrait;
-use Cake\I18n\FrozenTime;
-use Cake\Utility\Hash;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 use Cake\Utility\Hash;
-use ZMQ;
-use ZMQContext;
 
 class RunwayClosedService
 {
