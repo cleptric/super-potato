@@ -3,16 +3,14 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authorization\IdentityInterface;
-use App\Model\Entity\Airport;
 use App\Service\LogsService;
 use App\Traits\ZMQContextTrait;
+use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
 class MissedApproachService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 
@@ -33,7 +31,6 @@ class MissedApproachService
             (new LogsService())->createLog($user, $airport, LogsService::TYPE_MISSED_APPROACH);
 
             $this->pushMessage('missed-approach', $airport->name);
-
         } else {
             $missedApproach = false;
         }

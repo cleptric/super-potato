@@ -5,7 +5,6 @@ namespace App\Service\WindComponent;
 
 abstract class AbstractWindComponentService
 {
-
     /**
      * @var int|null
      */

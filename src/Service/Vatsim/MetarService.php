@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
-use App\Model\Entity\Airport;
-use App\Traits\ZMQContextTrait;
-use Cake\Datasource\ModelAwareTrait;
-use Cake\Http\Client;
-use Throwable;
+<<  << <<< HEAD
+=======
+use ZMQ;
+use ZMQContext;
+>>>>>>> main
 use function Sentry\captureMessage;
 
 class MetarService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 
@@ -36,7 +35,7 @@ class MetarService
      */
     protected Client $_client;
 
-    const MAX_RETRIES = 5;
+    public const MAX_RETRIES = 5;
 
     /**
      * @var array
@@ -100,7 +99,14 @@ class MetarService
         $savedMetar = $this->Metar->save($metarEntity);
         $this->Metar->deleteAll(['id IS NOT' => $savedMetar->id]);
 
+<<<<<<< HEAD
         $this->pushMessage('refresh');
+=======
+        $context = new ZMQContext();
+        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+        $socket->connect('tcp://localhost:5555');
+        $socket->send(json_encode(['type' => 'refresh']));
+>>>>>>> main
     }
 
     protected function _getMetarUrl(): ?string

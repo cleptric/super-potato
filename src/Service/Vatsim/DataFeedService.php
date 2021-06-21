@@ -3,20 +3,15 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
-use App\Model\Entity\Airport;
-use App\Model\Entity\User;
-use App\Service\AirportsService;
-use App\Service\LogsService;
-use App\Traits\ZMQContextTrait;
-use Cake\Datasource\ModelAwareTrait;
-use Cake\Http\Client;
-use Cake\I18n\FrozenTime;
-use Throwable;
+<<  << <<< HEAD
+=======
+use ZMQ;
+use ZMQContext;
+>>>>>>> main
 use function Sentry\captureMessage;
 
 class DataFeedService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 
@@ -45,9 +40,9 @@ class DataFeedService
      */
     protected Client $_client;
 
-    const FEED_MAX_AGE = '5 minutes ago';
+    public const FEED_MAX_AGE = '5 minutes ago';
 
-    const MAX_RETRIES = 10;
+    public const MAX_RETRIES = 10;
 
     /**
      * @var array
@@ -132,12 +127,27 @@ class DataFeedService
                 $savedFeed = $this->Feeds->save($feedEntity);
                 $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
 
+<<<<<<< HEAD
                 $this->pushMessage('refresh');
             } else if (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
                 // Delete an outdated feed
                 $this->Feeds->delete($lastFeed);
 
                 $this->pushMessage('refresh');
+=======
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect('tcp://localhost:5555');
+                $socket->send(json_encode(['type' => 'refresh']));
+            } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
+                // Delete an outdated feed
+                $this->Feeds->delete($lastFeed);
+
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect('tcp://localhost:5555');
+                $socket->send(json_encode(['type' => 'refresh']));
+>>>>>>> main
             }
 
             // Nobody is online any more, reset airports state and delete all logs
@@ -145,7 +155,14 @@ class DataFeedService
                 (new AirportsService())->resetState();
                 (new LogsService())->deleteAllLogs();
 
+<<<<<<< HEAD
                 $this->pushMessage('refresh');
+=======
+                $context = new ZMQContext();
+                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
+                $socket->connect('tcp://localhost:5555');
+                $socket->send(json_encode(['type' => 'refresh']));
+>>>>>>> main
             }
         }
     }

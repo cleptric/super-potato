@@ -10,7 +10,6 @@ use Cake\I18n\FrozenTime;
 
 class AirportsService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 

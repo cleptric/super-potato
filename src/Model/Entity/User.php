@@ -25,8 +25,7 @@ use RuntimeException;
  */
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
-
-    const CONTROLER_PREFIX = [
+    public const CONTROLER_PREFIX = [
         'LOVV',
         'LOWW',
         'LOWI',

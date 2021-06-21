@@ -10,7 +10,6 @@ use Cake\Utility\Hash;
 
 class VisualDepatureService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 
@@ -22,7 +21,8 @@ class VisualDepatureService
     public function toggleVisualDepature(Airport $airport, string $direction): void
     {
         $data = (array)$airport->visual_depatures;
-        if (($key = array_search($direction, $data)) !== false) {
+        $key = array_search($direction, $data);
+        if ($key !== false) {
             unset($data[$key]);
             $data = array_values($data);
         } else {

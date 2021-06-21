@@ -3,17 +3,20 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authorization\IdentityInterface;
-use App\Model\Entity\Airport;
 use App\Service\LogsService;
 use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 use Cake\Utility\Hash;
+use Authorization\IdentityInterface;
+use Cake\Datasource\ModelAwareTrait;
+use Cake\I18n\FrozenTime;
+use Cake\Utility\Hash;
+use ZMQ;
+use ZMQContext;
 
 class RunwayClosedService
 {
-
     use ModelAwareTrait;
     use ZMQContextTrait;
 
@@ -28,7 +31,8 @@ class RunwayClosedService
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();
 
-        if (($key = array_search($runways, $data)) !== false) {
+        $key = array_search($runways, $data);
+        if ($key !== false) {
             unset($data[$key]);
             $data = array_values($data);
 

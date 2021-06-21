@@ -3,14 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
-use Cake\Routing\Router;
 
 class LoginController extends AppController
 {
-
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
@@ -63,8 +60,8 @@ class LoginController extends AppController
 
             $response = $http->get(env('VATSIM_SSO_ENDPOINT') . '/api/user', [], [
                 'headers' => [
-                    'Authorization' => 'Bearer '. $accessToken,
-                    'Accept' => 'application/json'
+                    'Authorization' => 'Bearer ' . $accessToken,
+                    'Accept' => 'application/json',
                 ],
             ]);
 
@@ -73,10 +70,10 @@ class LoginController extends AppController
 
                 // Only allow login for VACC Austria members
                 $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
-                    'vatsimid' =>$responseJson['data']['cid'],
+                    'vatsimid' => $responseJson['data']['cid'],
                 ], [
                     'headers' => [
-                        'Authorization' => 'Bearer '. env('VACC_AUTH_TOKEN'),
+                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
                     ],
                 ]);
 
@@ -89,7 +86,7 @@ class LoginController extends AppController
                 $this->loadModel('Users');
                 $user = $this->Users->find()
                     ->where([
-                        'vatsim_id IS' => $responseJson['data']['cid']
+                        'vatsim_id IS' => $responseJson['data']['cid'],
                     ])
                     ->first();
 

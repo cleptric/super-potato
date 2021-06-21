@@ -4,16 +4,14 @@ declare(strict_types=1);
 namespace App\Service\Atis;
 
 use Cake\Datasource\ModelAwareTrait;
-use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
 use Throwable;
 
 abstract class AbstractDecoderService
 {
-
     use ModelAwareTrait;
 
-    const ATIS_MAX_AGE = '+15 minutes';
+    public const ATIS_MAX_AGE = '+15 minutes';
 
     /**
      * @var string
@@ -63,13 +61,14 @@ abstract class AbstractDecoderService
         ];
     }
 
-    public function setDataFeed(array $feed = null): void
+    public function setDataFeed(?array $feed = null): void
     {
         if (!empty($feed['data']['atis'])) {
             foreach ($feed['data']['atis'] as $atisCallsign => $atis) {
                 if ($atisCallsign === $this->_getAtisCallsign()) {
                     $this->_atisString = $atis['raw'];
                     $this->_atisUpdateTime = new FrozenTime($atis['last_updated']);
+
                     return;
                 }
             }
@@ -80,7 +79,6 @@ abstract class AbstractDecoderService
     {
         return $this->_airportName;
     }
-
 
     protected function _getAtisCallsign(): string
     {
