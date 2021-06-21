@@ -61,8 +61,7 @@ class DataController extends Controller
         $service->saveData($this->request->getData('settings'));
 
         return $this->response
-            ->withStatus(200)
-            ->withType('application/json');
+            ->withStatus(204);
     }
 
     public function getNotifications()
@@ -90,8 +89,7 @@ class DataController extends Controller
         $service->saveData($this->request->getData('notifications'));
 
         return $this->response
-            ->withStatus(200)
-            ->withType('application/json');
+            ->withStatus(204);
     }
 
     public function completeOnboarding()
@@ -111,8 +109,7 @@ class DataController extends Controller
         $this->Users->save($user);
 
         return $this->response
-            ->withStatus(200)
-            ->withType('application/json');
+            ->withStatus(204);
     }
 
     public function updateMissedApproach()
@@ -132,7 +129,7 @@ class DataController extends Controller
         $service->toggleMissedApproach($airport, $this->Authentication->getIdentity());
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 
     public function updateRunwayClosed()
@@ -153,7 +150,7 @@ class DataController extends Controller
         $service->toggleRunwayClosed($airport, $runways, $this->Authentication->getIdentity());
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 
     public function updateVisualDepature()
@@ -174,6 +171,6 @@ class DataController extends Controller
         $service->toggleVisualDepature($airport, $direction);
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 }
