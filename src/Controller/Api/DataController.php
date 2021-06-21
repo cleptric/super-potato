@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Service\Data\MainDataService;
+use App\Service\Data\NotificationsDataService;
 use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
@@ -60,8 +61,35 @@ class DataController extends Controller
         $service->saveData($this->request->getData('settings'));
 
         return $this->response
+            ->withStatus(204);
+    }
+
+    public function getNotifications()
+    {
+        $this->request->allowMethod('get');
+        $this->Authorization->skipAuthorization();
+
+        $service = new NotificationsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $data = $service->getData();
+
+        return $this->response
             ->withStatus(200)
-            ->withType('application/json');
+            ->withType('application/json')
+            ->withStringBody(json_encode($data));
+    }
+
+    public function saveNotifications()
+    {
+        $this->request->allowMethod('post');
+        $this->Authorization->skipAuthorization();
+
+        $service = new NotificationsDataService();
+        $service->setUser($this->Authentication->getIdentity());
+        $service->saveData($this->request->getData('notifications'));
+
+        return $this->response
+            ->withStatus(204);
     }
 
     public function completeOnboarding()
@@ -81,8 +109,7 @@ class DataController extends Controller
         $this->Users->save($user);
 
         return $this->response
-            ->withStatus(200)
-            ->withType('application/json');
+            ->withStatus(204);
     }
 
     public function updateMissedApproach()
@@ -102,7 +129,7 @@ class DataController extends Controller
         $service->toggleMissedApproach($airport, $this->Authentication->getIdentity());
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 
     public function updateRunwayClosed()
@@ -123,7 +150,7 @@ class DataController extends Controller
         $service->toggleRunwayClosed($airport, $runways, $this->Authentication->getIdentity());
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 
     public function updateVisualDepature()
@@ -144,6 +171,6 @@ class DataController extends Controller
         $service->toggleVisualDepature($airport, $direction);
 
         return $this->response
-            ->withStatus(200);
+            ->withStatus(204);
     }
 }

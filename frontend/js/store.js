@@ -21,6 +21,14 @@ export const store = createStore({
                 sounds: true,
                 volume: 0.5,
             },
+            notifications: {
+                loww: true,
+                lowi: true,
+                lows: true,
+                lowg: true,
+                lowk: true,
+                lowl: true,
+            },
         }
     },
     getters: {
@@ -30,6 +38,7 @@ export const store = createStore({
         websocket: state => state.websocket,
         airports: state => state.airports,
         settings: state => state.settings,
+        notifications: state => state.notifications,
         loww: state => state.airports.loww,
         lowi: state => state.airports.lowi,
         lows: state => state.airports.lows,
@@ -51,7 +60,6 @@ export const store = createStore({
                 const response = await api.get('data/get-settings')
                 commit('SET_SETTINGS', response.data)
             } catch (error) {
-                commit('SET_OIS_OASCH')
             }
         },
         async saveSettings({ commit, state }) {
@@ -62,6 +70,25 @@ export const store = createStore({
             } catch (error) {
                 throw error
             }
+        },
+        async loadNotifications({ commit, state }) {
+            try {
+                const response = await api.get('data/get-notifications')
+                commit('SET_NOTIFICATIONS', response.data)
+            } catch (error) {
+            }
+        },
+        async saveNotifications({ commit, state }) {
+            try {
+                await api.post('data/save-notifications', {
+                    notifications: state.notifications,
+                })
+            } catch (error) {
+                throw error
+            }
+        },
+        toggleNotification({ commit }, icao) {
+            commit('TOGGLE_NOTIFICATION', icao)
         },
         setWebsockt({ commit }, connected) {
             commit('SET_WEBSOCKET', connected)
@@ -83,6 +110,12 @@ export const store = createStore({
         },
         SET_SETTINGS(state, data) {
             state.settings = data.settings
+        },
+        SET_NOTIFICATIONS(state, data) {
+            state.notifications = data.notifications
+        },
+        TOGGLE_NOTIFICATION(state, icao) {
+            state.notifications[icao] = !state.notifications[icao]
         },
         SET_OIS_OASCH(state) {
             state.oisOasch = true

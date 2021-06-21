@@ -7,17 +7,17 @@ use App\Model\Entity\Airport;
 use App\Model\Entity\User;
 use App\Service\AirportsService;
 use App\Service\LogsService;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
 use Throwable;
-use ZMQ;
-use ZMQContext;
 use function Sentry\captureMessage;
 
 class DataFeedService
 {
     use ModelAwareTrait;
+    use ZMQContextTrait;
 
     /**
      * @var string
@@ -131,18 +131,12 @@ class DataFeedService
                 $savedFeed = $this->Feeds->save($feedEntity);
                 $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
 
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
+                $this->pushMessage('refresh');
             } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
                 // Delete an outdated feed
                 $this->Feeds->delete($lastFeed);
 
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
+                $this->pushMessage('refresh');
             }
 
             // Nobody is online any more, reset airports state and delete all logs
@@ -150,10 +144,7 @@ class DataFeedService
                 (new AirportsService())->resetState();
                 (new LogsService())->deleteAllLogs();
 
-                $context = new ZMQContext();
-                $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-                $socket->connect('tcp://localhost:5555');
-                $socket->send(json_encode(['type' => 'refresh']));
+                $this->pushMessage('refresh');
             }
         }
     }
