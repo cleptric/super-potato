@@ -26,7 +26,8 @@ class RunwayClosedService
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();
 
-        if (($key = array_search($runways, $data)) !== false) {
+        $key = array_search($runways, $data);
+        if ($key !== false) {
             unset($data[$key]);
             $data = array_values($data);
 
