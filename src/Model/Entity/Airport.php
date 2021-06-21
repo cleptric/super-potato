@@ -20,38 +20,38 @@ use Cake\ORM\Entity;
  */
 class Airport extends Entity
 {
-    const LOWW_ICAO = 'LOWW';
-    const LOWW_ATIS_CALLSIGN = 'LOWW_ATIS';
-    const LOWW_AIPORT_NAME = 'Wien-Schwechat (LOWW)';
+    public const LOWW_ICAO = 'LOWW';
+    public const LOWW_ATIS_CALLSIGN = 'LOWW_ATIS';
+    public const LOWW_AIPORT_NAME = 'Wien-Schwechat (LOWW)';
 
-    const LOWI_ICAO = 'LOWI';
-    const LOWI_ATIS_CALLSIGN = 'LOWI_ATIS';
-    const LOWI_AIPORT_NAME = 'Innsbruck (LOWI)';
+    public const LOWI_ICAO = 'LOWI';
+    public const LOWI_ATIS_CALLSIGN = 'LOWI_ATIS';
+    public const LOWI_AIPORT_NAME = 'Innsbruck (LOWI)';
 
-    const LOWS_ICAO = 'LOWS';
-    const LOWS_ATIS_CALLSIGN = 'LOWS_ATIS';
-    const LOWS_AIPORT_NAME = 'Salzburg (LOWS)';
+    public const LOWS_ICAO = 'LOWS';
+    public const LOWS_ATIS_CALLSIGN = 'LOWS_ATIS';
+    public const LOWS_AIPORT_NAME = 'Salzburg (LOWS)';
 
-    const LOWG_ICAO = 'LOWG';
-    const LOWG_ATIS_CALLSIGN = 'LOWG_ATIS';
-    const LOWG_AIPORT_NAME = 'Graz (LOWG)';
+    public const LOWG_ICAO = 'LOWG';
+    public const LOWG_ATIS_CALLSIGN = 'LOWG_ATIS';
+    public const LOWG_AIPORT_NAME = 'Graz (LOWG)';
 
-    const LOWK_ICAO = 'LOWK';
-    const LOWK_ATIS_CALLSIGN = 'LOWK_ATIS';
-    const LOWK_AIPORT_NAME = 'Klagenfurt (LOWK)';
+    public const LOWK_ICAO = 'LOWK';
+    public const LOWK_ATIS_CALLSIGN = 'LOWK_ATIS';
+    public const LOWK_AIPORT_NAME = 'Klagenfurt (LOWK)';
 
-    const LOWL_ICAO = 'LOWL';
-    const LOWL_ATIS_CALLSIGN = 'LOWL_ATIS';
-    const LOWL_AIPORT_NAME = 'Linz (LOWL)';
+    public const LOWL_ICAO = 'LOWL';
+    public const LOWL_ATIS_CALLSIGN = 'LOWL_ATIS';
+    public const LOWL_AIPORT_NAME = 'Linz (LOWL)';
 
-    const LOXZ_ICAO = 'LOXZ';
-    const LOXZ_ATIS_CALLSIGN = 'LOXZ_ATIS';
-    const LOXZ_AIPORT_NAME = 'Zeltweg (LOXZ)';
+    public const LOXZ_ICAO = 'LOXZ';
+    public const LOXZ_ATIS_CALLSIGN = 'LOXZ_ATIS';
+    public const LOXZ_AIPORT_NAME = 'Zeltweg (LOXZ)';
 
-    const MISSED_APPROACH_TIMEOUT = '+10 seconds';
-    const MISSED_APPROACH_RESET = '5 minutes ago';
+    public const MISSED_APPROACH_TIMEOUT = '+10 seconds';
+    public const MISSED_APPROACH_RESET = '5 minutes ago';
 
-    const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
+    public const RUNWAY_CLOSED_TIMEOUT = '+30 seconds';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

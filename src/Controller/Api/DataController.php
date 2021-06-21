@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
+use App\Service\Data\MainDataService;
+use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
 use App\Service\VisualDepatureService;
-use App\Service\Data\MainDataService;
-use App\Service\Data\SettingsDataService;
 use Cake\Controller\Controller;
 
 class DataController extends Controller
 {
-
     public function initialize(): void
     {
         parent::initialize();

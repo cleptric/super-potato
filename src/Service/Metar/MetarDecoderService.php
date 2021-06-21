@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace App\Service\Metar;
 
 use Cake\Datasource\ModelAwareTrait;
-use Exception;
 use MetarDecoder\Entity\DecodedMetar;
 use MetarDecoder\MetarDecoder;
 
 class MetarDecoderService
 {
-
     use ModelAwareTrait;
 
     /**
@@ -19,7 +17,7 @@ class MetarDecoderService
     protected ?string $_metar = null;
 
     /**
-     * @var MetarDecoder
+     * @var \MetarDecoder\MetarDecoder
      */
     protected ?DecodedMetar $_decoder = null;
 
@@ -54,7 +52,7 @@ class MetarDecoderService
             'wind_shear_all_runways' => !empty($this->_decoder->getWindshearAllRunways()) ? $this->_decoder->getWindshearAllRunways() : null,
             'raw_metar' => !empty($this->_decoder->getRawMetar()) ? $this->_decoder->getRawMetar() : null,
             'condition' => $this->_getCondition(),
-        ];  
+        ];
     }
 
     public function setMetar(?string $metar): void
@@ -67,11 +65,12 @@ class MetarDecoderService
         $clouds = $this->_decoder->getClouds();
         $cloudLayer = [];
         if (isset($clouds[0])) {
-            if ($clouds[0]->getAmount() === 'OVC' || $clouds[0]->getAmount() === 'BKN')
-            $cloudLayer = [
+            if ($clouds[0]->getAmount() === 'OVC' || $clouds[0]->getAmount() === 'BKN') {
+                $cloudLayer = [
                 'type' => $clouds[0]->getAmount(),
                 'base' => $clouds[0]->getBaseHeight()->getValue(),
-            ];
+                ];
+            }
         }
 
         $visiblityObj = $this->_decoder->getVisibility();
