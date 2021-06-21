@@ -19,6 +19,7 @@ use RuntimeException;
  * @property bool $admin
  * @property bool $onboarded
  * @property array|null $settings
+ * @property array|null $notifications
  * @property \Cake\I18n\FrozenTime|null $modified
  * @property \Cake\I18n\FrozenTime|null $created
  */
@@ -63,6 +64,22 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         }
 
         return $settings;
+    }
+
+    protected function _getNotifications($notifications)
+    {
+        if (empty($notifications)) {
+            return [
+                'loww' => true,
+                'lowi' => true,
+                'lows' => true,
+                'lowg' => true,
+                'lowk' => true,
+                'lowl' => true,
+            ];
+        }
+
+        return $notifications;
     }
 
     /**

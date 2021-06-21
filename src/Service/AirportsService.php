@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
-use ZMQ;
-use ZMQContext;
 
 class AirportsService
 {
     use ModelAwareTrait;
+    use ZMQContextTrait;
 
     public function __construct()
     {
@@ -38,10 +38,7 @@ class AirportsService
             $this->Airports->save($airport);
         }
 
-        $context = new ZMQContext();
-        $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect('tcp://localhost:5555');
-        $socket->send(json_encode(['type' => 'refresh']));
+        $this->pushMessage('refresh');
     }
 
     public function resetMissedApporach(): void
@@ -65,10 +62,7 @@ class AirportsService
         }
 
         if (!empty($airports)) {
-            $context = new ZMQContext();
-            $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-            $socket->connect('tcp://localhost:5555');
-            $socket->send(json_encode(['type' => 'refresh']));
+            $this->pushMessage('refresh');
         }
     }
 }

@@ -42,6 +42,7 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->getSchema()->setColumnType('settings', 'json');
+        $this->getSchema()->setColumnType('notifications', 'json');
 
         $this->addBehavior('Timestamp');
     }
@@ -74,6 +75,9 @@ class UsersTable extends Table
 
         $validator
             ->allowEmptyString('settings');
+
+        $validator
+            ->allowEmptyString('notifications');
 
         return $validator;
     }
