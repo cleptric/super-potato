@@ -64,12 +64,18 @@ class MetarDecoderService
     {
         $clouds = $this->_decoder->getClouds();
         $cloudLayer = [];
-        if (isset($clouds[0])) {
-            if ($clouds[0]->getAmount() === 'OVC' || $clouds[0]->getAmount() === 'BKN') {
-                $cloudLayer = [
-                'type' => $clouds[0]->getAmount(),
-                'base' => $clouds[0]->getBaseHeight()->getValue(),
-                ];
+        if (!empty($clouds)) {
+            foreach ($clouds as $cloud) {
+                // Ignore higher OVC/BKN layers
+                if (isset($cloudLayer['base']) && $cloudLayer['base'] < $cloud->getBaseHeight()->getValue()) {
+                    continue;
+                }
+                if ($cloud->getAmount() === 'OVC' || $cloud->getAmount() === 'BKN') {
+                    $cloudLayer = [
+                        'type' => $cloud->getAmount(),
+                        'base' => $cloud->getBaseHeight()->getValue(),
+                    ];
+                }
             }
         }
 
@@ -83,6 +89,10 @@ class MetarDecoderService
         $runwayRvr = [];
         if (!empty($rvr)) {
             foreach ($rvr as $rwy) {
+                // Ignore higher RVR
+                if (isset($runwayRvr['rvr']) && $runwayRvr['rvr'] < $rwy->getVisualRange()->getValue()) {
+                    continue;
+                }
                 if ($rwy->getVisualRange()->getValue() < 600) {
                     $runwayRvr = [
                         'runway' => $rwy->getRunway(),
@@ -99,7 +109,7 @@ class MetarDecoderService
             // Celing below 200ft
             !empty($cloudLayer) && $cloudLayer['base'] < 200
         ) {
-            return 'LVP 3';
+            return 'LVP CAT III';
         }
 
         // LVP 2
@@ -109,15 +119,17 @@ class MetarDecoderService
             // Celing below 200ft
             !empty($cloudLayer) && $cloudLayer['base'] < 200
         ) {
-            return 'LVP 2';
+            return 'LVP CAT II';
         }
 
         // LVP 1
         if (
-            // Celing below 200ft
-            !empty($cloudLayer) && $cloudLayer['base'] < 200
+            // Celing below 450ft OR
+            !empty($cloudLayer) && $cloudLayer['base'] < 450 ||
+            // Visibility below 5000m
+            !empty($visiblity) && $visiblity < 5000
         ) {
-            return 'LVP 1';
+            return 'LVP CAT I';
         }
 
         return 'VMC';
