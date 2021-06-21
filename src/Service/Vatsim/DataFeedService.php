@@ -7,6 +7,7 @@ use App\Model\Entity\Airport;
 use App\Model\Entity\User;
 use App\Service\AirportsService;
 use App\Service\LogsService;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;

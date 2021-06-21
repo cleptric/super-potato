@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Vatsim;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Throwable;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service\CheckWx;
 
 use App\Model\Entity\Airport;
+use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
