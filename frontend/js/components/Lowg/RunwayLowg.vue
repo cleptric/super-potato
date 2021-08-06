@@ -77,7 +77,7 @@
 
                         <div
                             v-if="!lowg.metar.is_variable"
-                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ lowg.wind_components['34C'] }}
@@ -139,7 +139,7 @@
 
                         <div
                             v-if="!lowg.metar.is_variable"
-                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ lowg.wind_components['16C'] }}
