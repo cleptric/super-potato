@@ -15,6 +15,7 @@ export const store = createStore({
                 lowg: null,
                 lowk: null,
                 lowl: null,
+                eddm: null,
             },
             settings: {
                 notifications: true,
@@ -28,6 +29,7 @@ export const store = createStore({
                 lowg: true,
                 lowk: true,
                 lowl: true,
+                eddm: null,
             },
         }
     },
@@ -45,6 +47,7 @@ export const store = createStore({
         lowg: state => state.airports.lowg,
         lowk: state => state.airports.lowk,
         lowl: state => state.airports.lowl,
+        eddm: state => state.airports.eddm,
     },
     actions: {
         async loadData({ commit }) {
@@ -105,6 +108,7 @@ export const store = createStore({
             state.airports.lowg = data.lowg
             state.airports.lowk = data.lowk
             state.airports.lowl = data.lowl
+            state.airports.eddm = data.eddm
             state.user = data.user
             state.logs = data.logs
         },

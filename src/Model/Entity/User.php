@@ -33,6 +33,9 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         'LOWG',
         'LOWK',
         'LOWL',
+        'EDMM',
+        'EDUU',
+        'EDDM',
     ];
 
     /**
@@ -76,6 +79,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
                 'lowg' => true,
                 'lowk' => true,
                 'lowl' => true,
+                'eddm' => true,
             ];
         }
 

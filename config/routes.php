@@ -61,6 +61,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'index']);
     $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'index']);
 
+    $builder->connect('/eddm', ['controller' => 'Home', 'action' => 'index']);
+
     $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);
 
     $builder->fallbacks();

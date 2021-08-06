@@ -95,6 +95,14 @@
                                 <Notification :airport="lowl" />
                                 LOWL <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">7</span>
                             </router-link>
+                            <router-link
+                                to="/eddm"
+                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Eddm' }"
+                            >
+                                <Notification :airport="eddm" />
+                                EDDM <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">8</span>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -127,6 +135,7 @@ export default {
             lowg: computed(() => store.getters.lowg),
             lowk: computed(() => store.getters.lowk),
             lowl: computed(() => store.getters.lowl),
+            eddm: computed(() => store.getters.eddm),
         }
     },
     created() {
@@ -151,6 +160,9 @@ export default {
             }
             if (e.key === '7') {
                 this.$router.push('/lowl')
+            }
+            if (e.key === '8') {
+                this.$router.push('/eddm')
             }
         })
     },

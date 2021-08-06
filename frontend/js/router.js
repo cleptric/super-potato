@@ -7,6 +7,7 @@ import Lows from '@/views/Lows.vue'
 import Lowg from '@/views/Lowg.vue'
 import Lowk from '@/views/Lowk.vue'
 import Lowl from '@/views/Lowl.vue'
+import Eddm from '@/views/Eddm.vue'
 
 
 const routes = [
@@ -44,6 +45,11 @@ const routes = [
         path: '/lowl',
         name: 'Lowl',
         component: Lowl,
+    },
+    {
+        path: '/eddm',
+        name: 'Eddm',
+        component: Eddm,
     },
     {
         path: '/settings',

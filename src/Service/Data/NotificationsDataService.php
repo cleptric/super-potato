@@ -49,6 +49,7 @@ class NotificationsDataService
                 'lowg' => filter_var($data['lowg'], FILTER_VALIDATE_BOOLEAN),
                 'lowk' => filter_var($data['lowk'], FILTER_VALIDATE_BOOLEAN),
                 'lowl' => filter_var($data['lowl'], FILTER_VALIDATE_BOOLEAN),
+                'eddm' => filter_var($data['eddm'], FILTER_VALIDATE_BOOLEAN),
             ],
         ], [
             'accessibleFields' => [

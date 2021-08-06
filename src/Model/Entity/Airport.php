@@ -48,6 +48,10 @@ class Airport extends Entity
     public const LOXZ_ATIS_CALLSIGN = 'LOXZ_ATIS';
     public const LOXZ_AIPORT_NAME = 'Zeltweg (LOXZ)';
 
+    public const EDDM_ICAO = 'EDDM';
+    public const EDDM_ATIS_CALLSIGN = 'EDDM_ATIS';
+    public const EDDM_AIPORT_NAME = 'München (EDDM)';
+
     public const MISSED_APPROACH_TIMEOUT = '+10 seconds';
     public const MISSED_APPROACH_RESET = '5 minutes ago';
 

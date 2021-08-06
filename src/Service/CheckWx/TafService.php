@@ -38,6 +38,7 @@ class TafService
         Airport::LOWG_ICAO,
         Airport::LOWK_ICAO,
         Airport::LOWL_ICAO,
+        Airport::EDDM_ICAO,
     ];
 
     public function __construct()

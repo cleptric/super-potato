@@ -67,6 +67,7 @@ class MainDataService
             'lowg' => (new LowgDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
             'lowk' => (new LowkDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
             'lowl' => (new LowlDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'eddm' => (new EddmDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 
