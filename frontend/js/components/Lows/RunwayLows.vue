@@ -100,23 +100,39 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
-                    <template v-else-if="!lows.metar.is_variable && lows.metar.mean_direction">
-                        <div class="flex items-center transform rotate-40 text-center text-blue-300">
-                            <i 
-                                class="fad fa-3x fa-location-circle"
-                                :style="windArrow1533"
-                            >
-                            </i>
+                    <template v-else>
+                        <div
+                            v-if="lows.metar.rvr[15] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ lows.metar.rvr[15] }}
                         </div>
-                    </template>
-                    <template v-else-if="lows.metar.is_variable">
-                        <div class="relative flex items-center justify-center text-blue-300">
-                            <template v-if="lows.metar.mean_speed >= 4">
-                                <i class="fad fa-3x fa-exclamation-circle"></i>
-                            </template>
-                            <template v-else>
-                                <i class="fad fa-3x fa-circle"></i>
-                            </template>
+
+                        <template v-if="!lows.metar.is_variable && lows.metar.mean_direction">
+                            <div class="flex items-center transform rotate-40 text-center text-blue-300">
+                                <i 
+                                    class="fad fa-3x fa-location-circle"
+                                    :style="windArrow1533"
+                                >
+                                </i>
+                            </div>
+                        </template>
+                        <template v-else-if="lows.metar.is_variable">
+                            <div class="relative flex items-center justify-center text-blue-300">
+                                <template v-if="lows.metar.mean_speed >= 4">
+                                    <i class="fad fa-3x fa-exclamation-circle"></i>
+                                </template>
+                                <template v-else>
+                                    <i class="fad fa-3x fa-circle"></i>
+                                </template>
+                            </div>
+                        </template>
+
+                        <div
+                            v-if="lows.metar.rvr[33] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ lows.metar.rvr[33] }}
                         </div>
                     </template>
 
