@@ -28,7 +28,7 @@
                         </div>
                         <div class="ml-3">
                             <h3 class="text-sm font-medium text-red-800">
-                                Windshear on Runway {{ loww.metar.wind_shear.join(' & ') }}
+                                Windshear on Runway {{ loww.metar.wind_shear_runways.join(' & ') }}
                             </h3>
                         </div>
                     </div>
