@@ -10,11 +10,6 @@
         <div class="space-y-6 max-w-7xl mx-auto py-7 sm:px-6 lg:px-8">
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                    <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Notifications</h3>
-                        <p class="mt-1 text-sm text-gray-500">Change the notification settings</p>
-                    </div>
-
                     <div
                         v-if="message.type && message.text"
                         class="rounded-md p-4 mb-4"
@@ -58,7 +53,7 @@
                         <div class="mt-4 space-y-2">
                             <div class="flex items-center">
                                 <button 
-                                    class="inline-flex items-center mr-4 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                     @click="triggerNotification"
                                 >
                                   Trigger Notification
@@ -178,8 +173,6 @@
                             </template>
                         </div>
                     </fieldset>
-                </div>
-                <div class="bg-white px-4 py-3 sm:px-6">
                     <button 
                         class="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
                         @click="saveSettings"
@@ -191,24 +184,46 @@
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="space-y-2">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">About</h3>
-                        <div>
-                            <p class="text-sm text-gray-500">
-                                Super Potato was build with <a href="https://cakephp.org/" target="_blank" rel="noopener" class="underline">CakePHP</a>, <a href="https://vuejs.org/" target="_blank" rel="noopener" class="underline">Vue.js</a> and <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="underline">Tailwind CSS</a> and many other tools.
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT licenese.
-                            </p>
-                            <p class="text-sm text-gray-500">
-                                Special thanks to <span class="text-gray-600">Alex</span>, <span class="text-gray-600">Clemens</span>, <span class="text-gray-600">Mitch</span> &amp; <span class="text-gray-600">Nick</span> for all your help!
-                            </p>
-                            <p class="mt-2 text-sm text-gray-500">
-                                Developed and maintained by <span class="text-gray-600">Michael Hoffmann</span>.
-                            </p>
-                            <p class="mt-2 text-sm text-gray-400">
-                                &#169;Michael Hoffmann - 2021 - Munich, Germany 🏳️‍🌈
-                            </p>
-                        </div>
+                        <fieldset>
+                            <legend class="text-base font-medium text-gray-900">Onboarding</legend>
+                            <p class="text-sm text-gray-500">See the onboarding message again</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center">
+                                    <button 
+                                        class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        @click="showOnboarding"
+                                    >
+                                      Show Onboarding
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                    <div class="space-y-2">
+                        <fieldset>
+                            <legend class="text-base font-medium text-gray-900">About</legend>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-500">
+                                    Super Potato was build with <a href="https://cakephp.org/" target="_blank" rel="noopener" class="underline">CakePHP</a>, <a href="https://vuejs.org/" target="_blank" rel="noopener" class="underline">Vue.js</a> and <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="underline">Tailwind CSS</a> and many other tools.
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT licenese.
+                                </p>
+                                <p class="text-sm text-gray-500">
+                                    Special thanks to <span class="text-gray-600">Alex</span>, <span class="text-gray-600">Clemens</span>, <span class="text-gray-600">Mitch</span> &amp; <span class="text-gray-600">Nick</span> for all your help!
+                                </p>
+                                <p class="mt-2 text-sm text-gray-500">
+                                    Developed and maintained by <span class="text-gray-600">Michael Hoffmann</span>.
+                                </p>
+                                <p class="mt-2 text-sm text-gray-400">
+                                    &#169;Michael Hoffmann - 2021 - Munich, Germany 🏳️‍🌈
+                                </p>
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
@@ -262,6 +277,11 @@ export default {
                 audio.volume = this.settings.volume
                 audio.play()
             }
+        },
+        showOnboarding() {
+            this.$store.dispatch('setUser', {
+                onboarded: false,
+            })
         },
         async saveSettings() {
             try {
