@@ -24,7 +24,7 @@
         "cakephp/cakephp-codesniffer": "~4.2.0",
         "cakephp/debug_kit": "^4.4",
         "phpunit/phpunit": "~8.5.0 || ^9.3",
-        "psalm/phar": "^3.6",
+        "psalm/phar": "^4.9",
         "psy/psysh": "@stable"
     },
     "autoload": {
@@ -41,10 +41,6 @@
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "check": [
-            "@test",
-            "@cs-check"
-        ],
         "cs-check": "phpcs --colors -p  src/ tests/",
         "cs-fix": "phpcbf --colors -p src/ tests/",
         "psalm": "psalm.phar --show-info=false",

@@ -80,7 +80,7 @@
                 </div>
 
                 <div
-                    class="relative x-4 py-5 text-center text-2xl font-black"
+                    class="relative px-4 py-5 text-center text-2xl font-black"
                     :class="{ 'rounded-lg bg-blue-200': loww.closed_runways.includes('16/34') === false && (loww.atis.arrival_runway.includes('34') || loww.atis.depature_runway.includes('34')) }"
                 >
                     <div
