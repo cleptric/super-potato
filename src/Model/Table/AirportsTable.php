@@ -40,6 +40,9 @@ class AirportsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->getSchema()->setColumnType('visual_depatures', 'json');
+        $this->getSchema()->setColumnType('closed_runways', 'json');
+
         $this->addBehavior('Timestamp');
     }
 
