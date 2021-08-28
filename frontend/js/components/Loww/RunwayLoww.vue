@@ -124,6 +124,13 @@
                     </div>
                 </template>
                 <template v-else>
+                    <div
+                        v-if="loww.metar.rvr[34] !== undefined"
+                        class="transform rotate-40 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[34] }}
+                    </div>
+
                     <template v-if="!loww.metar.is_variable && loww.metar.mean_direction">
                         <div class="transform rotate-40 text-center text-blue-300">
                             <i 
@@ -149,12 +156,6 @@
                         class="transform rotate-40 text-center text-xl font-bold"
                     >
                         {{ loww.metar.rvr[16] }}
-                    </div>
-                    <div
-                        v-if="loww.metar.rvr[34] !== undefined"
-                        class="transform rotate-40 text-center text-xl font-bold"
-                    >
-                        {{ loww.metar.rvr[34] }}
                     </div>
                 </template>
 
@@ -260,6 +261,13 @@
                     </div>
                 </template>
                 <template v-else>
+                    <div
+                        v-if="loww.metar.rvr[29] !== undefined"
+                        class="transform rotate-90 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[29] }}
+                    </div>
+
                     <template v-if="!loww.metar.is_variable && loww.metar.mean_direction">
                         <div class="transform rotate-40 text-center text-blue-300">
                             <i 
@@ -285,12 +293,6 @@
                         class="transform rotate-90 text-center text-xl font-bold"
                     >
                         {{ loww.metar.rvr[11] }}
-                    </div>
-                    <div
-                        v-if="loww.metar.rvr[29] !== undefined"
-                        class="transform rotate-90 text-center text-xl font-bold"
-                    >
-                        {{ loww.metar.rvr[29] }}
                     </div>
                 </template>
 
