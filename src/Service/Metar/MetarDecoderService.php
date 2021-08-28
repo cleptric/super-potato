@@ -35,6 +35,7 @@ class MetarDecoderService
                 'wind_shear_all_runways' => null,
                 'condition' => null,
                 'raw_metar' => null,
+                'rvr' => null,
                 'condition' => null,
             ];
         }
