@@ -9,7 +9,7 @@
     "@vitejs/plugin-vue": "^1.6.0",
     "@vue/compiler-sfc": "^3.2.6",
     "autoprefixer": "^10.3.3",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "js-cookie": "^3.0.0",
     "postcss": "^8.3.6",
     "postcss-cli": "^8.3.1",
