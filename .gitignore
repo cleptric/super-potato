@@ -6,6 +6,11 @@
 /tmp/*
 /vendor/*
 
+# Assets #
+##########
+/webroot/manifest.json
+/webroot/assets/*
+
 # OS generated files #
 ######################
 .DS_Store
