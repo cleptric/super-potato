@@ -11,8 +11,6 @@ use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
-use Throwable;
-use function Sentry\captureMessage;
 
 class DataFeedService
 {
@@ -25,7 +23,7 @@ class DataFeedService
     protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
 
     /**
-     * @var string
+     * @var string/null
      */
     protected ?string $_rawFeed = null;
 
@@ -45,8 +43,6 @@ class DataFeedService
     protected Client $_client;
 
     public const FEED_MAX_AGE = '5 minutes ago';
-
-    public const MAX_RETRIES = 10;
 
     /**
      * @var array
@@ -72,16 +68,8 @@ class DataFeedService
 
     public function getFeed()
     {
-        try {
-            $this->_fetchFeed();
-            $this->_persistFeed();
-        } catch (Throwable $t) {
-            $this->_retries = $this->_retries + 1;
-            if ($this->_retries >= self::MAX_RETRIES) {
-                captureMessage('Could not fetch VATSIM data feed after 10 tries');
-                $this->_retries = 0;
-            }
-        }
+        $this->_fetchFeed();
+        $this->_persistFeed();
     }
 
     protected function _fetchFeed(): void

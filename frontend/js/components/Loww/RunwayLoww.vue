@@ -28,7 +28,7 @@
                         </div>
                         <div class="ml-3">
                             <h3 class="text-sm font-medium text-red-800">
-                                Windshear on Runway {{ loww.metar.wind_shear.join(' & ') }}
+                                Windshear on Runway {{ loww.metar.wind_shear_runways.join(' & ') }}
                             </h3>
                         </div>
                     </div>
@@ -123,23 +123,39 @@
                         <i class="far fa-2x fa-times text-red-800"></i>
                     </div>
                 </template>
-                <template v-else-if="!loww.metar.is_variable && loww.metar.mean_direction">
-                    <div class="transform rotate-40 text-center text-blue-300">
-                        <i 
-                            class="fad fa-3x fa-location-circle"
-                            :style="windArrow1634"
-                        >
-                        </i>
+                <template v-else>
+                    <div
+                        v-if="loww.metar.rvr[34] !== undefined"
+                        class="transform rotate-40 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[34] }}
                     </div>
-                </template>
-                <template v-else-if="loww.metar.is_variable">
-                    <div class="relative flex items-center justify-center text-blue-300">
-                        <template v-if="loww.metar.mean_speed >= 4">
-                            <i class="fad fa-3x fa-exclamation-circle"></i>
-                        </template>
-                        <template v-else>
-                            <i class="fad fa-3x fa-circle"></i>
-                        </template>
+
+                    <template v-if="!loww.metar.is_variable && loww.metar.mean_direction">
+                        <div class="transform rotate-40 text-center text-blue-300">
+                            <i 
+                                class="fad fa-3x fa-location-circle"
+                                :style="windArrow1634"
+                            >
+                            </i>
+                        </div>
+                    </template>
+                    <template v-else-if="loww.metar.is_variable">
+                        <div class="relative flex items-center justify-center text-blue-300">
+                            <template v-if="loww.metar.mean_speed >= 4">
+                                <i class="fad fa-3x fa-exclamation-circle"></i>
+                            </template>
+                            <template v-else>
+                                <i class="fad fa-3x fa-circle"></i>
+                            </template>
+                        </div>
+                    </template>
+
+                    <div
+                        v-if="loww.metar.rvr[16] !== undefined"
+                        class="transform rotate-40 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[16] }}
                     </div>
                 </template>
 
@@ -244,23 +260,39 @@
                         <i class="far fa-2x fa-times text-red-800"></i>
                     </div>
                 </template>
-                <template v-else-if="!loww.metar.is_variable && loww.metar.mean_direction">
-                    <div class="transform rotate-40 text-center text-blue-300">
-                        <i 
-                            class="fad fa-3x fa-location-circle"
-                            :style="windArrow1129"
-                        >
-                        </i>
+                <template v-else>
+                    <div
+                        v-if="loww.metar.rvr[29] !== undefined"
+                        class="transform rotate-90 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[29] }}
                     </div>
-                </template>
-                <template v-else-if="loww.metar.is_variable">
-                    <div class="relative flex items-center justify-center text-blue-300">
-                        <template v-if="loww.metar.mean_speed >= 4">
-                            <i class="fad fa-3x fa-exclamation-circle"></i>
-                        </template>
-                        <template v-else>
-                            <i class="fad fa-3x fa-circle"></i>
-                        </template>
+
+                    <template v-if="!loww.metar.is_variable && loww.metar.mean_direction">
+                        <div class="transform rotate-40 text-center text-blue-300">
+                            <i 
+                                class="fad fa-3x fa-location-circle"
+                                :style="windArrow1129"
+                            >
+                            </i>
+                        </div>
+                    </template>
+                    <template v-else-if="loww.metar.is_variable">
+                        <div class="relative flex items-center justify-center text-blue-300">
+                            <template v-if="loww.metar.mean_speed >= 4">
+                                <i class="fad fa-3x fa-exclamation-circle"></i>
+                            </template>
+                            <template v-else>
+                                <i class="fad fa-3x fa-circle"></i>
+                            </template>
+                        </div>
+                    </template>
+
+                    <div
+                        v-if="loww.metar.rvr[11] !== undefined"
+                        class="transform rotate-90 text-center text-xl font-bold"
+                    >
+                        {{ loww.metar.rvr[11] }}
                     </div>
                 </template>
 

@@ -7,8 +7,6 @@ use App\Model\Entity\Airport;
 use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
-use Throwable;
-use function Sentry\captureMessage;
 
 class MetarService
 {
@@ -21,21 +19,14 @@ class MetarService
     protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
 
     /**
-     * @var array
+     * @var array|null
      */
     protected ?array $_rawMetar = null;
-
-    /**
-     * @var int
-     */
-    protected int $_retries = 0;
 
     /**
      * @var \Cake\Http\Client
      */
     protected Client $_client;
-
-    public const MAX_RETRIES = 5;
 
     /**
      * @var array
@@ -59,16 +50,8 @@ class MetarService
 
     public function getMetar(): void
     {
-        try {
-            $this->_fetchMetar();
-            $this->_persistMetar();
-        } catch (Throwable $t) {
-            $this->_retries = $this->_retries + 1;
-            if ($this->_retries >= self::MAX_RETRIES) {
-                captureMessage('Could not fetch VATSIM METAR after 5 tries');
-                $this->_retries = 0;
-            }
-        }
+        $this->_fetchMetar();
+        $this->_persistMetar();
     }
 
     protected function _fetchMetar(): void

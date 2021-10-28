@@ -8,8 +8,12 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Vite->vite(); ?>
-    <?= $this->Vite->css('frontend/css/main.js'); ?>
+    <?= $this->Html->script('https://kit.fontawesome.com/c1157ccfdb.js', [
+        'crossorigin' => 'anonymous',
+    ]) ?>
+
+    <?= $this->element('assets') ?>
+    <?= $this->fetch('script') ?>
     <?= $this->fetch('css') ?>
 </head>
 <body class="bg-gray-50 h-full w-full">

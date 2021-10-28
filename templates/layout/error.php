@@ -8,7 +8,7 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Vite->css('frontend/css/main.js'); ?>
+    <?= $this->element('assets') ?>
     <?= $this->fetch('css') ?>
 </head>
 <body class="bg-gray-50 h-screen w-screen">

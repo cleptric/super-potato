@@ -43,7 +43,7 @@ Each airport view is divided into the ATIS/METAR widget, the runway widget, the 
 
 ##### ATIS/METAR Widget
 
-This widgets displays the current ATIS Letter, the transition level, the QNH, the wind (mean speed, mean direction), gusts (if present) and the current MET conditions (VMC, LVP1, LVP2 and LVP3). 
+This widgets displays the current ATIS Letter, the transition level, the QNH, the wind (mean speed, mean direction), gusts (if present) and the current MET conditions (VMC, LVP CAT I, LVP CAT II and LVP CAT III). 
 
 ##### Runway Widget
 

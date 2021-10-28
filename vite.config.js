@@ -5,20 +5,14 @@ import path from 'path';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [vue()],
-    base: '/build/',
     build: {
-        sourcemap: true,
-        minify: 'esbuild',
+        emptyOutDir: false,
+        outDir: './webroot/',
         manifest: true,
+        minify: 'esbuild',
         rollupOptions: {
-            // overwrite default .html entry
-            input: {
-                'main_js': './frontend/js/main.js',
-                'main_css': './frontend/css/main.js',
-            },
+            input: './frontend/js/main.js'
         },
-        outDir: './webroot/build/',
-        assetsDir: '',
     },
     resolve: {
         alias: {
