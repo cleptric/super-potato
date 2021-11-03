@@ -62,4 +62,10 @@ class LogsService
             $this->Logs->delete($log);
         }
     }
+
+    public function logsEmpty(): bool
+    {
+        return $this->Logs->find()
+            ->count() === 0;
+    }
 }

@@ -41,6 +41,19 @@ class AirportsService
         $this->pushMessage('refresh');
     }
 
+    public function isResetState(): bool
+    {
+        return $this->Airports->find()
+            ->where([
+                'OR' => [
+                    'visual_depatures IS NOT' => null,
+                    'closed_runways IS NOT' => null,
+                    'missed_approach' => true,
+                ],
+            ])
+            ->count() === 0;
+    }
+
     public function resetMissedApporach(): void
     {
         $airports = $this->Airports->find()
