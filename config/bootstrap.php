@@ -34,6 +34,8 @@ require CORE_PATH . 'config' . DS . 'bootstrap.php';
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Core\Configure\Engine\PhpConfig;
+use Cake\Database\TypeFactory;
+use Cake\Database\Type\StringType;
 use Cake\Datasource\ConnectionManager;
 use App\Error\ConsoleErrorHandler;
 use App\Error\ErrorHandler;
@@ -180,3 +182,38 @@ ServerRequest::addDetector('tablet', function ($request) {
 
     return $detector->isTablet();
 });
+
+/*
+ * You can enable default locale format parsing by adding calls
+ * to `useLocaleParser()`. This enables the automatic conversion of
+ * locale specific date formats. For details see
+ * @link https://book.cakephp.org/4/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
+ */
+// \Cake\Database\TypeFactory::build('time')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('date')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('datetime')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('timestamp')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('datetimefractional')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('timestampfractional')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('datetimetimezone')
+//    ->useLocaleParser();
+// \Cake\Database\TypeFactory::build('timestamptimezone')
+//    ->useLocaleParser();
+
+// There is no time-specific type in Cake
+TypeFactory::map('time', StringType::class);
+
+/*
+ * Custom Inflector rules, can be set to correctly pluralize or singularize
+ * table, model, controller names or whatever other string is passed to the
+ * inflection functions.
+ */
+//Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
+//Inflector::rules('irregular', ['red' => 'redlings']);
+//Inflector::rules('uninflected', ['dontinflectme']);
