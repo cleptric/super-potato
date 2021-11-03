@@ -72,10 +72,6 @@ class MetarService
             return;
         }
 
-        $currentMetar = $this->Metar->find()
-            ->order(['created' => 'DESC'])
-            ->first();
-
         $metarEntity = $this->Metar->newEntity([
             'data' => $this->_rawMetar,
         ]);
