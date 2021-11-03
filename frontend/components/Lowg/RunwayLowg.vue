@@ -102,10 +102,10 @@
                     </template>
                     <template v-else>
                         <div
-                            v-if="lowg.metar.rvr['34C'] !== undefined"
+                            v-if="lowg.metar.rvr['34'] !== undefined"
                             class="text-center text-xl font-bold"
                         >
-                            {{ lowg.metar.rvr['34C'] }}
+                            {{ lowg.metar.rvr['34'] }}
                         </div>
 
                         <template v-if="!lowg.metar.is_variable && lowg.metar.mean_direction">
@@ -129,10 +129,10 @@
                         </template>
 
                         <div
-                            v-if="lowg.metar.rvr['16C'] !== undefined"
+                            v-if="lowg.metar.rvr['16'] !== undefined"
                             class="text-center text-xl font-bold"
                         >
-                            {{ lowg.metar.rvr['16C'] }}
+                            {{ lowg.metar.rvr['16'] }}
                         </div>
                     </template>
 
