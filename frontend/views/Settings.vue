@@ -211,7 +211,7 @@
                                     Super Potato was build with <a href="https://cakephp.org/" target="_blank" rel="noopener" class="underline">CakePHP</a>, <a href="https://vuejs.org/" target="_blank" rel="noopener" class="underline">Vue.js</a> and <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="underline">Tailwind CSS</a> and many other tools.
                                 </p>
                                 <p class="text-sm text-gray-500">
-                                    The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT licenese.
+                                    The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT license.
                                 </p>
                                 <p class="text-sm text-gray-500">
                                     Special thanks to <span class="text-gray-600">Alex</span>, <span class="text-gray-600">Clemens</span>, <span class="text-gray-600">Mitch</span> &amp; <span class="text-gray-600">Nick</span> for all your help!
