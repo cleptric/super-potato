@@ -11,13 +11,13 @@ export default defineConfig({
         manifest: true,
         minify: 'esbuild',
         rollupOptions: {
-            input: './frontend/js/main.js'
+            input: './frontend/main.js'
         },
     },
     resolve: {
         alias: {
             '~': '/node_modules/',
-            '@': path.resolve(__dirname, './frontend/js/'),
+            '@': path.resolve(__dirname, './frontend/'),
         },
         extensions: ['.js', '.json']
     },

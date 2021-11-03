@@ -6,7 +6,7 @@ import { api } from '@/api'
 
 import App from '@/App.vue'
 
-import '../css/main.css'
+import './main.css'
 
 (async () => {
     api.init()
