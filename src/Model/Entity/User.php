@@ -55,6 +55,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     protected function _setPassword(string $password)
     {
         $hasher = new DefaultPasswordHasher();
+
         return $hasher->hash($password);
     }
 

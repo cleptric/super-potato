@@ -14,7 +14,7 @@
 
     <?= $this->element('assets') ?>
 
-    <?php if (isset($jsData)): ?>
+    <?php if (isset($jsData)) : ?>
         <script>
             window.jsData = <?= json_encode($jsData) ?>
         </script>

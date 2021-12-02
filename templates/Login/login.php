@@ -21,7 +21,7 @@
                 <?= $this->Flash->render() ?>
 
                 <?= $this->Form->create(null, [
-                    'class' => 'space-y-6'
+                    'class' => 'space-y-6',
                 ]) ?>
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700">
@@ -30,7 +30,7 @@
                         <?= $this->Form->control('username', [
                             'label' => false,
                             'placeholder' => 'jane12',
-                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
                     </div>
 
@@ -41,13 +41,13 @@
                         <?= $this->Form->control('password', [
                             'label' => false,
                             'placeholder' => '········',
-                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
                     </div>
 
                     <div>
                         <?= $this->Form->submit('Login', [
-                            'class' => 'w-full flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                            'class' => 'w-full flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
                     </div>
                 <?= $this->Form->end() ?>
@@ -65,7 +65,7 @@
                 <div>
                     <?= $this->Html->link('Sign up', [
                         'action' => 'signup',
-                    ] , [
+                    ], [
                         'class' => 'w-full flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                     ]) ?>
                 </div>
