@@ -4,7 +4,7 @@
             <h1 class="flex items-center text-3xl font-extrabold text-gray-900">
                 Super <img class="h-7 w-7 ml-2" src="/img/potato.png">
             </h1>
-        <a href="/">
+        </a>
     </div>
     <div class="px-4 sm:px-8">
         <div class="mx-auto max-w-md">
@@ -30,6 +30,7 @@
                         <?= $this->Form->control('username', [
                             'label' => false,
                             'placeholder' => 'jane12',
+                            'autocomplete' => 'username',
                             'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                             'autofocus' => true,
                         ]) ?>
@@ -42,6 +43,7 @@
                         <?= $this->Form->control('password', [
                             'label' => false,
                             'placeholder' => '········',
+                            'autocomplete' => 'current-password',
                             'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
                     </div>
