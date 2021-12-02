@@ -51,6 +51,3 @@ nbproject/*
 # yarn
 yarn-error.log
 
-# Super Potato specific files #
-###############################
-yarn-error.log
