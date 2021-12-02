@@ -12,7 +12,7 @@ trait ZMQContextTrait
     {
         $context = new ZMQContext();
         $socket = $context->getSocket(ZMQ::SOCKET_PUSH);
-        $socket->connect('tcp://localhost:5555');
+        $socket->connect(env('ZMQ_SERVER'));
 
         $data['type'] = $type;
         if (!empty($icao)) {
