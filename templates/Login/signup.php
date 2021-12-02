@@ -68,7 +68,7 @@
                             'label' => false,
                             'placeholder' => '········',
                             'autocomplete' => 'new-password',
-                            'passwordrules' => 'minlength: 8; maxlength: 255;'
+                            'passwordrules' => 'minlength: 8; maxlength: 255;',
                             'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
                     </div>
