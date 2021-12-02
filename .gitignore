@@ -53,4 +53,4 @@ yarn-error.log
 
 # Super Potato specific files #
 ###############################
-/config/config.php
+yarn-error.log
