@@ -20,10 +20,15 @@ class EddmDecoderService extends AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_depatureRunwayPattern = '/(?<=DEPARTURE RUNWAY )(\d\d AND \d\d|\d\d)(?= )/s';
+    protected string $_depatureRunwayPattern = '/(?<=RUNWAYS IN USE )(\d\d\w AND \d\d\w)/s';
 
     /**
      * @var string
      */
-    protected string $_arrivalRunwayPattern = '/(?<=ARRIVAL RUNWAY )(\d\d)(?= )|(?<=LANDING RUNWAY )(\d\d AND \d\d)(?= )/s';
+    protected string $_arrivalRunwayPattern = '/(?<=RUNWAYS IN USE )(\d\d\w AND \d\d\w)/s';
+
+    /**
+     * @var string
+     */
+    protected string $_transitionLevelPattern = '/(?<=TRL )(\d\d)(?= )/s';
 }

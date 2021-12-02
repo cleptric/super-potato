@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Authentication\IdentityInterface as AuthenticationIdentity;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\IdentityInterface as AuthorizationIdentity;
 use Authorization\Policy\ResultInterface;
@@ -16,6 +17,8 @@ use RuntimeException;
  * @property string $id
  * @property string $vatsim_id
  * @property string $full_name
+ * @property string $username
+ * @property string $password
  * @property bool $admin
  * @property bool $onboarded
  * @property array|null $settings
@@ -26,13 +29,6 @@ use RuntimeException;
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
     public const CONTROLER_PREFIX = [
-        'LOVV',
-        'LOWW',
-        'LOWI',
-        'LOWS',
-        'LOWG',
-        'LOWK',
-        'LOWL',
         'EDMM',
         'EDUU',
         'EDDM',
@@ -56,6 +52,12 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      */
     protected $authorization = null;
 
+    protected function _setPassword(string $password)
+    {
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->hash($password);
+    }
+
     protected function _getSettings($settings)
     {
         if (empty($settings)) {
@@ -73,12 +75,6 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     {
         if (empty($notifications)) {
             return [
-                'loww' => true,
-                'lowi' => true,
-                'lows' => true,
-                'lowg' => true,
-                'lowk' => true,
-                'lowl' => true,
                 'eddm' => true,
             ];
         }

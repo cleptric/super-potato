@@ -32,12 +32,6 @@ class MetarService
      * @var array
      */
     protected array $_metarStations = [
-        Airport::LOWW_ICAO,
-        Airport::LOWI_ICAO,
-        Airport::LOWS_ICAO,
-        Airport::LOWG_ICAO,
-        Airport::LOWK_ICAO,
-        Airport::LOWL_ICAO,
         Airport::EDDM_ICAO,
     ];
 
@@ -72,10 +66,6 @@ class MetarService
         if (empty($this->_rawMetar)) {
             return;
         }
-
-        $currentMetar = $this->Metar->find()
-            ->order(['created' => 'DESC'])
-            ->first();
 
         $metarEntity = $this->Metar->newEntity([
             'data' => $this->_rawMetar,

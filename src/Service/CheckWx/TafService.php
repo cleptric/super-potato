@@ -32,12 +32,6 @@ class TafService
      * @var array
      */
     protected array $_tafStations = [
-        Airport::LOWW_ICAO,
-        Airport::LOWI_ICAO,
-        Airport::LOWS_ICAO,
-        Airport::LOWG_ICAO,
-        Airport::LOWK_ICAO,
-        Airport::LOWL_ICAO,
         Airport::EDDM_ICAO,
     ];
 

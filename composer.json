@@ -8,8 +8,8 @@
         "php": ">=7.4",
         "cakephp/authentication": "^2.0",
         "cakephp/authorization": "^2.0",
-        "cakephp/cakephp": "^4.2.0",
-        "cakephp/migrations": "^3.0",
+        "cakephp/cakephp": "^4.3",
+        "cakephp/migrations": "^3.2",
         "cakephp/plugin-installer": "^1.3",
         "cboden/ratchet": "^0.4.3",
         "josegonzalez/dotenv": "^3.2",
@@ -20,12 +20,11 @@
         "sentry/sdk": "^3.1"
     },
     "require-dev": {
-        "cakephp/bake": "^2.3",
-        "cakephp/cakephp-codesniffer": "~4.2.0",
-        "cakephp/debug_kit": "^4.4",
+        "cakephp/bake": "^2.6",
+        "cakephp/cakephp-codesniffer": "^4.5",
+        "cakephp/debug_kit": "^4.5",
         "phpunit/phpunit": "~8.5.0 || ^9.3",
-        "psalm/phar": "^4.9",
-        "psy/psysh": "@stable"
+        "psalm/phar": "^4.9"
     },
     "autoload": {
         "psr-4": {
@@ -41,8 +40,8 @@
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "cs-check": "phpcs --colors -p  src/ tests/",
-        "cs-fix": "phpcbf --colors -p src/ tests/",
+        "cs-check": "phpcs --colors -p  src/ templates/ tests/",
+        "cs-fix": "phpcbf --colors -p src/ templates/ tests/",
         "psalm": "psalm.phar --show-info=false",
         "test": "phpunit --colors=always"
     },

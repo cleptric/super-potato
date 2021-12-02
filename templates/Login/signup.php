@@ -1,66 +1,102 @@
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="text-center text-3xl font-extrabold text-gray-900">
-            Create your 🥔 account
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a href="/login" class="font-medium text-blue-600 hover:text-blue-500">
-                sign in
-            </a>
-        </p>
+<div class="relative h-full max-w-screen-xl mx-auto flex items-center justify-center">
+    <div class="absolute top-4 left-4 sm:top-8 sm:left-8">
+        <a href="/">
+            <h1 class="flex items-center text-3xl font-extrabold text-gray-900">
+                Super <img class="h-7 w-7 ml-2" src="/img/potato.png">
+            </h1>
+        </a>
     </div>
+    <div class="px-4 sm:px-8">
+        <div class="mx-auto max-w-md">
+            <div class="bg-white py-8 px-4 shadow rounded-lg sm:px-10">
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <?= $this->Flash->render() ?>
-            <?= $this->Flash->render() ?>
+                <h2 class="flex items-center text-2xl font-bold text-gray-900">
+                    Sign up
+                </h2>
 
-            <?= $this->Form->create($user, [
-                'novalidate' => true,
-                'class' => 'space-y-6'
-            ]); ?>
-
-                <div>
-                    <?= $this->Form->label('username', null, [
-                        'class' => 'block text-sm font-medium text-gray-700'
-                    ]); ?>
-                    <?= $this->Form->control('username', [
-                        'autocomplete' => 'email',
-                        'label' => false,
-                        'autofocus',
-                        'class' => 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-                    ]); ?>
+                <div class="leading-tight my-4 text-gray-500">
+                    You have to be a member of the RG München to use this service.
                 </div>
 
-                <div>
-                    <?= $this->Form->label('password', null, [
-                        'class' => 'block text-sm font-medium text-gray-700'
-                    ]); ?>
-                    <?= $this->Form->control('password', [
-                        'label' => false,
-                        'class' => 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-                    ]); ?>
+                <?= $this->Flash->render() ?>
+
+                <?= $this->Form->create($user, [
+                    'class' => 'space-y-6',
+                    'novalidate',
+                ]) ?>
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700">
+                            Username
+                        </label>
+                        <?= $this->Form->control('username', [
+                            'label' => false,
+                            'placeholder' => 'jane12',
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                        ]) ?>
+                    </div>
+
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700">
+                            Full Name
+                        </label>
+                        <?= $this->Form->control('full_name', [
+                            'label' => false,
+                            'placeholder' => 'Jane Doe',
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                        ]) ?>
+                    </div>
+
+                    <div>
+                        <label for="vatsim_id" class="block text-sm font-medium text-gray-700">
+                            Vatsim ID
+                        </label>
+                        <?= $this->Form->control('vatsim_id', [
+                            'type' => 'text',
+                            'label' => false,
+                            'placeholder' => '1234567',
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                        ]) ?>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">
+                            Password
+                        </label>
+                        <?= $this->Form->control('password', [
+                            'label' => false,
+                            'placeholder' => '········',
+                            'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                        ]) ?>
+                    </div>
+
+                    <div>
+                        <?= $this->Form->submit('Sign up', [
+                            'class' => 'w-full flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                        ]) ?>
+                    </div>
+                <?= $this->Form->end() ?>
+
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-400">
+                            or
+                        </span>
+                    </div>
                 </div>
-
                 <div>
-                    <?= $this->Form->label('Sign up code', null, [
-                        'class' => 'block text-sm font-medium text-gray-700'
-                    ]); ?>
-                    <?= $this->Form->control('sign-up-code', [
-                        'label' => false,
-                        'class' => 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-                    ]); ?>
+                    <?= $this->Html->link('Log in', [
+                        'action' => 'login',
+                    ] , [
+                        'class' => 'w-full flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
+                    ]) ?>
                 </div>
-
-                <div>
-                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        Sign up
-                    </button>
-                </div>
-
-            <?= $this->Form->end(); ?>
-
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <?= $this->Html->link('Imprint', ['action' => 'imprint'], ['class' => 'underline text-sm text-gray-400']) ?>
         </div>
     </div>
 </div>

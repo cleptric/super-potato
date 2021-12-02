@@ -28,7 +28,7 @@
                         </div>
                         <div class="ml-3">
                             <h3 class="text-sm font-medium text-red-800">
-                                Windshear on Runway {{ eddm.metar.wind_shear.join(' & ') }}
+                                Windshear on Runway {{ eddm.metar.wind_shear_runways.join(' & ') }}
                             </h3>
                         </div>
                     </div>
@@ -58,20 +58,18 @@
                     :class="{ 'bg-red-200 border-red-300': eddm.closed_runways.includes('08L/26R') }"
                 >
                     <div
-                        class="relative px-4 py-5 text-center text-2xl font-black"
-                        :class="{ 'rounded-lg bg-blue-200': eddm.closed_runways.includes('08L/26R') === false && (eddm.atis.arrival_runway.includes('08L') || eddm.atis.depature_runway.includes('26R')) }"
+                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
+                        :class="{ 'rounded-lg bg-blue-200': eddm.closed_runways.includes('08L/26R') === false && (eddm.atis.arrival_runway.includes('08L') || eddm.atis.depature_runway.includes('08L')) }"
                     >
                         <div
                             v-if="eddm.atis.arrival_runway.includes('08L') && eddm.closed_runways.includes('08L/26R') === false"
-                            class="absolute h-6 w-6"
-                            style="top: -40px; right: 50%; transform: translateX(50%) rotate(180deg);"
+                            class="absolute left-[-40px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
                             v-if="eddm.atis.depature_runway.includes('08L') && eddm.closed_runways.includes('08L/26R') === false"
-                            class="absolute h-6 w-6"
-                            style="bottom: -40px; right: 50%; transform: translateX(50%) rotate(180deg);"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
@@ -101,41 +99,55 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
-                    <template v-else-if="!eddm.metar.is_variable && eddm.metar.mean_direction">
-                        <div class="transform rotate-40 text-center text-blue-300">
-                            <i 
-                                class="fad fa-3x fa-location-circle"
-                                :style="windArrow08L26R"
-                            >
-                            </i>
+                    <template v-else>
+                        <div
+                            v-if="eddm.metar.rvr['08L'] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ eddm.metar.rvr['08L'] }}
                         </div>
-                    </template>
-                    <template v-else-if="eddm.metar.is_variable">
-                        <div class="relative flex items-center justify-center text-blue-300">
-                            <template v-if="eddm.metar.mean_speed >= 4">
-                                <i class="fad fa-3x fa-exclamation-circle"></i>
-                            </template>
-                            <template v-else>
-                                <i class="fad fa-3x fa-circle"></i>
-                            </template>
+
+                        <template v-if="!eddm.metar.is_variable && eddm.metar.mean_direction">
+                            <div class="transform rotate-40 text-center text-blue-300">
+                                <i 
+                                    class="fad fa-3x fa-location-circle"
+                                    :style="windArrow08L26R"
+                                >
+                                </i>
+                            </div>
+                        </template>
+                        <template v-else-if="eddm.metar.is_variable">
+                            <div class="relative flex items-center justify-center text-blue-300">
+                                <template v-if="eddm.metar.mean_speed >= 4">
+                                    <i class="fad fa-3x fa-exclamation-circle"></i>
+                                </template>
+                                <template v-else>
+                                    <i class="fad fa-3x fa-circle"></i>
+                                </template>
+                            </div>
+                        </template>
+
+                        <div
+                            v-if="eddm.metar.rvr['26R'] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ eddm.metar.rvr['26R'] }}
                         </div>
                     </template>
 
                     <div
-                        class="relative px-4 py-5 text-center text-2xl font-black"
+                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
                         :class="{ 'rounded-lg bg-blue-200': eddm.closed_runways.includes('08L/26R') === false && (eddm.atis.arrival_runway.includes('26R') || eddm.atis.depature_runway.includes('26R')) }"
                     >
                         <div
                             v-if="eddm.atis.arrival_runway.includes('26R') && eddm.closed_runways.includes('08L/26R') === false"
-                            class="absolute h-6 w-6"
-                            style="bottom: -40px; right: 50%; transform: translateX(50%);"
+                            class="absolute right-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
                             v-if="eddm.atis.depature_runway.includes('26R') && eddm.closed_runways.includes('08L/26R') === false"
-                            class="absolute h-6 w-6"
-                            style="top: -40px; right: 50%; transform: translateX(50%);"
+                            class="absolute left-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
@@ -157,20 +169,18 @@
                 >
 
                     <div
-                        class="relative px-4 py-5 text-center text-2xl font-black"
+                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
                         :class="{ 'rounded-lg bg-blue-200': eddm.closed_runways.includes('08R/26L') === false && (eddm.atis.arrival_runway.includes('08R') || eddm.atis.depature_runway.includes('08R')) }"
                     >
                         <div
                             v-if="eddm.atis.arrival_runway.includes('08R') && eddm.closed_runways.includes('08R/26L') === false"
-                            class="absolute h-6 w-6"
-                            style="top: -40px; right: 50%; transform: translateX(50%) rotate(180deg);"
+                            class="absolute left-[-40px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
                             v-if="eddm.atis.depature_runway.includes('08R') && eddm.closed_runways.includes('08R/26L') === false"
-                            class="absolute h-6 w-6"
-                            style="bottom: -40px; right: 50%; transform: translateX(50%) rotate(180deg);"
+                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
@@ -200,41 +210,56 @@
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
                     </template>
-                    <template v-else-if="!eddm.metar.is_variable && eddm.metar.mean_direction">
-                        <div class="transform rotate-40 text-center text-blue-300">
-                            <i 
-                                class="fad fa-3x fa-location-circle"
-                                :style="windArrow08R26L"
-                            >
-                            </i>
+                    <template v-else>
+                        <div
+                            v-if="eddm.metar.rvr['08R'] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ eddm.metar.rvr['08R'] }}
                         </div>
-                    </template>
-                    <template v-else-if="eddm.metar.is_variable">
-                        <div class="relative flex items-center justify-center text-blue-300">
-                            <template v-if="eddm.metar.mean_speed >= 4">
-                                <i class="fad fa-3x fa-exclamation-circle"></i>
-                            </template>
-                            <template v-else>
-                                <i class="fad fa-3x fa-circle"></i>
-                            </template>
+
+                        <template v-if="!eddm.metar.is_variable && eddm.metar.mean_direction">
+                            <div class="transform rotate-40 text-center text-blue-300">
+                                <i 
+                                    class="fad fa-3x fa-location-circle"
+                                    :style="windArrow08R26L"
+                                >
+                                </i>
+                            </div>
+                        </template>
+                        <template v-else-if="eddm.metar.is_variable">
+                            <div class="relative flex items-center justify-center text-blue-300">
+                                <template v-if="eddm.metar.mean_speed >= 4">
+                                    <i class="fad fa-3x fa-exclamation-circle"></i>
+                                </template>
+                                <template v-else>
+                                    <i class="fad fa-3x fa-circle"></i>
+                                </template>
+                            </div>
+                        </template>
+
+                        <div
+                            v-if="eddm.metar.rvr['26L'] !== undefined"
+                            class="text-center text-xl font-bold"
+                        >
+                            {{ eddm.metar.rvr['26L'] }}
                         </div>
                     </template>
 
                     <div
-                        class="relative px-4 py-5 text-center text-2xl font-black"
+                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
                         :class="{ 'rounded-lg bg-blue-200': eddm.closed_runways.includes('08R/26L') === false && (eddm.atis.arrival_runway.includes('26L') || eddm.atis.depature_runway.includes('26L')) }"
                     >
+
                         <div
                             v-if="eddm.atis.arrival_runway.includes('26L') && eddm.closed_runways.includes('08R/26L') === false"
-                            class="absolute h-6 w-6"
-                            style="bottom: -40px; right: 50%; transform: translateX(50%);"
+                            class="absolute right-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-to-top"></i>
                         </div>
                         <div
                             v-if="eddm.atis.depature_runway.includes('26L') && eddm.closed_runways.includes('08R/26L') === false"
-                            class="absolute h-6 w-6"
-                            style="top: -40px; right: 50%; transform: translateX(50%)"
+                            class="absolute left-[-40px] h-6 w-6 transform -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>

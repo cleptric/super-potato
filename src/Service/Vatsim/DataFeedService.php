@@ -42,19 +42,22 @@ class DataFeedService
      */
     protected Client $_client;
 
+    /**
+     * @var \App\Service\AirportsService
+     */
+    protected AirportsService $_airportService;
+
+    /**
+     * @var \App\Service\LogsService
+     */
+    protected LogsService $_logsService;
+
     public const FEED_MAX_AGE = '5 minutes ago';
 
     /**
      * @var array
      */
     protected array $_atisStations = [
-        Airport::LOWW_ATIS_CALLSIGN,
-        Airport::LOWI_ATIS_CALLSIGN,
-        Airport::LOWS_ATIS_CALLSIGN,
-        Airport::LOWG_ATIS_CALLSIGN,
-        Airport::LOWK_ATIS_CALLSIGN,
-        Airport::LOWL_ATIS_CALLSIGN,
-        Airport::LOXZ_ATIS_CALLSIGN,
         Airport::EDDM_ATIS_CALLSIGN,
     ];
 
@@ -64,6 +67,8 @@ class DataFeedService
         $this->loadModel('Airports');
 
         $this->_client = new Client();
+        $this->_airportService = new AirportsService();
+        $this->_logsService = new LogsService();
     }
 
     public function getFeed()
@@ -130,10 +135,14 @@ class DataFeedService
 
             // Nobody is online any more, reset airports state and delete all logs
             if (empty($data['controllers'])) {
-                (new AirportsService())->resetState();
-                (new LogsService())->deleteAllLogs();
-
-                $this->pushMessage('refresh');
+                if ($this->_airportService->isResetState() === false) {
+                    $this->_airportService->resetState();
+                    $this->pushMessage('refresh');
+                }
+                if ($this->_logsService->logsEmpty() === false) {
+                    $this->_logsService->deleteAllLogs();
+                    $this->pushMessage('refresh');
+                }
             }
         }
     }

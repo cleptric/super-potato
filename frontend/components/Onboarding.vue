@@ -125,7 +125,7 @@
                                                 </div>
                                                 <h3 class="mt-8 text-lg font-medium text-gray-900 tracking-tight">Live Data Updates</h3>
                                                 <p class="mt-5 text-base text-gray-500">
-                                                    You'll get any new data pushed automatically to your client. No need to refresh your browser.
+                                                    You'll get any new data pushed automatically to your client. No need to refresh the page.
                                                 </p>
                                             </div>
                                         </div>
