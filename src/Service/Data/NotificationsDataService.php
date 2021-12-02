@@ -43,12 +43,7 @@ class NotificationsDataService
         $user = $this->Users->get($this->_user->id);
         $user = $this->Users->patchEntity($user, [
             'notifications' => [
-                'loww' => filter_var($data['loww'], FILTER_VALIDATE_BOOLEAN),
-                'lowi' => filter_var($data['lowi'], FILTER_VALIDATE_BOOLEAN),
-                'lows' => filter_var($data['lows'], FILTER_VALIDATE_BOOLEAN),
-                'lowg' => filter_var($data['lowg'], FILTER_VALIDATE_BOOLEAN),
-                'lowk' => filter_var($data['lowk'], FILTER_VALIDATE_BOOLEAN),
-                'lowl' => filter_var($data['lowl'], FILTER_VALIDATE_BOOLEAN),
+                'eddm' => filter_var($data['eddm'], FILTER_VALIDATE_BOOLEAN),
             ],
         ], [
             'accessibleFields' => [

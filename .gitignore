@@ -48,7 +48,6 @@ nbproject/*
 .sass-cache/
 # node
 /node_modules/*
-
-# Super Potato specific files #
-###############################
+# yarn
 yarn-error.log
+

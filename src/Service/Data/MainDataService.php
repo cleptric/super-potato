@@ -61,12 +61,7 @@ class MainDataService
                 'onboarded' => $this->_user->onboarded,
             ],
             'logs' => (new LogsService())->getData(),
-            'loww' => (new LowwDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowi' => (new LowiDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lows' => (new LowsDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowg' => (new LowgDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowk' => (new LowkDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowl' => (new LowlDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'eddm' => (new EddmDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 

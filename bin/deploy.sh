@@ -7,7 +7,7 @@ function git_pull() {
     # checkout schema-dump-default.lock
     git checkout config/Migrations/schema-dump-default.lock
     # pull
-    git pull super-potato:cleptric/super-potato.git
+    git pull
 }
 
 function execute_migration() {

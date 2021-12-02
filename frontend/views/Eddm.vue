@@ -2,28 +2,28 @@
     <header class="hidden bg-white shadow-sm xl:block">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <h1 class="text-lg leading-6 font-semibold text-gray-900">
-                {{ lows.atis.airport_name }}
+                {{ eddm.atis.airport_name }}
             </h1>
         </div>
     </header>
 
     <main>
         <AtisMetarRow
-            :airport="lows"
+            :airport="eddm"
         />
 
-        <RunwayLows />
+        <RunwayEddm />
 
         <Actions
-            :airport="lows"
+            :airport="eddm"
         />
 
         <RawMetar
-            :airport="lows"
+            :airport="eddm"
         />
 
         <RawTaf
-            :airport="lows"
+            :airport="eddm"
         />
     </main>
 </template>
@@ -33,16 +33,16 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import AtisMetarRow from '@/components/AtisMetarRow.vue'
-import RunwayLows from '@/components/Lows/RunwayLows.vue'
+import RunwayEddm from '@/components/Eddm/RunwayEddm.vue'
 import Actions from '@/components/Actions.vue'
 import RawMetar from '@/components/RawMetar.vue'
 import RawTaf from '@/components/RawTaf.vue'
 
 export default {
-    name: 'Lows',
+    name: 'Loww',
     components: {
         AtisMetarRow,
-        RunwayLows,
+        RunwayEddm,
         Actions,
         RawMetar,
         RawTaf,
@@ -51,7 +51,7 @@ export default {
         const store = useStore()
 
         return {
-            lows: computed(() => store.getters.lows),
+            eddm: computed(() => store.getters.eddm),
         }
     },
 }

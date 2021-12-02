@@ -48,52 +48,12 @@
                                 Dashboard <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">1</span>
                             </router-link>
                             <router-link
-                                to="/loww"
+                                to="/eddm"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Loww' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Eddm' }"
                             >
-                                <Notification :airport="loww" />
-                                LOWW <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
-                            </router-link>
-                            <router-link
-                                to="/lowi"
-                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowi' }"
-                            >
-                                <Notification :airport="lowi" />
-                                LOWI <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">3</span>
-                            </router-link>
-                            <router-link
-                                to="/lows"
-                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lows' }"
-                            >
-                                <Notification :airport="lows" />
-                                LOWS <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">4</span>
-                            </router-link>
-                            <router-link
-                                to="/lowg"
-                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowg' }"
-                            >
-                                <Notification :airport="lowg" />
-                                LOWG <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">5</span>
-                            </router-link>
-                            <router-link
-                                to="/lowk"
-                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowk' }"
-                            >
-                                <Notification :airport="lowk" />
-                                LOWK <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">6</span>
-                            </router-link>
-                            <router-link
-                                to="/lowl"
-                                class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Lowl' }"
-                            >
-                                <Notification :airport="lowl" />
-                                LOWL <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">7</span>
+                                <Notification :airport="eddm" />
+                                EDDM <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
                             </router-link>
                         </div>
                     </div>
@@ -121,12 +81,7 @@ export default {
             logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
             websocket: computed(() => store.getters.websocket),
-            loww: computed(() => store.getters.loww),
-            lowi: computed(() => store.getters.lowi),
-            lows: computed(() => store.getters.lows),
-            lowg: computed(() => store.getters.lowg),
-            lowk: computed(() => store.getters.lowk),
-            lowl: computed(() => store.getters.lowl),
+            eddm: computed(() => store.getters.eddm),
         }
     },
     created() {
@@ -135,22 +90,7 @@ export default {
                 this.$router.push('/')
             }
             if (e.key === '2') {
-                this.$router.push('/loww')
-            }
-            if (e.key === '3') {
-                this.$router.push('/lowi')
-            }
-            if (e.key === '4') {
-                this.$router.push('/lows')
-            }
-            if (e.key === '5') {
-                this.$router.push('/lowg')
-            }
-            if (e.key === '6') {
-                this.$router.push('/lowk')
-            }
-            if (e.key === '7') {
-                this.$router.push('/lowl')
+                this.$router.push('/eddm')
             }
         })
     },

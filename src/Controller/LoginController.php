@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
-use Cake\Http\Client;
 
 class LoginController extends AppController
 {
@@ -13,8 +12,11 @@ class LoginController extends AppController
         parent::beforeFilter($event);
 
         $this->viewBuilder()->setLayout('login');
-        $this->Authentication->allowUnauthenticated(['login', 'startOauth', 'oauth']);
+
+        $this->Authentication->allowUnauthenticated(['login', 'signup', 'imprint']);
         $this->Authorization->skipAuthorization();
+
+        $this->loadModel('Users');
     }
 
     public function login()
@@ -26,99 +28,40 @@ class LoginController extends AppController
 
             return $this->redirect($target);
         }
+
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error('Invalid username or password');
+        }
     }
 
-    public function startOauth()
+    public function signup()
     {
-        $url = env('VATSIM_SSO_ENDPOINT') . '/oauth/authorize' .
-            '?client_id=' . env('VATSIM_SSO_CLIENT_ID') .
-            '&redirect_uri=' . env('VATSIM_SSO_REDIRECT_URL') .
-            '&response_type=code' .
-            '&scope=full_name+vatsim_details';
+        $user = $this->Users->newEmptyEntity();
 
-        return $this->redirect($url);
-    }
-
-    public function oauth()
-    {
-        $code = $this->request->getQuery('code');
-
-        $http = new Client();
-        $response = $http->post(env('VATSIM_SSO_ENDPOINT') . '/oauth/token', [
-            'grant_type' => 'authorization_code',
-            'client_id' => env('VATSIM_SSO_CLIENT_ID'),
-            'client_secret' => env('VATSIM_SSO_CLIENT_SECRET'),
-            'redirect_uri' => env('VATSIM_SSO_REDIRECT_URL'),
-            'code' => $code,
-        ]);
-
-        if ($response->isSuccess()) {
-            $responseJson = $response->getJson();
-
-            $accessToken = $responseJson['access_token'];
-            $okenExpiresIn = $responseJson['expires_in'];
-
-            $response = $http->get(env('VATSIM_SSO_ENDPOINT') . '/api/user', [], [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $accessToken,
-                    'Accept' => 'application/json',
+        if ($this->request->is(['post'])) {
+            $user = $this->Users->patchEntity($user, [
+                'vatsim_id' => $this->request->getData('vatsim_id'),
+                'full_name' => $this->request->getData('full_name'),
+                'username' => $this->request->getData('username'),
+                'password' => $this->request->getData('password'),
+            ], [
+                'accessibleFields' => [
+                    'vatsim_id' => true,
+                    'full_name' => true,
+                    'username' => true,
+                    'password' => true,
                 ],
             ]);
 
-            if ($response->isSuccess()) {
-                $responseJson = $response->getJson();
+            if ($this->Users->save($user)) {
+                $user = $this->Users->get($user->id);
+                $this->Authentication->setIdentity($user);
 
-                // Only allow login for VACC Austria members
-                $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
-                    'vatsimid' => $responseJson['data']['cid'],
-                ], [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
-                    ],
-                ]);
-
-                if ($response->isSuccess() === false) {
-                    $this->Flash->error('You are not part of the VACC Austria');
-
-                    return $this->redirect(['action' => 'login']);
-                }
-
-                $this->loadModel('Users');
-                $user = $this->Users->find()
-                    ->where([
-                        'vatsim_id IS' => $responseJson['data']['cid'],
-                    ])
-                    ->first();
-
-                if ($user) {
-                    $user = $this->Users->get($user->id);
-                    $this->Authentication->setIdentity($user);
-
-                    return $this->redirect(['controller' => 'Home', 'action' => 'index']);
-                } else {
-                    $user = $this->Users->newEntity([
-                        'vatsim_id' => $responseJson['data']['cid'],
-                        'full_name' => $responseJson['data']['personal']['name_full'],
-                    ], [
-                        'accessibleFields' => [
-                            'vatsim_id' => true,
-                            'full_name' => true,
-                        ],
-                    ]);
-
-                    if ($this->Users->save($user)) {
-                        $user = $this->Users->get($user->id);
-                        $this->Authentication->setIdentity($user);
-
-                        return $this->redirect(['controller' => 'Home', 'action' => 'index']);
-                    }
-                }
+                return $this->redirect(['controller' => 'Home', 'action' => 'index']);
             }
         }
 
-        $this->Flash->error('Vatsim SOO sign in failed');
-
-        return $this->redirect(['action' => 'login']);
+        $this->set(compact('user'));
     }
 
     public function logout()
@@ -126,5 +69,9 @@ class LoginController extends AppController
         $this->Authentication->logout();
 
         return $this->redirect(['action' => 'login']);
+    }
+
+    public function imprint()
+    {
     }
 }
