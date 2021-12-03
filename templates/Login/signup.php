@@ -71,6 +71,9 @@
                             'passwordrules' => 'minlength: 8; maxlength: 255;',
                             'class' => 'form-input w-full px-4 py-3 leading-4 border-gray-300 rounded-md placeholder-gray-400 focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
                         ]) ?>
+                        <div class="leading-tight pl-1 mt-1.5 text-xs text-gray-400">
+                            At least 8 characters long
+                        </div>
                     </div>
 
                     <div>
