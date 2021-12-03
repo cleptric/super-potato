@@ -47,7 +47,6 @@ export const store = createStore({
         async loadAdminData({ commit }) {
             try {
                 const response = await api.get('admin/get-data')
-                console.log(response);
                 commit('SET_ADMIN_DATA', response.data)
             } catch (error) {
                 commit('SET_OIS_OASCH')
