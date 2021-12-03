@@ -9,7 +9,7 @@ use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Exception\BadRequestException;
 use Throwable;
 
-class UserService
+class UsersService
 {
     use ModelAwareTrait;
 

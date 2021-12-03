@@ -57,6 +57,7 @@ return static function (RouteBuilder $routes) {
 
         $builder->connect('/eddm', ['controller' => 'Home', 'action' => 'index']);
 
+        $builder->connect('/admin', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);
 
         $builder->fallbacks();

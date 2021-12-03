@@ -19,6 +19,9 @@ export const store = createStore({
             notifications: {
                 eddm: null,
             },
+            adminData: {
+                users: null,
+            },
         }
     },
     getters: {
@@ -29,6 +32,7 @@ export const store = createStore({
         airports: state => state.airports,
         settings: state => state.settings,
         notifications: state => state.notifications,
+        adminData: state => state.adminData,
         eddm: state => state.airports.eddm,
     },
     actions: {
@@ -36,6 +40,15 @@ export const store = createStore({
             try {
                 const response = await api.get('data/get-data')
                 commit('SET_DATA', response.data)
+            } catch (error) {
+                commit('SET_OIS_OASCH')
+            }
+        },
+        async loadAdminData({ commit }) {
+            try {
+                const response = await api.get('admin/get-data')
+                console.log(response);
+                commit('SET_ADMIN_DATA', response.data)
             } catch (error) {
                 commit('SET_OIS_OASCH')
             }
@@ -58,14 +71,14 @@ export const store = createStore({
         },
         async changePassword({ commit }, data) {
             try {
-                await api.post('data/change-password', data)
+                await api.post('users/change-password', data)
             } catch (error) {
                 throw error
             }
         },
         async deleteAccount({ commit }) {
             try {
-                await api.delete('data/delete-account')
+                await api.delete('users/delete-account')
             } catch (error) {
                 throw error
             }
@@ -86,6 +99,26 @@ export const store = createStore({
                 throw error
             }
         },
+        async blockUser({ dispatch }, data) {
+            try {
+                await api.post('admin/block-user', {
+                    user_id: data.user_id
+                })
+                dispatch('loadAdminData')
+            } catch (error) {
+                throw error
+            }
+        },
+        async unblockUser({ dispatch }, data) {
+            try {
+                await api.post('admin/unblock-user', {
+                    user_id: data.user_id
+                })
+                dispatch('loadAdminData')
+            } catch (error) {
+                throw error
+            }
+        },
         toggleNotification({ commit }, icao) {
             commit('TOGGLE_NOTIFICATION', icao)
         },
@@ -101,6 +134,9 @@ export const store = createStore({
             state.airports.eddm = data.eddm
             state.user = data.user
             state.logs = data.logs
+        },
+        SET_ADMIN_DATA(state, data) {
+            state.adminData = data
         },
         SET_SETTINGS(state, data) {
             state.settings = data.settings

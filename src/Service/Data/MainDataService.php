@@ -59,6 +59,7 @@ class MainDataService
                 'vatsim_id' => $this->_user->vatsim_id,
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
                 'onboarded' => $this->_user->onboarded,
+                'admin' => $this->_user->admin,
             ],
             'logs' => (new LogsService())->getData(),
             'eddm' => (new EddmDataService($this->_feed, $this->_metar, $this->_taf))->getData(),

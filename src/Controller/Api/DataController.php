@@ -8,7 +8,6 @@ use App\Service\Data\NotificationsDataService;
 use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
-use App\Service\UserService;
 use App\Service\VisualDepatureService;
 use Cake\Controller\Controller;
 
@@ -60,37 +59,6 @@ class DataController extends Controller
         $service = new SettingsDataService();
         $service->setUser($this->Authentication->getIdentity());
         $service->saveData($this->request->getData('settings'));
-
-        return $this->response
-            ->withStatus(204);
-    }
-
-    public function changePassword()
-    {
-        $this->request->allowMethod('post');
-        $this->Authorization->skipAuthorization();
-
-        $service = new UserService();
-        $service->setUser($this->Authentication->getIdentity());
-        $service->changePassword([
-            'current_password' => $this->request->getData('current_password'),
-            'new_password' => $this->request->getData('new_password'),
-        ]);
-
-        return $this->response
-            ->withStatus(204);
-    }
-
-    public function deleteAccount()
-    {
-        $this->request->allowMethod('delete');
-        $this->Authorization->skipAuthorization();
-
-        $service = new UserService();
-        $service->setUser($this->Authentication->getIdentity());
-        $service->deleteAccount();
-
-        $this->Authentication->logout();
 
         return $this->response
             ->withStatus(204);

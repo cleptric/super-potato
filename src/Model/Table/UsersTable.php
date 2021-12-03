@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\User;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -92,6 +94,12 @@ class UsersTable extends Table
             ->notEmptyString('admin');
 
         $validator
+            ->scalar('status')
+            ->maxLength('status', 255)
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
+
+        $validator
             ->boolean('onboarded')
             ->notEmptyString('onboarded');
 
@@ -117,5 +125,10 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
 
         return $rules;
+    }
+
+    public function findActive(Query $query, array $options): Query
+    {
+        return $query->where(['status' => User::STATUS_ACTIVE]);
     }
 }

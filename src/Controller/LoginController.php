@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 
 class LoginController extends AppController
@@ -44,12 +45,14 @@ class LoginController extends AppController
                 'full_name' => $this->request->getData('full_name'),
                 'username' => $this->request->getData('username'),
                 'password' => $this->request->getData('password'),
+                'status' => User::STATUS_ACTIVE,
             ], [
                 'accessibleFields' => [
                     'vatsim_id' => true,
                     'full_name' => true,
                     'username' => true,
                     'password' => true,
+                    'status' => true,
                 ],
             ]);
 

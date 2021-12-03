@@ -20,6 +20,7 @@ use RuntimeException;
  * @property string $username
  * @property string $password
  * @property bool $admin
+ * @property string $status
  * @property bool $onboarded
  * @property array|null $settings
  * @property array|null $notifications
@@ -33,6 +34,9 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         'EDUU',
         'EDDM',
     ];
+
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_BLOCKED = 'blocked';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
