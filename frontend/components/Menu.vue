@@ -2,7 +2,7 @@
     <header class="bg-gray-700 shadow-sm">
         <div class="max-w-7xl mx-auto flex items-center py-2 px-4 sm:px-6 lg:px-8">
             <h2 class="text-sm font-medium text-gray-400  mr-8">
-                Servus, {{ user.name }} ({{ user.vatsim_id }})
+                Tere, {{ user.name }} ({{ user.vatsim_id }})
             </h2>
             <div class="flex items-center text-sm font-medium text-gray-400">
                 Live Updates
@@ -60,12 +60,12 @@
                                 Dashboard <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">1</span>
                             </router-link>
                             <router-link
-                                to="/eddm"
+                                to="/eetn"
                                 class="relative text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Eddm' }"
+                                :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Eetn' }"
                             >
-                                <Notification :airport="eddm" />
-                                EDDM <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
+                                <Notification :airport="eetn" />
+                                EETN <span class="absolute top-0 right-1 text-[0.5rem] text-gray-500">2</span>
                             </router-link>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ export default {
             logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
             websocket: computed(() => store.getters.websocket),
-            eddm: computed(() => store.getters.eddm),
+            eetn: computed(() => store.getters.eetn),
         }
     },
     created() {
@@ -102,7 +102,7 @@ export default {
                 this.$router.push('/')
             }
             if (e.key === '2') {
-                this.$router.push('/eddm')
+                this.$router.push('/eetn')
             }
         })
     },

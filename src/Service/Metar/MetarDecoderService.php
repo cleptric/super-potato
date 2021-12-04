@@ -121,20 +121,24 @@ class MetarDecoderService
 
         // LVP 3
         if (
-            // RVR equal/smaller 600m AND
-            !empty($runwayRvr) && $runwayRvr['rvr'] <= 600 &&
-            // Celing below 200ft
-            !empty($cloudLayer) && $cloudLayer['base'] < 200
+            // RVR equal/smaller 75m
+            !empty($runwayRvr) && $runwayRvr['rvr'] <= 75
         ) {
             return 'LVP CAT III';
         }
 
+        // LVP 2
+        if (
+            /// RVR smaller 400m
+            !empty($runwayRvr) && $runwayRvr['rvr'] < 400
+        ) {
+            return 'LVP CAT II';
+        }
+
         // LVP 1
         if (
-            // Celing at/below 300ft OR
-            !empty($cloudLayer) && $cloudLayer['base'] <= 300 ||
-            // RVR equal/smaller 1000m
-            !empty($runwayRvr) && $runwayRvr['rvr'] <= 1000
+            // RVR smaller 1000m
+            !empty($runwayRvr) && $runwayRvr['rvr'] < 1000
         ) {
             return 'LVP CAT I';
         }

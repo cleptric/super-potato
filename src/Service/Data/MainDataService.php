@@ -62,7 +62,7 @@ class MainDataService
                 'admin' => $this->_user->admin,
             ],
             'logs' => (new LogsService())->getData(),
-            'eddm' => (new EddmDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'eetn' => (new EetnDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 

@@ -30,9 +30,8 @@ use RuntimeException;
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
     public const CONTROLER_PREFIX = [
-        'EDMM',
-        'EDUU',
-        'EDDM',
+        'EETN',
+        'EETT',
     ];
 
     public const STATUS_ACTIVE = 'active';
@@ -80,7 +79,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     {
         if (empty($notifications)) {
             return [
-                'eddm' => true,
+                'eetn' => true,
             ];
         }
 

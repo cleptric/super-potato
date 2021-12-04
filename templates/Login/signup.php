@@ -15,7 +15,7 @@
                 </h2>
 
                 <div class="leading-tight my-4 text-gray-500">
-                    You have to be a member of the RG München to use this service.
+                    You have to be a member of the VACC Estonia to use this service.
                 </div>
 
                 <?= $this->Flash->render() ?>

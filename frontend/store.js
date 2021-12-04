@@ -9,7 +9,7 @@ export const store = createStore({
             logs: null,
             websocket: false,
             airports: {
-                eddm: null,
+                eetn: null,
             },
             settings: {
                 notifications: true,
@@ -17,7 +17,7 @@ export const store = createStore({
                 volume: 0.5,
             },
             notifications: {
-                eddm: null,
+                eetn: null,
             },
             adminData: {
                 users: null,
@@ -33,7 +33,7 @@ export const store = createStore({
         settings: state => state.settings,
         notifications: state => state.notifications,
         adminData: state => state.adminData,
-        eddm: state => state.airports.eddm,
+        eetn: state => state.airports.eetn,
     },
     actions: {
         async loadData({ commit }) {
@@ -130,7 +130,7 @@ export const store = createStore({
     },
     mutations: {
         SET_DATA(state, data) {
-            state.airports.eddm = data.eddm
+            state.airports.eetn = data.eetn
             state.user = data.user
             state.logs = data.logs
         },

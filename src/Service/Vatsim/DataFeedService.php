@@ -58,7 +58,7 @@ class DataFeedService
      * @var array
      */
     protected array $_atisStations = [
-        Airport::EDDM_ATIS_CALLSIGN,
+        Airport::EETN_ATIS_CALLSIGN,
     ];
 
     public function __construct()

@@ -32,7 +32,7 @@ class TafService
      * @var array
      */
     protected array $_tafStations = [
-        Airport::EDDM_ICAO,
+        Airport::EETN_ICAO,
     ];
 
     public function __construct()

@@ -32,7 +32,7 @@ class MetarService
      * @var array
      */
     protected array $_metarStations = [
-        Airport::EDDM_ICAO,
+        Airport::EETN_ICAO,
     ];
 
     public function __construct()

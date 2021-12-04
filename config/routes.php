@@ -55,7 +55,7 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/signup', ['controller' => 'Login', 'action' => 'signup']);
         $builder->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);
 
-        $builder->connect('/eddm', ['controller' => 'Home', 'action' => 'index']);
+        $builder->connect('/eetn', ['controller' => 'Home', 'action' => 'index']);
 
         $builder->connect('/admin', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);

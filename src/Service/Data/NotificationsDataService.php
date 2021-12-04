@@ -43,7 +43,7 @@ class NotificationsDataService
         $user = $this->Users->get($this->_user->id);
         $user = $this->Users->patchEntity($user, [
             'notifications' => [
-                'eddm' => filter_var($data['eddm'], FILTER_VALIDATE_BOOLEAN),
+                'eetn' => filter_var($data['eetn'], FILTER_VALIDATE_BOOLEAN),
             ],
         ], [
             'accessibleFields' => [
