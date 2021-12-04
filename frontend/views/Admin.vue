@@ -104,11 +104,6 @@
                                             {{ user.status }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-500">
-                                            <button
-                                                class="inline-flex items-center px-2 border border-gray-300 text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                                            >
-                                                <i class="far fa-pencil text-xs mr-1"></i> Edit
-                                            </button>
                                             <template v-if="user.status === 'active'">
                                                 <button
                                                     class="ml-2 inline-flex items-center px-2 border border-gray-300 text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
