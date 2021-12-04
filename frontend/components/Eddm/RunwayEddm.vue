@@ -76,7 +76,7 @@
 
                         <div
                             v-if="!eddm.metar.is_variable"
-                            class="absolute top-[-70px] left-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ eddm.wind_components['08L'] }}
@@ -154,7 +154,7 @@
 
                         <div
                             v-if="!eddm.metar.is_variable"
-                            class="absolute top-[-70px] right-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ eddm.wind_components['26R'] }}
@@ -187,7 +187,7 @@
 
                         <div
                             v-if="!eddm.metar.is_variable"
-                            class="absolute top-[-70px] left-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ eddm.wind_components['08R'] }}
@@ -266,7 +266,7 @@
 
                         <div
                             v-if="!eddm.metar.is_variable"
-                            class="absolute top-[-70px] right-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
                         >
                             <span class="ml-1">
                                 {{ eddm.wind_components['26L'] }}
