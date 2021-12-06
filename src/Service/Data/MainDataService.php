@@ -12,44 +12,10 @@ class MainDataService
 {
     use ModelAwareTrait;
 
-    protected ?array $_feed = null;
-
-    protected ?array $_metar = null;
-
-    protected ?array $_taf = null;
-
+    /**
+     * @var \Authorization\IdentityInterface|null
+     */
     protected ?IdentityInterface $_user;
-
-    public function __construct()
-    {
-        $this->loadModel('Feeds');
-        $this->loadModel('Metar');
-        $this->loadModel('Taf');
-
-        try {
-            $this->_feed = $this->Feeds->find()
-                ->order(['created' => 'DESC'])
-                ->firstOrFail()
-                ->toArray();
-        } catch (Throwable $t) {
-        }
-
-        try {
-            $this->_metar = $this->Metar->find()
-                ->order(['created' => 'DESC'])
-                ->firstOrFail()
-                ->toArray();
-        } catch (Throwable $t) {
-        }
-
-        try {
-            $this->_taf = $this->Taf->find()
-                ->order(['created' => 'DESC'])
-                ->firstOrFail()
-                ->toArray();
-        } catch (Throwable $t) {
-        }
-    }
 
     public function getData(): array
     {
@@ -60,13 +26,8 @@ class MainDataService
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
                 'onboarded' => $this->_user->onboarded,
             ],
+            'loww' => (new LowwDataService())->getData(),
             'logs' => (new LogsService())->getData(),
-            'loww' => (new LowwDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowi' => (new LowiDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lows' => (new LowsDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowg' => (new LowgDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowk' => (new LowkDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowl' => (new LowlDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 

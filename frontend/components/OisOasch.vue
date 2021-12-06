@@ -1,20 +1,11 @@
 <template>
-    <header class="bg-gray-700 shadow-sm">
-        <div class="max-w-7xl mx-auto flex items-center py-2 px-4 sm:px-6 lg:px-8">
-            <div class="ml-auto px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
-                <a href="/logout" class="flex items-center">
-                    <i class="far fa-sign-out text-xs text-gray-300 mr-1"></i> Sign out
-                </a>
-            </div>
-        </div>
-    </header>
-    <nav class="bg-gray-800">
+    <nav class="bg-gray-200">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex items-center justify-between h-12 xl:h-16">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <a href="/" class="flex items-center text-white text-2xl font-extrabold">
-                            Super <img class="h-7 w-7 ml-2" :src="logoUrl">
+                        <a href="/" class="flex items-center text-2xl font-extrabold">
+                            Super <img class="h-7 w-7 ml-1" :src="logoUrl">
                         </a>
                     </div>
                 </div>
@@ -29,7 +20,7 @@
             Ois Oasch hoid...
         </p>
         <div class="text-center">
-            <a href="/" class="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600">
+            <a href="/" class="button button-primary">
                 Refresh page
             </a>
         </div>

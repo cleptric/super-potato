@@ -25,12 +25,10 @@ class AirportsService
 
         foreach ($airports as $airport) {
             $airport = $this->Airports->patchEntity($airport, [
-                'visual_depatures' => null,
                 'closed_runways' => null,
                 'missed_approach' => false,
             ], [
                 'accessibleFields' => [
-                    'visual_depatures' => true,
                     'closed_runways' => true,
                     'missed_approach' => true,
                 ],
@@ -46,7 +44,6 @@ class AirportsService
         return $this->Airports->find()
             ->where([
                 'OR' => [
-                    'visual_depatures IS NOT' => null,
                     'closed_runways IS NOT' => null,
                     'missed_approach' => true,
                 ],

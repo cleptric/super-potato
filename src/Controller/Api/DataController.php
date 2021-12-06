@@ -152,25 +152,4 @@ class DataController extends Controller
         return $this->response
             ->withStatus(204);
     }
-
-    public function updateVisualDepature()
-    {
-        $this->request->allowMethod('post');
-
-        $airportIcao = $this->request->getData('airport');
-        $direction = $this->request->getData('direction');
-
-        $this->loadModel('Airports');
-        $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
-            ->first();
-
-        $this->Authorization->authorize($airport, 'updateVisualDepature');
-
-        $service = new VisualDepatureService();
-        $service->toggleVisualDepature($airport, $direction);
-
-        return $this->response
-            ->withStatus(204);
-    }
 }

@@ -11,22 +11,11 @@ class NotificationsDataService
 {
     use ModelAwareTrait;
 
-    protected ?array $_settings = null;
-
     protected ?IdentityInterface $_user;
 
     public function __construct()
     {
         $this->loadModel('Users');
-
-        try {
-            $this->_settings = $this->Users->find()
-                ->select('notifications')
-                ->where(['id' => $this->_user->id])
-                ->firstOrFail()
-                ->toArray();
-        } catch (Throwable $t) {
-        }
     }
 
     public function getData(): ?array
@@ -44,11 +33,6 @@ class NotificationsDataService
         $user = $this->Users->patchEntity($user, [
             'notifications' => [
                 'loww' => filter_var($data['loww'], FILTER_VALIDATE_BOOLEAN),
-                'lowi' => filter_var($data['lowi'], FILTER_VALIDATE_BOOLEAN),
-                'lows' => filter_var($data['lows'], FILTER_VALIDATE_BOOLEAN),
-                'lowg' => filter_var($data['lowg'], FILTER_VALIDATE_BOOLEAN),
-                'lowk' => filter_var($data['lowk'], FILTER_VALIDATE_BOOLEAN),
-                'lowl' => filter_var($data['lowl'], FILTER_VALIDATE_BOOLEAN),
             ],
         ], [
             'accessibleFields' => [

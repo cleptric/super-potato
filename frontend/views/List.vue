@@ -1,43 +1,36 @@
 <template>
-    <header class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-            <h1 class="text-lg font-semibold text-gray-900">
-                Dashboard
-            </h1>
-        </div>
-    </header>
     <main>
 
-        <div class="max-w-7xl mx-auto py-7 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto py-7 px-8">
             <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <div class="-my-2 -mx-8 overflow-x-auto">
+                    <div class="py-2 px-8 align-middle inline-block min-w-full">
+                        <div class="border border-gray-200 overflow-hidden rounded-md">
                             <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-100">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <thead>
+                                    <tr class="bg-gray-200">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Notifications
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Airport
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             ATIS
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Runway
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Transition Level
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             QNH
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Wind
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                         </th>
                                     </tr>
                                 </thead>
@@ -45,8 +38,8 @@
                                     <tr
                                         v-for="(airport, icao) in airports"
                                         :key="icao"
-                                        :class="counter % 2 == 0 ? 'bg-gray-100' : 'bg-white'"
-                                        class="cursor-pointer hover:bg-gray-200"
+                                        :class="counter % 2 == 0 ? 'bg-white' : 'bg-gray-100'"
+                                        class="cursor-pointer hover:bg-gray-100"
                                         @click="$router.push(`/${icao}`)"
                                     >
                                         <td
@@ -55,7 +48,7 @@
                                         >
                                             <button
                                                 class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                                :class="{ 'bg-blue-600': notifications[icao], 'bg-gray-300': !notifications[icao] }"
+                                                :class="{ 'bg-blue-700': notifications[icao], 'bg-gray-300': !notifications[icao] }"
                                                 @click.stop="toggleNotification(icao)"
                                             >
                                                 <span
@@ -66,7 +59,7 @@
                                             </button>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ airport.atis.airport_name }}
+                                            {{ airport.name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ airport.atis.atis_letter }}
@@ -116,22 +109,22 @@
 
         <div
             v-if="logs.length"
-            class="max-w-7xl mx-auto py-7 sm:px-6 lg:px-8"
+            class="max-w-7xl mx-auto py-7 px-8"
         >
             <div class="flex flex-col">
-                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <div class="-my-2 -mx-8 overflow-x-auto">
+                    <div class="py-2 px-8 align-middle inline-block min-w-full">
+                        <div class="border border-gray-200 overflow-hidden rounded-md">
                             <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-100">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <thead>
+                                    <tr class="bg-gray-200">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             User
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Action
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                             Time
                                         </th>
                                     </tr>
@@ -174,7 +167,7 @@ export default {
         const store = useStore()
 
         return {
-            counter: 1,
+            counter: 0,
             airports: computed(() => store.getters.airports),
             notifications: computed(() => store.getters.notifications),
             logs: computed(() => store.getters.logs),

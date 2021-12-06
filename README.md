@@ -2,18 +2,13 @@
 
 ![Screenshot 2021-06-18 at 02 44 11](https://user-images.githubusercontent.com/6617432/122489056-18766100-cfdf-11eb-8fcd-84598817af24.png)
 
-`Super Potato` is an ADD (Aerodrom Data Display) used by controllers on the VATSIM online flying network.
+`Super Potato` is an ADD (Aerodrome Data Display) used by controllers on the VATSIM online flying network.
 
 The tool displays valuable information for online vATC like active runways, decoded METAR information, visual departures, closed runways and missed approaches.
-
-`Super Potato` was developed to be used while controlling Austrian airspace only.
 
 ## Usage
 
 ### Basics
-
-To use `Super Potato`, you need a VATSIM account which is associated to the VACC Austria sub-divison.
-The login is only possible via VATSIM Connect.
 
 The data displayed by `Super Potato` is fetched from the VATSIM data feed, the VATSIM METAR API and CheckWX (https://www.checkwxapi.com/).
 `Super Potato` can only display certain data if an ATIS is set online on the concerning airports.
@@ -96,10 +91,10 @@ To install `Super Potato`, you need a machine with the following things installe
 
 - Apache 2.4 (you should be able to use nginx as well)
 - MySQL 8.0 or newer
-- PHP 7.4 or newer with the common, intl, mbstring and the zmq extension
-- node.js 14 or newer
+- PHP 8.1 or newer with the common, intl, mbstring and the zmq extension
+- node.js 16.0 or newer
 - composer 2.0 or newer
-- Yarn 1.0 or newer (Yarn 2.0 is not supported)
+- Yarn 2.0 or newer
 
 ### Installation
 

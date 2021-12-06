@@ -13,7 +13,13 @@ class LoginController extends AppController
         parent::beforeFilter($event);
 
         $this->viewBuilder()->setLayout('login');
-        $this->Authentication->allowUnauthenticated(['login', 'startOauth', 'oauth']);
+        $this->Authentication->allowUnauthenticated([
+            'login',
+            'imprint',
+            'privacyPolicy',
+            'startOauth',
+            'oauth',
+        ]);
         $this->Authorization->skipAuthorization();
     }
 
@@ -69,19 +75,19 @@ class LoginController extends AppController
                 $responseJson = $response->getJson();
 
                 // Only allow login for VACC Austria members
-                $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
-                    'vatsimid' => $responseJson['data']['cid'],
-                ], [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
-                    ],
-                ]);
-
-                if ($response->isSuccess() === false) {
-                    $this->Flash->error('You are not part of the VACC Austria');
-
-                    return $this->redirect(['action' => 'login']);
-                }
+                // $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
+                //     'vatsimid' => $responseJson['data']['cid'],
+                // ], [
+                //     'headers' => [
+                //         'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
+                //     ],
+                // ]);
+                //
+                // if ($response->isSuccess() === false) {
+                //     $this->Flash->error('You are not part of the VACC Austria');
+                //
+                //     return $this->redirect(['action' => 'login']);
+                // }
 
                 $this->loadModel('Users');
                 $user = $this->Users->find()
@@ -126,5 +132,15 @@ class LoginController extends AppController
         $this->Authentication->logout();
 
         return $this->redirect(['action' => 'login']);
+    }
+
+    public function imprint(): void
+    {
+        # code...
+    }
+
+    public function privacyPolicy(): void
+    {
+        # code...
     }
 }

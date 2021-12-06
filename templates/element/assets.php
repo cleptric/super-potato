@@ -2,6 +2,10 @@
 declare(strict_types=1);
 use Cake\Core\Configure;
 
+echo $this->Html->script('https://kit.fontawesome.com/c1157ccfdb.js', [
+    'crossorigin' => 'anonymous',
+]);
+
 if (Configure::read('debug')) {
     echo $this->Html->script('http://localhost:3000/@vite/client', ['type' => 'module']);
     echo $this->Html->script('http://localhost:3000/frontend/main.js', ['type' => 'module']);

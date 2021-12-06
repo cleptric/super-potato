@@ -7,7 +7,9 @@ use App\Model\Entity\Airport;
 use App\Model\Entity\User;
 use App\Service\AirportsService;
 use App\Service\LogsService;
+use App\Service\Atis\AtisDecoderService;
 use App\Traits\ZMQContextTrait;
+use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -20,22 +22,17 @@ class DataFeedService
     /**
      * @var string
      */
-    protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
+    protected const _VATSIM_STATUS_URL = 'https://status.vatsim.net/status.json';
 
     /**
-     * @var string/null
+     * @var \Cake\Console\ConsoleIo|null
      */
-    protected ?string $_rawFeed = null;
+    protected ?ConsoleIo $_io;
 
     /**
      * @var string
      */
     protected string $_vatsimFeedVersion = 'v3';
-
-    /**
-     * @var int
-     */
-    protected int $_retries = 0;
 
     /**
      * @var \Cake\Http\Client
@@ -52,113 +49,142 @@ class DataFeedService
      */
     protected LogsService $_logsService;
 
-    public const FEED_MAX_AGE = '5 minutes ago';
+    /**
+     * @var \App\Service\Atis\AtisDecoderService
+     */
+    protected AtisDecoderService $_atisDecoderService;
 
     /**
-     * @var array
+     * @var string|null
      */
-    protected array $_atisStations = [
-        Airport::LOWW_ATIS_CALLSIGN,
-        Airport::LOWI_ATIS_CALLSIGN,
-        Airport::LOWS_ATIS_CALLSIGN,
-        Airport::LOWG_ATIS_CALLSIGN,
-        Airport::LOWK_ATIS_CALLSIGN,
-        Airport::LOWL_ATIS_CALLSIGN,
-        Airport::LOXZ_ATIS_CALLSIGN,
-    ];
+    protected ?string $_feedUrl;
 
     public function __construct()
     {
-        $this->loadModel('Feeds');
         $this->loadModel('Airports');
+        $this->loadModel('Atis');
+        $this->loadModel('Controllers');
+        $this->loadModel('Feeds');
 
         $this->_client = new Client();
         $this->_airportService = new AirportsService();
         $this->_logsService = new LogsService();
+        $this->_atisDecoderService = new AtisDecoderService();
+
+        $this->_feedUrl = $this->_getFeedUrl();
     }
 
     public function getFeed()
     {
-        $this->_fetchFeed();
-        $this->_persistFeed();
-    }
+        $rawFeed = $this->_fetchFeed();
 
-    protected function _fetchFeed(): void
-    {
-        $feedUrl = $this->_getFeedUrl();
-        $response = $this->_client->get($feedUrl);
+        $airports = $this->Airports->find()
+            ->all();
 
-        $this->_rawFeed = $response->getStringBody();
-    }
+        $controllers = $this->Controllers->find()
+            ->all();
 
-    protected function _persistFeed(): void
-    {
-        if (empty($this->_rawFeed)) {
-            return;
-        }
+        $rawFeed['atis'][] = [
+            'callsign' => 'LOWW_ATIS',
+            'atis_code' => 'G',
+            'text_atis' => [
+                'TRANSITION LEVEL 70',
+                'DEPARTURE RUNWAY 11 ARRIVAL RUNWAY 11 YOO',
+            ],
+        ];
 
-        $lastFeed = $this->Feeds->find()
-            ->order(['created' => 'DESC'])
-            ->first();
+        foreach ($airports as $airport) {
+            // Store ATIS
+            foreach ($rawFeed['atis'] as $rawAtis) {
+                if (!empty($rawAtis['text_atis']) && $rawAtis['callsign'] === $airport->atis_callsign) {
+                    $textAtis = trim(join(' ', $rawAtis['text_atis']));
 
-        $parsedFeed = json_decode($this->_rawFeed, true);
-        $feedUpdatedAt = FrozenTime::parse($parsedFeed['general']['update_timestamp']);
+                    $this->_atisDecoderService->setAtis($textAtis);
+                    $this->_atisDecoderService->setAirport($airport);
 
-        // Only store the latest feed if we do not have it in the DB yet
-        if (empty($lastFeed) || $lastFeed->created < $feedUpdatedAt) {
-            $data = [];
-            foreach ($parsedFeed['atis'] as $atis) {
-                if (!empty($atis['text_atis']) && in_array($atis['callsign'], $this->_atisStations)) {
-                    $data['atis'][$atis['callsign']]['last_updated'] = $atis['last_updated'];
-                    $data['atis'][$atis['callsign']]['raw'] = trim(join(' ', $atis['text_atis']));
-                }
-            }
-            foreach ($parsedFeed['controllers'] as $controller) {
-                // Only store Austrian controllers
-                if (in_array(substr($controller['callsign'], 0, 4), User::CONTROLER_PREFIX)) {
-                    $data['controllers'][] = [
-                        'vatsim_id' => $controller['cid'],
-                        'callsign' => $controller['callsign'],
-                        'facility' => $controller['facility'],
-                    ];
-                }
-            }
+                    $decodedAtis = $this->_atisDecoderService->getData($textAtis);
 
-            if (!empty($data)) {
-                $feedEntity = $this->Feeds->newEntity([
-                    'data' => $data,
-                ]);
-                $savedFeed = $this->Feeds->save($feedEntity);
-                $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
+                    $atis = $this->Atis->findOrCreate([
+                        'airport_id' => $airport->id,
+                    ]);
+                    $atis = $this->Atis->patchEntity($atis, [
+                        'airport_id' => $airport->id,
+                        'raw_atis' => $textAtis,
+                        'atis_letter' => $rawAtis['atis_code'],
+                        'depature_runway' => $decodedAtis['depature_runway'],
+                        'arrival_runway' => $decodedAtis['arrival_runway'],
+                        'transition_level' => $decodedAtis['transition_level'],
+                    ]);
+                    $this->Atis->save($atis);
 
-                $this->pushMessage('refresh');
-            } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
-                // Delete an outdated feed
-                $this->Feeds->delete($lastFeed);
-
-                $this->pushMessage('refresh');
-            }
-
-            // Nobody is online any more, reset airports state and delete all logs
-            if (empty($data['controllers'])) {
-                if ($this->_airportService->isResetState() === false) {
-                    $this->_airportService->resetState();
-                    $this->pushMessage('refresh');
-                }
-                if ($this->_logsService->logsEmpty() === false) {
-                    $this->_logsService->deleteAllLogs();
-                    $this->pushMessage('refresh');
+                    // Cleanup
                 }
             }
         }
+
+        // foreach ($parsedFeed['controllers'] as $controller) {
+        //     // Only store Austrian controllers
+        //     if (in_array(substr($controller['callsign'], 0, 4), User::CONTROLER_PREFIX)) {
+        //         $data['controllers'][] = [
+        //             'vatsim_id' => $controller['cid'],
+        //             'callsign' => $controller['callsign'],
+        //             'facility' => $controller['facility'],
+        //         ];
+        //     }
+        // }
+        //
+        // if (!empty($data)) {
+        //     $feedEntity = $this->Feeds->newEntity([
+        //         'data' => $data,
+        //     ]);
+        //     $savedFeed = $this->Feeds->save($feedEntity);
+        //     $this->Feeds->deleteAll(['id IS NOT' => $savedFeed->id]);
+        //
+        //     $this->pushMessage('refresh');
+        // } elseif (!empty($lastFeed) && $lastFeed->created <= new FrozenTime(self::FEED_MAX_AGE)) {
+        //     // Delete an outdated feed
+        //     $this->Feeds->delete($lastFeed);
+        //
+        //     $this->pushMessage('refresh');
+        // }
+        //
+        // // Nobody is online any more, reset airports state and delete all logs
+        // if (empty($data['controllers'])) {
+        //     if ($this->_airportService->isResetState() === false) {
+        //         $this->_airportService->resetState();
+        //         $this->pushMessage('refresh');
+        //     }
+        //     if ($this->_logsService->logsEmpty() === false) {
+        //         $this->_logsService->deleteAllLogs();
+        //         $this->pushMessage('refresh');
+        //     }
+        // }
+    }
+
+    public function setIo(ConsoleIo $io)
+    {
+        $this->_io = $io;
+    }
+
+    protected function _fetchFeed(): array
+    {
+        $response = $this->_client->get($this->_feedUrl);
+        if ($response->isOk()) {
+            return $response->getJson();
+        }
+
+        return [];
     }
 
     protected function _getFeedUrl(): ?string
     {
-        $client = new Client();
-        $response = $this->_client->get($this->_vatsimStatusUrl);
-        $responseBody = json_decode($response->getStringBody(), true);
+        $response = $this->_client->get(self::_VATSIM_STATUS_URL);
+        if ($response->isOk()) {
+            $responseBody = $response->getJson();
 
-        return $responseBody['data'][$this->_vatsimFeedVersion][0];
+            return $responseBody['data'][$this->_vatsimFeedVersion][0];
+        }
+
+        return null;
     }
 }

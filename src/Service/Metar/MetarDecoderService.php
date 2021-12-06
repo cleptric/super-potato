@@ -23,23 +23,6 @@ class MetarDecoderService
 
     public function getData(): array
     {
-        if (empty($this->_metar)) {
-            return [
-                'qnh_value' => null,
-                'qnh_unit' => null,
-                'mean_direction' => null,
-                'is_variable' => null,
-                'mean_speed' => null,
-                'speed_variations' => null,
-                'wind_shear_runways' => null,
-                'wind_shear_all_runways' => null,
-                'condition' => null,
-                'raw_metar' => null,
-                'rvr' => null,
-                'condition' => null,
-            ];
-        }
-
         $decoder = new MetarDecoder();
         $this->_decoder = $decoder->parse($this->_metar);
 
@@ -54,7 +37,7 @@ class MetarDecoderService
             'wind_shear_all_runways' => !empty($this->_decoder->getWindshearAllRunways()) ? $this->_decoder->getWindshearAllRunways() : null,
             'raw_metar' => !empty($this->_decoder->getRawMetar()) ? $this->_decoder->getRawMetar() : null,
             'rvr' => $this->_getRvr(),
-            'condition' => $this->_getCondition(),
+            'conditions' => $this->_getConditions(),
         ];
     }
 
@@ -76,7 +59,7 @@ class MetarDecoderService
         return $runwayRvr;
     }
 
-    protected function _getCondition(): string
+    protected function _getConditions(): string
     {
         $clouds = $this->_decoder->getClouds();
         $cloudLayer = [];

@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
+use App\Enums\QnhTrend;
 use App\Model\Entity\Airport;
+use App\Service\Metar\MetarDecoderService;
 use App\Traits\ZMQContextTrait;
+use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
@@ -16,12 +19,12 @@ class MetarService
     /**
      * @var string
      */
-    protected string $_vatsimStatusUrl = 'https://status.vatsim.net/status.json';
+    protected const _VATSIM_STATUS_URL = 'https://status.vatsim.net/status.json';
 
     /**
-     * @var array|null
+     * @var \Cake\Console\ConsoleIo|null
      */
-    protected ?array $_rawMetar = null;
+    protected ?ConsoleIo $_io;
 
     /**
      * @var \Cake\Http\Client
@@ -29,63 +32,102 @@ class MetarService
     protected Client $_client;
 
     /**
-     * @var array
+     * @var \App\Service\Metar\MetarDecoderService
      */
-    protected array $_metarStations = [
-        Airport::LOWW_ICAO,
-        Airport::LOWI_ICAO,
-        Airport::LOWS_ICAO,
-        Airport::LOWG_ICAO,
-        Airport::LOWK_ICAO,
-        Airport::LOWL_ICAO,
-    ];
+    protected MetarDecoderService $_metarDecoder;
+
+    /**
+     * @var string|null
+     */
+    protected ?string $_metarUrl;
 
     public function __construct()
     {
+        $this->loadModel('Airports');
         $this->loadModel('Metar');
 
         $this->_client = new Client();
+        $this->_metarDecoder = new MetarDecoderService();
+        $this->_metarUrl = $this->_getMetarUrl();
     }
 
-    public function getMetar(): void
+    public function getMetar()
     {
-        $this->_fetchMetar();
-        $this->_persistMetar();
-    }
+        $airports = $this->Airports->find()
+            ->all();
 
-    protected function _fetchMetar(): void
-    {
-        $metarUrl = $this->_getMetarUrl();
-        $this->_rawMetar = [];
+        foreach ($airports as $airport) {
+            $rawMetar = $this->_fetchMetar($airport->icao);
 
-        foreach ($this->_metarStations as $station) {
-            $response = $this->_client->get($metarUrl, [
-                'id' => $station,
+            $this->_metarDecoder->setMetar($rawMetar);
+            $decodedMetar = $this->_metarDecoder->getData();
+
+            $previousMetar = $this->Metar->find()
+                ->where(['airport_id' => $airport->id])
+                ->order(['created' => 'DESC'])
+                ->first();
+
+            $metarEntity = $this->Metar->newEntity([
+                'airport_id' => $airport->id,
+                'qnh_value' => $decodedMetar['qnh_value'],
+                'qnh_unit' => $decodedMetar['qnh_unit'],
+                'qnh_trend' => $this->_getQnhTrend($decodedMetar['qnh_value'], $previousMetar->qnh ?? null)->value ?? null,
+                'mean_direction' => $decodedMetar['mean_direction'],
+                'is_variable' => $decodedMetar['is_variable'],
+                'mean_speed' => $decodedMetar['mean_speed'],
+                'speed_variations' => $decodedMetar['speed_variations'],
+                'wind_shear_runways' => $decodedMetar['wind_shear_runways'],
+                'wind_shear_all_runways' => $decodedMetar['wind_shear_all_runways'],
+                'raw_metar' => $decodedMetar['raw_metar'],
+                'rvr' => $decodedMetar['rvr'],
+                'conditions' => $decodedMetar['conditions'],
             ]);
-            $this->_rawMetar[$station] = $response->getStringBody();
+            $savedMetar = $this->Metar->save($metarEntity);
+            $this->Metar->deleteAll([
+                'id IS NOT' => $savedMetar->id,
+                'airport_id' => $savedMetar->airport_id,
+            ]);
         }
     }
 
-    protected function _persistMetar(): void
+    public function setIo(ConsoleIo $io)
     {
-        if (empty($this->_rawMetar)) {
-            return;
+        $this->_io = $io;
+    }
+
+    protected function _fetchMetar(string $station): ?string
+    {
+        $response = $this->_client->get($this->_metarUrl, [
+            'id' => $station,
+        ]);
+        if ($response->isOk()) {
+            return $response->getStringBody();
         }
 
-        $metarEntity = $this->Metar->newEntity([
-            'data' => $this->_rawMetar,
-        ]);
-        $savedMetar = $this->Metar->save($metarEntity);
-        $this->Metar->deleteAll(['id IS NOT' => $savedMetar->id]);
-
-        $this->pushMessage('refresh');
+        return null;
     }
 
     protected function _getMetarUrl(): ?string
     {
-        $response = $this->_client->get($this->_vatsimStatusUrl);
-        $responseBody = json_decode($response->getStringBody(), true);
+        $response = $this->_client->get(self::_VATSIM_STATUS_URL);
+        if ($response->isOk()) {
+            $responseBody = $response->getJson();
 
-        return $responseBody['metar'][0];
+            return $responseBody['metar'][0];
+        }
+
+        return null;
+    }
+
+    protected function _getQnhTrend(?int $currentMetar, ?int $previousQnh): ?QnhTrend
+    {
+        if ($currentMetar > $previousQnh) {
+            return QnhTrend::UP;
+        }
+        if ($currentMetar < $previousQnh) {
+            return QnhTrend::DOWN;
+        }
+
+        return null;
     }
 }

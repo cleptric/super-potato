@@ -8,12 +8,7 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
-      rotate: {
-        '40': '40deg',
-        '-40': '-40deg',
-      },
-    },
+    extend: {},
   },
   variants: {
     extend: {},

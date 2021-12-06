@@ -8,10 +8,6 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->script('https://kit.fontawesome.com/c1157ccfdb.js', [
-        'crossorigin' => 'anonymous',
-    ]) ?>
-
     <?= $this->element('assets') ?>
     <?= $this->fetch('script') ?>
     <?= $this->fetch('css') ?>

@@ -13,6 +13,7 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+
 import Menu from './components/Menu.vue'
 import OisOasch from './components/OisOasch.vue'
 import Onboarding from './components/Onboarding.vue'
@@ -36,6 +37,7 @@ export default {
     },
     mounted() {
         this.setupWebsocket()
+        this.setupAudio()
         this.setupNotifications()
     },
     methods: {
@@ -78,6 +80,15 @@ export default {
             if (Notification.permission !== 'denied') {
                 Notification.requestPermission()
             }
+        },
+        setupAudio() {
+            const audio = new Audio('/sounds/silent.wav')
+            let play = audio.play()
+            play.then(() => {
+                // sound played
+            }).catch((error) => {
+                // catch error
+            })
         },
         triggerNotification(message, icao) {
             if (this.settings.notifications && this.notifications[icao]) {

@@ -79,6 +79,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
+        $this->addPlugin('Admin');
     }
 
     /**

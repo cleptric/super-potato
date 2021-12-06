@@ -10,11 +10,6 @@ export const store = createStore({
             websocket: false,
             airports: {
                 loww: null,
-                lowi: null,
-                lows: null,
-                lowg: null,
-                lowk: null,
-                lowl: null,
             },
             settings: {
                 notifications: true,
@@ -23,11 +18,6 @@ export const store = createStore({
             },
             notifications: {
                 loww: true,
-                lowi: true,
-                lows: true,
-                lowg: true,
-                lowk: true,
-                lowl: true,
             },
         }
     },
@@ -40,11 +30,6 @@ export const store = createStore({
         settings: state => state.settings,
         notifications: state => state.notifications,
         loww: state => state.airports.loww,
-        lowi: state => state.airports.lowi,
-        lows: state => state.airports.lows,
-        lowg: state => state.airports.lowg,
-        lowk: state => state.airports.lowk,
-        lowl: state => state.airports.lowl,
     },
     actions: {
         async loadData({ commit }) {
@@ -100,11 +85,6 @@ export const store = createStore({
     mutations: {
         SET_DATA(state, data) {
             state.airports.loww = data.loww
-            state.airports.lowi = data.lowi
-            state.airports.lows = data.lows
-            state.airports.lowg = data.lowg
-            state.airports.lowk = data.lowk
-            state.airports.lowl = data.lowl
             state.user = data.user
             state.logs = data.logs
         },

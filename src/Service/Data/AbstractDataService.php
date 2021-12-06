@@ -13,36 +13,33 @@ abstract class AbstractDataService
 
     protected ?Airport $_airport;
 
-    protected ?array $_feed = null;
-
-    protected ?array $_metar = null;
-
-    protected ?array $_taf = null;
-
-    public function __construct(?array $feed, ?array $metar, ?array $taf)
+    public function __construct()
     {
         $this->loadModel('Airports');
+        $this->loadModel('Taf');
 
         $this->_airport = $this->Airports->find()
-            ->where(['name' => $this->_airportIcao])
+            ->where(['icao' => 'LOWW'])
             ->first();
-
-        $this->_feed = $feed;
-        $this->_metar = $metar;
-        $this->_taf = $taf;
     }
 
     public function getData(): array
     {
-        $atisService = new $this->_atisDecoderService();
-        $atisService->setDataFeed($this->_feed);
-        $atis = $atisService->getData();
+        $taf = $this->Taf->find()
+            ->order(['created' => 'DESC'])
+            ->first();
 
-        $metarDecoderService = new MetarDecoderService();
-        $metarDecoderService->setMetar($this->_metar['data'][strtoupper($this->_airportIcao)] ?? null);
-        $metar = $metarDecoderService->getData();
+        $atisDataService = new AtisDataService();
+        $atisDataService->setAirport($this->_airport);
+        $atis = $atisDataService->getData();
 
-        $taf = $this->_taf['data'][strtoupper($this->_airportIcao)]['raw_text'];
+        $metarDataService = new MetarDataService();
+        $metarDataService->setAirport($this->_airport);
+        $metar = $metarDataService->getData();
+
+        $tafDataService = new TafDataService();
+        $tafDataService->setAirport($this->_airport);
+        $taf = $tafDataService->getData();
 
         $windComponentService = new $this->_windComponentService();
         $windComponentService->setMeanDirection($metar['mean_direction']);
@@ -50,7 +47,7 @@ abstract class AbstractDataService
         $windComponents = $windComponentService->getData();
 
         return [
-            'icao' => $this->_airportIcao,
+            'name' => sprintf('%s (%s)', $this->_airport->name, $this->_airport->icao),
             'runways' => $this->_airportRunways,
             'atis' => $atis,
             'metar' => $metar,
@@ -60,8 +57,6 @@ abstract class AbstractDataService
             'missed_approach_timeout' => $this->_airport->missed_approach_timeout->toUnixString(),
             'closed_runways' => $this->_airport->closed_runways ?? [],
             'closed_runways_timeout' => $this->_airport->closed_runways_timeout->toUnixString(),
-            'visual_depature' => $this->_airport->visual_depatures ?? [],
-            'visual_depature_directions' => $this->_visualDepatureDirections,
             'notification' => $this->_hasNotification(),
         ];
     }
