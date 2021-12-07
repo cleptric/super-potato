@@ -30,5 +30,5 @@ class EetnDecoderService extends AbstractDecoderService
     /**
      * @var string
      */
-    protected string $_transitionLevelPattern = '/(?<=TRL )(\d\d)(?= )/s';
+    protected string $_transitionLevelPattern = '/(?<=TRANSITION LEVEL )(\d\d)(?= )/s';
 }
