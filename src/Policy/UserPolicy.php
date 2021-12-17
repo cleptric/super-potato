@@ -12,4 +12,13 @@ class UserPolicy extends AbstractPolicy
     {
         return parent::_isUserOnline($identityUser);
     }
+
+    public function canAccessAdmin(IdentityInterface $identityUser): bool
+    {
+        if ($identityUser->admin === true) {
+            return true;
+        }
+
+        return false;
+    }
 }

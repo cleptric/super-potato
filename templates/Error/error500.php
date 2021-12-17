@@ -4,6 +4,7 @@
  * @var \Cake\Database\StatementInterface $error
  * @var string $message
  * @var string $url
+ * @phpcs:ignoreFile
  */
 use Cake\Core\Configure;
 use Cake\Error\Debugger;

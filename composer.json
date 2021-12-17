@@ -40,8 +40,8 @@
     "scripts": {
         "post-install-cmd": "App\\Console\\Installer::postInstall",
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
-        "cs-check": "phpcs --colors -p  src/ tests/",
-        "cs-fix": "phpcbf --colors -p src/ tests/",
+        "cs-check": "phpcs --colors -p  src/ templates/ tests/",
+        "cs-fix": "phpcbf --colors -p src/ templates/ tests/",
         "psalm": "psalm.phar --show-info=false",
         "test": "phpunit --colors=always"
     },
