@@ -44,6 +44,8 @@ Thumbs.db
 nbproject/*
 # Visual Studio Code
 .vscode
+# Panic Nova
+.nova/*
 # Sass preprocessor
 .sass-cache/
 # node
