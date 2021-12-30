@@ -1,12 +1,11 @@
 module.exports = {
-  mode: 'jit',
-  purge: [
+  darkMode: 'class',
+  content: [
     './frontend/**/*.{js,vue}',
     './config/**/*.php',
     './templates/**/*.php',
     './plugins/**/*.php',
   ],
-  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
   },
