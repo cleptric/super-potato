@@ -1,7 +1,7 @@
 {
     "name": "cleptric/super-potato",
     "description": "Super Potato Aerodrom Data Display",
-    "homepage": "https://super-potato.vacc-austria.org",
+    "homepage": "https://super-potato.com",
     "type": "project",
     "license": "MIT",
     "require": {
