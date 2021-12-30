@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Metar Model
  *
+ * @property \App\Model\Table\AirportsTable&\Cake\ORM\Association\BelongsTo $Airports
+ *
  * @method \App\Model\Entity\Metar newEmptyEntity()
  * @method \App\Model\Entity\Metar newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Metar[] newEntities(array $data, array $options = [])
@@ -98,6 +100,7 @@ class MetarTable extends Table
             ->allowEmptyString('mean_direction');
 
         $validator
+            ->boolean('is_variable')
             ->allowEmptyString('is_variable');
 
         $validator
@@ -109,9 +112,10 @@ class MetarTable extends Table
             ->allowEmptyString('speed_variations');
 
         $validator
-            ->allowEmptyString('rvr');
+            ->allowEmptyString('wind_shear_runways');
 
         $validator
+            ->boolean('wind_shear_all_runways')
             ->allowEmptyString('wind_shear_all_runways');
 
         $validator

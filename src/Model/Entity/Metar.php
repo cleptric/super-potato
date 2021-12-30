@@ -17,14 +17,16 @@ use Cake\ORM\Entity;
  * @property int|null $temperature
  * @property int|null $dew_point
  * @property int|null $mean_direction
- * @property int|null $is_variable
+ * @property bool|null $is_variable
  * @property int|null $mean_speed
  * @property int|null $speed_variations
- * @property string|null $wind_shear_runways
- * @property int|null $wind_shear_all_runways
+ * @property array|null $wind_shear_runways
+ * @property bool|null $wind_shear_all_runways
  * @property string|null $conditions
  * @property array|null $rvr
  * @property \Cake\I18n\FrozenTime|null $created
+ *
+ * @property \App\Model\Entity\Airport $airport
  */
 class Metar extends Entity
 {
@@ -54,5 +56,6 @@ class Metar extends Entity
         'conditions' => true,
         'rvr' => true,
         'created' => true,
+        'airport' => true,
     ];
 }

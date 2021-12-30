@@ -107,6 +107,10 @@ class AirportsTable extends Table
             ->allowEmptyDateTime('closed_runways_timeout');
 
         $validator
+            ->boolean('missed_approach')
+            ->allowEmptyString('missed_approach');
+
+        $validator
             ->dateTime('missed_approach_timeout')
             ->allowEmptyDateTime('missed_approach_timeout');
 

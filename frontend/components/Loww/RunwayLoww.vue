@@ -5,7 +5,6 @@
 
                 <MissedApproachBanner
                     :airport="loww"
-                    class="mr-3"
                 />
 
                 <WindShearBanner

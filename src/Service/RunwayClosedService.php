@@ -33,14 +33,14 @@ class RunwayClosedService
 
             $logsService->createLog($user, $airport, LogsService::TYPE_OPENED_RUNWAY);
 
-            $this->pushMessage('runway-reopened', $airport->name);
+            $this->pushMessage('runway-reopened', $airport->icao);
         } else {
             $data = Hash::merge($data, $runways);
             $closedRunwaysTimeout = new FrozenTime(Airport::RUNWAY_CLOSED_TIMEOUT);
 
             $logsService->createLog($user, $airport, LogsService::TYPE_CLOSED_RUNWAY);
 
-            $this->pushMessage('runway-closed', $airport->name);
+            $this->pushMessage('runway-closed', $airport->icao);
         }
 
         $airport = $this->Airports->patchEntity($airport, [

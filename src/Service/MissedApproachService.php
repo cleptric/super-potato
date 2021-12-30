@@ -30,7 +30,7 @@ class MissedApproachService
 
             (new LogsService())->createLog($user, $airport, LogsService::TYPE_MISSED_APPROACH);
 
-            $this->pushMessage('missed-approach', $airport->name);
+            $this->pushMessage('missed-approach', $airport->icao);
         } else {
             $missedApproach = false;
         }

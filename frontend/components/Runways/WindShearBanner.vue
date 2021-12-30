@@ -2,7 +2,7 @@
 
     <div
         v-if="airport.metar.wind_shear_runways"
-        class="rounded-md bg-red-50 py-2 px-3"
+        class="rounded-md bg-red-50 py-2 px-3 ml-3"
     >
         <div class="flex items-center">
             <div class="shrink-0">
@@ -18,7 +18,7 @@
 
     <div
         v-if="airport.metar.wind_shear_all_runways"
-        class="rounded-md bg-red-50 py-2 px-3"
+        class="rounded-md bg-red-50 py-2 px-3 ml-3"
     >
         <div class="flex items-center">
             <div class="shrink-0">

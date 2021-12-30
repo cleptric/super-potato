@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property string|null $atis_arrival_runway_pattern
  * @property string|null $atis_transition_level_pattern
  * @property \Cake\I18n\FrozenTime|null $closed_runways_timeout
+ * @property bool|null $missed_approach
  * @property \Cake\I18n\FrozenTime|null $missed_approach_timeout
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
@@ -38,16 +39,6 @@ class Airport extends Entity
      * @var array
      */
     protected $_accessible = [
-        'organization_id' => true,
-        'name' => true,
-        'icao' => true,
-        'atis_callsign' => true,
-        'atis_depature_runway_pattern' => true,
-        'atis_arrival_runway_pattern' => true,
-        'atis_transition_level_pattern' => true,
-        'closed_runways_timeout' => true,
-        'missed_approach_timeout' => true,
-        'created' => true,
-        'modified' => true,
+        '*' => false,
     ];
 }

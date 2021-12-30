@@ -8,9 +8,9 @@
                 </dt>
                 <dd class="mt-2">
                     <template v-if="closedRunwaysDisabled">
-                        <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                        <span class="relative z-0 inline-flex rounded-md">
                             <span
-                                class="relative inline-flex items-center pointer-events-none px-4 py-2 rounded-md bg-gray-100 border border-gray-100 bg-white text-sm font-medium text-gray-400"
+                                class="relative inline-flex items-center pointer-events-none px-3 py-1.5 rounded-md border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm font-medium text-gray-700 dark:text-zinc-100 opacity-50"
                             >
                                 In progress...
                             </span>
@@ -124,7 +124,6 @@ export default {
     methods: {
         async triggerMissedApproach() {
             try {
-                console.log(this.airport.icao);
                 await api.post('data/update-missed-approach', {
                     airport: this.airport.icao,
                 })

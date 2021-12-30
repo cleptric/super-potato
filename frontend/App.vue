@@ -24,7 +24,7 @@ export default {
         }
     },
     mounted() {
-        //this.setupWebsocket()
+        this.setupWebsocket()
         this.setupAudio()
         this.setupNotifications()
     },
