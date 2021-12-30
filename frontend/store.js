@@ -4,7 +4,6 @@ import { api } from '@/api'
 export const store = createStore({
     state () {
         return {
-            oisOasch: false,
             user: null,
             logs: null,
             websocket: false,
@@ -22,7 +21,6 @@ export const store = createStore({
         }
     },
     getters: {
-        oisOasch: state => state.oisOasch,
         user: state => state.user,
         logs: state => state.logs,
         websocket: state => state.websocket,
@@ -37,7 +35,6 @@ export const store = createStore({
                 const response = await api.get('data/get-data')
                 commit('SET_DATA', response.data)
             } catch (error) {
-                commit('SET_OIS_OASCH')
             }
         },
         async loadSettings({ commit, state }) {
@@ -96,9 +93,6 @@ export const store = createStore({
         },
         TOGGLE_NOTIFICATION(state, icao) {
             state.notifications[icao] = !state.notifications[icao]
-        },
-        SET_OIS_OASCH(state) {
-            state.oisOasch = true
         },
         SET_WEBSOCKET(state, connected) {
             state.websocket = connected

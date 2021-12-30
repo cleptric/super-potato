@@ -23,8 +23,7 @@
     <?= $this->fetch('script') ?>
     <?= $this->fetch('css') ?>
 </head>
-<body class="bg-gray-50 min-w-[1024px]">
-
+<body class="bg-gray-50 dark:bg-zinc-900 text-gray-900 dark:text-zinc-100 min-w-[1024px]">
     <div id="app">
         <!-- Content is replaced by the vue app -->
         <div class="absolute inset-0 flex items-center justify-center">

@@ -8,8 +8,8 @@
             inline-flex
             justify-center
             items-center
-            px-4
-            py-2
+            px-3
+            py-1.5
             border
             text-sm
             font-medium
@@ -42,7 +42,15 @@
             focus:ring-blue-500
     }
 
-    .button-tertiary {
-        
+    @media (prefers-color-scheme: dark) {
+        .dark .button-primary {
+            @apply
+                ring-offset-zinc-900
+        }
+
+        .dark .button-secondary {
+            @apply
+                ring-offset-zinc-900
+        }
     }
 }

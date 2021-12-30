@@ -1,16 +1,16 @@
 <template>
     <main>
-        <div class="space-y-6 max-w-7xl mx-auto py-7 sm:px-6 lg:px-8">
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="mt-3 rounded-md bg-white dark:bg-zinc-900 overflow-hidden border border-gray-200 dark:border-zinc-600">
+                <div class="p-3 space-y-6">
                     <div
                         v-if="message.type && message.text"
-                        class="rounded-md p-4 mb-4"
+                        class="rounded-md p-3 mb-3"
                         :class="{ 'bg-green-50': message.type === 'success', 'bg-red-50': message.type === 'error' }"
                     >
                         <div class="flex">
                             <template v-if="message.type === 'success'">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <!-- Heroicon name: solid/check-circle -->
                                     <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -23,7 +23,7 @@
                                 </div>
                             </template>
                             <template v-if="message.type === 'error'">
-                                <div class="flex-shrink-0">
+                                <div class="shrink-0">
                                     <!-- Heroicon name: solid/x-circle -->
                                     <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
@@ -41,12 +41,12 @@
                     <fieldset
                         v-if="settings.notifications || settings.sounds"
                     >
-                        <legend class="text-base font-medium text-gray-900">Try out Notifications</legend>
-                        <p class="text-sm text-gray-500">Confirm the settings you assigned below</p>
+                        <legend class="text-base font-medium">Try out Notifications</legend>
+                        <p class="text-sm text-gray-500 dark:text-zinc-300">Confirm the settings you assigned below</p>
                         <div class="mt-4 space-y-2">
                             <div class="flex items-center">
                                 <button 
-                                    class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    class="button button-secondary"
                                     @click="triggerNotification"
                                 >
                                   Trigger Notification
@@ -56,8 +56,8 @@
                     </fieldset>
 
                     <fieldset>
-                        <legend class="text-base font-medium text-gray-900">Sound Notifications</legend>
-                        <p class="text-sm text-gray-500">Sounds are played on missed approaches and closed runways</p>
+                        <legend class="text-base font-medium">Sound Notifications</legend>
+                        <p class="text-sm text-gray-500 dark:text-zinc-300">Sounds are played on missed approaches and closed runways</p>
                         <div class="mt-4 space-y-2">
                             <div class="flex items-center">
                                 <input
@@ -69,7 +69,7 @@
                                     class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                 >
                                 <label for="sounds_all" class="ml-3">
-                                    <span class="block text-sm font-medium text-gray-700">All Sounds</span>
+                                    <span class="block text-sm font-medium text-gray-700 dark:text-zinc-300">All Sounds</span>
                                 </label>
                             </div>
                             <div class="flex items-center">
@@ -82,7 +82,7 @@
                                     class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                 >
                                 <label for="sounds_none" class="ml-3">
-                                    <span class="block text-sm font-medium text-gray-700">No Sounds</span>
+                                    <span class="block text-sm font-medium text-gray-700 dark:text-zinc-300">No Sounds</span>
                                 </label>
                             </div>
                         </div>
@@ -92,8 +92,8 @@
                         v-if="settings.sounds"
                         class="mt-6"
                     >
-                        <legend class="text-base font-medium text-gray-900">Sound Volume</legend>
-                        <p class="text-sm text-gray-500">Modify the volume of sounds being played</p>
+                        <legend class="text-base font-medium">Sound Volume</legend>
+                        <p class="text-sm text-gray-500 dark:text-zinc-300">Modify the volume of sounds being played</p>
                         <div class="mt-4 space-y-2">
                             <div class="flex items-center">
                                 <input
@@ -105,7 +105,7 @@
                                     id="sound_volume"
                                 >
                                 <label for="sounds_volume" class="ml-3">
-                                    <span class="block text-sm font-medium text-gray-700">{{ settings.volume * 100 }}%</span>
+                                    <span class="block text-sm font-medium text-gray-700 dark:text-zinc-300">{{ settings.volume * 100 }}%</span>
                                 </label>
                             </div>
                         </div>
@@ -114,8 +114,8 @@
                     <fieldset
                         class="mt-6"
                     >
-                        <legend class="text-base font-medium text-gray-900">Browser Notifications</legend>
-                        <p class="text-sm text-gray-500">Notifications are shown on missed approaches and closed runways</p>
+                        <legend class="text-base font-medium">Browser Notifications</legend>
+                        <p class="text-sm text-gray-500 dark:text-zinc-300">Notifications are shown on missed approaches and closed runways</p>
                         <div class="mt-4 space-y-2">
                             <template v-if="browserNotifications">
                                 <div class="flex items-center">
@@ -128,7 +128,7 @@
                                         class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                     >
                                     <label for="notifications_all" class="ml-3">
-                                        <span class="block text-sm font-medium text-gray-700">All Browser Notifications</span>
+                                        <span class="block text-sm font-medium text-gray-700 dark:text-zinc-300">All Browser Notifications</span>
                                     </label>
                                 </div>
                                 <div class="flex items-center">
@@ -141,7 +141,7 @@
                                         class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300"
                                     >
                                     <label for="notifications_none" class="ml-3">
-                                        <span class="block text-sm font-medium text-gray-700">No Browser Notifications</span>
+                                        <span class="block text-sm font-medium text-gray-700 dark:text-zinc-300">No Browser Notifications</span>
                                     </label>
                                 </div>
                             </template>
@@ -149,7 +149,7 @@
                                 <div class="flex items-center">
                                     <div class="rounded-md bg-blue-50 p-4">
                                         <div class="flex">
-                                            <div class="flex-shrink-0">
+                                            <div class="shrink-0">
                                                 <!-- Heroicon name: solid/information-circle -->
                                                 <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
@@ -167,57 +167,80 @@
                         </div>
                     </fieldset>
                     <button 
-                        class="bg-blue-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
+                        class="button button-primary"
                         @click="saveSettings"
                     >
                         Save Settings
                     </button>
                 </div>
             </div>
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                    <div class="space-y-2">
-                        <fieldset>
-                            <legend class="text-base font-medium text-gray-900">Onboarding</legend>
-                            <p class="text-sm text-gray-500">See the onboarding message again</p>
-                            <div class="mt-4 space-y-2">
-                                <div class="flex items-center">
-                                    <button 
-                                        class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                        @click="showOnboarding"
+            <div class="mt-3 rounded-md bg-white dark:bg-zinc-900 overflow-hidden border border-gray-200 dark:border-zinc-600">
+                <div class="p-3 space-y-6">
+                    <fieldset>
+                        <legend class="text-base font-medium">Choose your Theme</legend>
+                        <p class="text-sm text-gray-500 dark:text-zinc-300">A Light or Dark Theme is available</p>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex items-center">
+                                <div
+                                    class="relative w-48 h-20 cursor-pointer rounded-md bg-gray-50 border border-gray-200 dark:border-zinc-600 space-y-2 p-3"
+                                    @click="setLightTheme"
+                                >
+                                    <div class="h-2 w-3/4 bg-gray-200 rounded-full"></div>
+                                    <div class="h-2 bg-gray-900 rounded-full"></div>
+                                    <div class="h-2 bg-gray-900 rounded-full"></div>
+                                    <div class="h-2 bg-gray-900 rounded-full"></div>
+                                    <span
+                                        v-if="theme === 'light'"
+                                        class="fa-stack fa-xs absolute bottom-1 right-1"
                                     >
-                                      Show Onboarding
-                                    </button>
+                                        <i class="fas fa-circle fa-stack-2x text-blue-500"></i>
+                                        <i class="fas fa-check fa-stack-1x text-white"></i>
+                                    </span>
+                                </div>
+                                <div class="mx-1.5"></div>
+                                <div
+                                    class="relative w-48 h-20 cursor-pointer rounded-md bg-zinc-900 border border-gray-200 dark:border-zinc-600 space-y-2 p-3"
+                                    @click="setDarkTheme"
+                                >
+                                    <div class="h-2 w-3/4 bg-zinc-800 rounded-full"></div>
+                                    <div class="h-2 bg-zinc-100 rounded-full"></div>
+                                    <div class="h-2 bg-zinc-100 rounded-full"></div>
+                                    <div class="h-2 bg-zinc-100 rounded-full"></div>
+                                    <span
+                                        v-if="theme === 'dark'"
+                                        class="fa-stack fa-xs absolute bottom-1 right-1"
+                                    >
+                                        <i class="fas fa-circle fa-stack-2x text-blue-500"></i>
+                                        <i class="fas fa-check fa-stack-1x text-white"></i>
+                                    </span>
                                 </div>
                             </div>
-                        </fieldset>
-                    </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
-            <div class="shadow sm:rounded-md sm:overflow-hidden">
-                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
-                    <div class="space-y-2">
-                        <fieldset>
-                            <legend class="text-base font-medium text-gray-900">About</legend>
-                            <div class="mt-4">
-                                <p class="text-sm text-gray-500">
-                                    Super Potato was build with <a href="https://cakephp.org/" target="_blank" rel="noopener" class="underline">CakePHP</a>, <a href="https://vuejs.org/" target="_blank" rel="noopener" class="underline">Vue.js</a> and <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="underline">Tailwind CSS</a> and many other tools.
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT license.
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    Special thanks to <span class="text-gray-600">Alex</span>, <span class="text-gray-600">Clemens</span>, <span class="text-gray-600">Mitch</span> &amp; <span class="text-gray-600">Nick</span> for all your help!
-                                </p>
-                                <p class="mt-2 text-sm text-gray-500">
-                                    Developed and maintained by <span class="text-gray-600">Michael Hoffmann</span>.
-                                </p>
-                                <p class="mt-2 text-sm text-gray-400">
-                                    &#169;Michael Hoffmann - 2021 - Munich, Germany 🏳️‍🌈
-                                </p>
-                            </div>
-                        </fieldset>
-                    </div>
+            <div class="mt-3 rounded-md bg-white dark:bg-zinc-900 overflow-hidden border border-gray-200 dark:border-zinc-600">
+                <div class="p-3 space-y-6">
+                    <fieldset>
+                        <legend class="text-base font-medium">About</legend>
+                        <div class="mt-4">
+                            <p class="text-sm text-gray-500 dark:text-zinc-300">
+                                Super Potato was build with <a href="https://cakephp.org/" target="_blank" rel="noopener" class="underline">CakePHP</a>, <a href="https://vuejs.org/" target="_blank" rel="noopener" class="underline">Vue.js</a> and <a href="https://tailwindcss.com/" target="_blank" rel="noopener" class="underline">Tailwind CSS</a> and many other tools.
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-zinc-300">
+                                The source code is available on <a href="https://github.com/cleptric/super-potato" target="_blank" rel="noopener" class="underline">GitHub</a> and is published under the MIT license.
+                            </p>
+                            <p class="text-sm text-gray-500 dark:text-zinc-300">
+                                Special thanks to <span class="text-gray-600 dark:text-zinc-400">Alex</span>, <span class="text-gray-600 dark:text-zinc-400">Clemens</span>, <span class="text-gray-600 dark:text-zinc-400">Mitch</span> &amp; <span class="text-gray-600 dark:text-zinc-400">Nick</span> for all your help!
+                            </p>
+                            <p class="mt-2 text-sm text-gray-500 dark:text-zinc-300">
+                                Developed and maintained by <span class="text-gray-600 dark:text-zinc-400">Michael Hoffmann</span>.
+                            </p>
+                            <p class="mt-2 text-sm text-gray-400 dark:text-zinc-300">
+                                &#169;Michael Hoffmann - 2021 - Munich, Germany 🏳️‍🌈
+                            </p>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div>
@@ -238,11 +261,13 @@ export default {
             type: null,
             text: null,
         })
+        const theme = ref(localStorage.theme)
 
         return {
             message: message,
             browserNotifications: browserNotifications,
             settings: computed(() => store.getters.settings),
+            theme: theme,
         }
     },
     mounted() {
@@ -271,10 +296,15 @@ export default {
                 audio.play()
             }
         },
-        showOnboarding() {
-            this.$store.dispatch('setUser', {
-                onboarded: false,
-            })
+        setLightTheme() {
+            localStorage.theme = 'light'
+            this.theme = 'light'
+            document.documentElement.classList.remove('dark')
+        },
+        setDarkTheme() {
+            localStorage.theme = 'dark'
+            this.theme = 'dark'
+            document.documentElement.classList.add('dark')
         },
         async saveSettings() {
             try {

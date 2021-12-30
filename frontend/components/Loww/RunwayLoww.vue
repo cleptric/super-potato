@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-7xl mx-auto py-3 px-8">
-        <div class="relative h-[600px] p-3 bg-white border border-gray-200 rounded-md overflow-hidden">
+        <div class="relative h-[500px] max-h-[500px] min-h-[200px] p-3 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-600 rounded-md overflow-hidden resize-y">
             <div class="flex justify-end">
 
                 <MissedApproachBanner
@@ -16,36 +16,36 @@
 
             <div class="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
                 <div
-                    class="w-[850px] h-[120px] flex items-center justify-between border border-gray-300 rounded-md"
+                    class="w-[500px] h-[100px] flex items-center justify-between border border-gray-300 dark:border-zinc-400 rounded-md"
                     :class="{ 'bg-red-200 border-red-300': loww.closed_runways.includes('11/29') }"
                 >
 
                     <div
-                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
-                        :class="{ 'rounded-md bg-blue-200': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('29') || loww.atis.depature_runway.includes('29')) }"
+                        class="relative h-full flex items-center p-4 text-center text-xl font-black"
+                        :class="{ 'rounded-l-md bg-blue-200 dark:bg-blue-500': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('29') || loww.atis.depature_runway.includes('29')) }"
                     >
                         <div
                             v-if="loww.atis.arrival_runway.includes('29') && loww.closed_runways.includes('11/29') === false"
-                            class="absolute left-[-40px] h-6 w-6 transform rotate-90"
+                            class="absolute left-[-40px] h-6 w-6 rotate-90"
                         >
-                            <i class="far fa-md fa-arrow-to-top"></i>
+                            <i class="far fa-lg fa-arrow-up"></i>
                         </div>
                         <div
                             v-if="loww.atis.depature_runway.includes('29') && loww.closed_runways.includes('11/29') === false"
-                            class="absolute left-[90px] h-6 w-6 transform rotate-90"
+                            class="absolute left-[90px] h-6 w-6 rotate-90"
                         >
-                            <i class="far fa-md fa-arrow-up"></i>
+                            <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
                         <div
                             v-if="!loww.metar.is_variable"
-                            class="absolute top-[-50px] left-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-40px] left-[20px] flex items-center text-lg text-gray-400 dark:text-zinc-300 font-medium"
                         >
                             <span class="ml-1">
                                 {{ loww.wind_components['29'] }}
                             </span>
                         </div>
-                        <span class="w-12 transform -rotate-90">29</span>
+                        <span class="-rotate-90">29</span>
                     </div>
 
                     <template v-if="loww.closed_runways.includes('11/29')">
@@ -71,59 +71,59 @@
                         </div>
 
                         <template v-if="!loww.metar.is_variable && loww.metar.mean_direction">
-                            <div class="flex items-center transform rotate-40 text-center text-blue-300">
+                            <div class="flex items-center rotate-[-40deg] text-center text-blue-300 dark:text-blue-500">
                                 <i 
-                                    class="fad fa-3x fa-location-circle"
+                                    class="fad fa-2x fa-location-circle"
                                     :style="windArrow1129"
                                 >
                                 </i>
                             </div>
                         </template>
                         <template v-else-if="loww.metar.is_variable">
-                            <div class="relative flex items-center justify-center text-blue-300">
+                            <div class="relative flex items-center justify-center text-blue-300 dark:text-blue-500">
                                 <template v-if="loww.metar.mean_speed >= 4">
-                                    <i class="fad fa-3x fa-exclamation-circle"></i>
+                                    <i class="fad fa-2x fa-exclamation-circle"></i>
                                 </template>
                                 <template v-else>
-                                    <i class="fad fa-3x fa-circle"></i>
+                                    <i class="fad fa-2x fa-circle"></i>
                                 </template>
                             </div>
                         </template>
 
                         <div
                             v-if="loww.metar.rvr['16'] !== undefined"
-                            class="text-center text-xl font-bold"
+                            class="text-center text-lg font-bold"
                         >
                             {{ loww.metar.rvr['16'] }}
                         </div>
                     </template>
 
                     <div
-                        class="relative h-full flex items-center px-4 py-5 text-center text-2xl font-black"
-                        :class="{ 'rounded-md bg-blue-200': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('11') || loww.atis.depature_runway.includes('11')) }"
+                        class="relative h-full flex items-center p-4 text-center text-xl font-black"
+                        :class="{ 'rounded-r-md bg-blue-200 dark:bg-blue-500': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('11') || loww.atis.depature_runway.includes('11')) }"
                     >
                         <div
                             v-if="loww.atis.arrival_runway.includes('11') && loww.closed_runways.includes('11/29') === false"
-                            class="absolute right-[-40px] h-6 w-6 transform -rotate-90"
+                            class="absolute right-[-40px] h-6 w-6 -rotate-90"
                         >
-                            <i class="far fa-md fa-arrow-to-top"></i>
+                            <i class="far fa-lg fa-arrow-up"></i>
                         </div>
                         <div
                             v-if="loww.atis.depature_runway.includes('11') && loww.closed_runways.includes('11/29') === false"
-                            class="absolute left-[-40px] h-6 w-6 transform -rotate-90"
+                            class="absolute left-[-40px] h-6 w-6 -rotate-90"
                         >
-                            <i class="far fa-md fa-arrow-up"></i>
+                            <i class="far fa-lg fa-arrow-up"></i>
                         </div>
 
                         <div
                             v-if="!loww.metar.is_variable"
-                            class="absolute top-[-50px] right-[20px] flex items-center text-gray-400 font-medium"
+                            class="absolute top-[-40px] right-[20px] flex items-center text-gray-400 dark:text-zinc-300 text-lg font-medium"
                         >
                             <span class="ml-1">
                                 {{ loww.wind_components['11'] }}
                             </span>
                         </div>
-                        <span class="w-12 transform -rotate-90">11</span>
+                        <span class="-rotate-90">11</span>
                     </div>
                 </div>
             </div>

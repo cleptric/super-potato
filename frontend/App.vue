@@ -1,13 +1,6 @@
 <template>
-    <template v-if="oisOasch">
-        <OisOasch />
-    </template>
-    <template v-else>
-        <Menu />
-        <Onboarding v-if="!user.onboarded" />
-
-        <router-view></router-view>
-    </template>
+    <Menu />
+    <router-view></router-view>
 </template>
 
 <script>
@@ -15,14 +8,10 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import Menu from './components/Menu.vue'
-import OisOasch from './components/OisOasch.vue'
-import Onboarding from './components/Onboarding.vue'
 
 export default {
     components: {
         Menu,
-        OisOasch,
-        Onboarding,
     },
     setup () {
         const store = useStore()
@@ -31,12 +20,11 @@ export default {
             setWebsockt: (connected) => store.dispatch('setWebsockt', connected),
             settings: computed(() => store.getters.settings),
             notifications: computed(() => store.getters.notifications),
-            oisOasch: computed(() => store.getters.oisOasch),
             user: computed(() => store.getters.user),
         }
     },
     mounted() {
-        this.setupWebsocket()
+        //this.setupWebsocket()
         this.setupAudio()
         this.setupNotifications()
     },

@@ -1,12 +1,12 @@
 <template>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <dl class="grid grid-cols-3 gap-3">
+    <div class="max-w-7xl mx-auto px-8">
+        <dl class="grid grid-cols-4 gap-3">
 
-            <div class="p-3 bg-white border border-gray-200 rounded-md overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
+            <div class="p-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-600 rounded-md">
+                <dt class="text-xs font-medium text-gray-500 dark:text-zinc-300">
                     Runway Closed
                 </dt>
-                <dd class="mt-1 text-3xl font-semibold text-gray-900">
+                <dd class="mt-2">
                     <template v-if="closedRunwaysDisabled">
                         <span class="relative z-0 inline-flex shadow-sm rounded-md">
                             <span
@@ -24,7 +24,7 @@
                                 v-for="(runway, index) in airport.runways"
                                 :key="index"
                                 @click="triggerRunwayClosed(runway)"
-                                class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                class="relative inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm font-medium text-gray-700 dark:text-zinc-100 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                                 :class="{
                                     'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': airport.closed_runways.includes(runway),
                                     '-ml-px ': index !== 0,
@@ -39,11 +39,11 @@
                 </dd>
             </div>
 
-            <div class="p-3 bg-white border border-gray-200 rounded-md overflow-hidden">
-                <dt class="text-sm font-medium text-gray-500 truncate">
+            <div class="p-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-600 rounded-md">
+                <dt class="text-xs font-medium text-gray-500 dark:text-zinc-300">
                     Missed Approach
                 </dt>
-                <dd class="mt-2 text-3xl font-semibold text-gray-900">
+                <dd class="mt-2">
                     <template v-if="missedApporachDisabled">
                         <span
                             class="button button-secondary pointer-events-none opacity-50"
@@ -124,6 +124,7 @@ export default {
     methods: {
         async triggerMissedApproach() {
             try {
+                console.log(this.airport.icao);
                 await api.post('data/update-missed-approach', {
                     airport: this.airport.icao,
                 })
