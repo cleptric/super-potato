@@ -100,10 +100,6 @@ class UsersTable extends Table
             ->notEmptyString('status');
 
         $validator
-            ->boolean('onboarded')
-            ->notEmptyString('onboarded');
-
-        $validator
             ->allowEmptyString('settings');
 
         $validator

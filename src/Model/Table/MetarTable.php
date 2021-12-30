@@ -86,6 +86,14 @@ class MetarTable extends Table
             ->allowEmptyString('qnh_trend');
 
         $validator
+            ->integer('temperature')
+            ->allowEmptyString('temperature');
+
+        $validator
+            ->integer('dew_point')
+            ->allowEmptyString('dew_point');
+
+        $validator
             ->integer('mean_direction')
             ->allowEmptyString('mean_direction');
 

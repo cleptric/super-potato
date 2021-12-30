@@ -104,10 +104,7 @@ class DataFeedService
 
                     $decodedAtis = $this->_atisDecoderService->getData($textAtis);
 
-                    $atis = $this->Atis->findOrCreate([
-                        'airport_id' => $airport->id,
-                    ]);
-                    $atis = $this->Atis->patchEntity($atis, [
+                    $atis = $this->Atis->newEntity([
                         'airport_id' => $airport->id,
                         'raw_atis' => $textAtis,
                         'atis_letter' => $rawAtis['atis_code'],
@@ -115,7 +112,11 @@ class DataFeedService
                         'arrival_runway' => $decodedAtis['arrival_runway'],
                         'transition_level' => $decodedAtis['transition_level'],
                     ]);
-                    $this->Atis->save($atis);
+                    $savedAtis = $this->Atis->save($atis);
+                    $this->Atis->deleteAll([
+                        'id IS NOT' => $savedAtis->id,
+                        'airport_id' => $savedAtis->airport_id,
+                    ]);
 
                     // Cleanup
                 }

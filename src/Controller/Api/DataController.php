@@ -92,26 +92,6 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
-    public function completeOnboarding()
-    {
-        $this->request->allowMethod('post');
-        $this->Authorization->skipAuthorization();
-
-        $this->loadModel('Users');
-        $user = $this->Authentication->getIdentity();
-        $user = $this->Users->patchEntity($user, [
-            'onboarded' => true,
-        ], [
-            'accessibleFields' => [
-                'onboarded' => true,
-            ],
-        ]);
-        $this->Users->save($user);
-
-        return $this->response
-            ->withStatus(204);
-    }
-
     public function updateMissedApproach()
     {
         $this->request->allowMethod('post');
@@ -120,7 +100,7 @@ class DataController extends Controller
 
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
+            ->where(['icao' => $airportIcao])
             ->first();
 
         $this->Authorization->authorize($airport, 'updateMissedApproach');
@@ -141,7 +121,7 @@ class DataController extends Controller
 
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
-            ->where(['name' => $airportIcao])
+            ->where(['icao' => $airportIcao])
             ->first();
 
         $this->Authorization->authorize($airport, 'updateRunwayClosed');

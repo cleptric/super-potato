@@ -72,6 +72,8 @@ class MetarService
                 'qnh_value' => $decodedMetar['qnh_value'],
                 'qnh_unit' => $decodedMetar['qnh_unit'],
                 'qnh_trend' => $this->_getQnhTrend($decodedMetar['qnh_value'], $previousMetar->qnh ?? null)->value ?? null,
+                'temperature' => $decodedMetar['temperature'],
+                'dew_point' => $decodedMetar['dew_point'],
                 'mean_direction' => $decodedMetar['mean_direction'],
                 'is_variable' => $decodedMetar['is_variable'],
                 'mean_speed' => $decodedMetar['mean_speed'],
@@ -121,11 +123,13 @@ class MetarService
 
     protected function _getQnhTrend(?int $currentMetar, ?int $previousQnh): ?QnhTrend
     {
-        if ($currentMetar > $previousQnh) {
-            return QnhTrend::UP;
-        }
-        if ($currentMetar < $previousQnh) {
-            return QnhTrend::DOWN;
+        if (isset($currentMetar) && isset($previousQnh)) {
+            if ($currentMetar > $previousQnh) {
+                return QnhTrend::UP;
+            }
+            if ($currentMetar < $previousQnh) {
+                return QnhTrend::DOWN;
+            }
         }
 
         return null;

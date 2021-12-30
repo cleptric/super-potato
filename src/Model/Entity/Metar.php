@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property int|null $qnh_value
  * @property string|null $qnh_unit
  * @property string|null $qnh_trend
+ * @property int|null $temperature
+ * @property int|null $dew_point
  * @property int|null $mean_direction
  * @property int|null $is_variable
  * @property int|null $mean_speed
@@ -41,6 +43,8 @@ class Metar extends Entity
         'qnh_value' => true,
         'qnh_unit' => true,
         'qnh_trend' => true,
+        'temperature' => true,
+        'dew_point' => true,
         'mean_direction' => true,
         'is_variable' => true,
         'mean_speed' => true,

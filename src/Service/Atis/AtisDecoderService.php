@@ -57,7 +57,6 @@ class AtisDecoderService
                 ];
             }
         } catch (Throwable $t) {
-            dd($t);
         }
 
         return [];

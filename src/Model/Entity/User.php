@@ -18,7 +18,6 @@ use RuntimeException;
  * @property string $full_name
  * @property string $role
  * @property string $status
- * @property bool $onboarded
  * @property array|null $settings
  * @property array|null $notifications
  * @property \Cake\I18n\FrozenTime|null $modified

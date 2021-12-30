@@ -29,6 +29,8 @@ class MetarDecoderService
         return [
             'qnh_value' => !empty($this->_decoder->getPressure()) ? $this->_decoder->getPressure()->getValue() : null,
             'qnh_unit' => !empty($this->_decoder->getPressure()) ? $this->_decoder->getPressure()->getUnit() : null,
+            'temperature' => !empty($this->_decoder->getAirTemperature()) ? $this->_decoder->getAirTemperature()->getValue() : null,
+            'dew_point' => !empty($this->_decoder->getDewPointTemperature()) ? $this->_decoder->getDewPointTemperature()->getValue() : null,
             'mean_direction' => !empty($this->_decoder->getSurfaceWind()) && !empty($this->_decoder->getSurfaceWind()->getMeanDirection()) ? $this->_decoder->getSurfaceWind()->getMeanDirection()->getValue() : null,
             'is_variable' => !empty($this->_decoder->getSurfaceWind()) ? $this->_decoder->getSurfaceWind()->withVariableDirection() : null,
             'mean_speed' => !empty($this->_decoder->getSurfaceWind()) ? $this->_decoder->getSurfaceWind()->getMeanSpeed()->getValue() : null,
