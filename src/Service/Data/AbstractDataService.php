@@ -48,6 +48,7 @@ abstract class AbstractDataService
 
         return [
             'name' => sprintf('%s (%s)', $this->_airport->name, $this->_airport->icao),
+            'icao' => $this->_airport->icao,
             'runways' => $this->_airportRunways,
             'atis' => $atis,
             'metar' => $metar,
