@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Authentication\IdentityInterface as AuthenticationIdentity;
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\IdentityInterface as AuthorizationIdentity;
 use Authorization\Policy\ResultInterface;
@@ -17,8 +16,6 @@ use RuntimeException;
  * @property string $id
  * @property string $vatsim_id
  * @property string $full_name
- * @property string $username
- * @property string $password
  * @property bool $admin
  * @property string $status
  * @property bool $onboarded
@@ -49,18 +46,6 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     protected $_accessible = [
         '*' => false,
     ];
-
-    /**
-     * @var \Authorization\AuthorizationServiceInterface|null
-     */
-    protected $authorization = null;
-
-    protected function _setPassword(string $password)
-    {
-        $hasher = new DefaultPasswordHasher();
-
-        return $hasher->hash($password);
-    }
 
     protected function _getSettings($settings)
     {

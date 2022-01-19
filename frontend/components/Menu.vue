@@ -22,7 +22,7 @@
                     <i class="far fa-cog text-xs text-gray-300 mr-1"></i> Settings
                 </router-link>
             </div>
-            <div
+            <!-- <div
                 v-if="user.admin"
                 class="ml-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white"
                 :class="{ 'bg-gray-900 !text-white': this.$route.name === 'Admin' }"
@@ -33,7 +33,7 @@
                 >
                     <i class="far fa-user-cog text-xs text-gray-300 mr-1"></i> Admin
                 </router-link>
-            </div>
+            </div> -->
             <div class="ml-2 px-2 rounded-md text-sm font-medium text-gray-400 bg-gray-600 hover:bg-gray-800 hover:text-white">
                 <a href="/logout" class="flex items-center">
                     <i class="far fa-sign-out text-xs text-gray-300 mr-1"></i> Sign out

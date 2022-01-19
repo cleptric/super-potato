@@ -52,7 +52,6 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/api/{controller}', ['prefix' => 'Api']);
 
         $builder->connect('/login', ['controller' => 'Login', 'action' => 'login']);
-        $builder->connect('/signup', ['controller' => 'Login', 'action' => 'signup']);
         $builder->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);
 
         $builder->connect('/eetn', ['controller' => 'Home', 'action' => 'index']);

@@ -31,28 +31,6 @@ class UsersService
         }
     }
 
-    public function changePassword(array $data): void
-    {
-        $user = $this->Users->get($this->_user->id);
-
-        $passwordHasher = new DefaultPasswordHasher();
-        if ($passwordHasher->check($data['current_password'], $user->password) === false) {
-            throw new BadRequestException();
-        }
-
-        $user = $this->Users->patchEntity($user, [
-            'password' => $data['new_password'],
-        ], [
-            'accessibleFields' => [
-                'password' => true,
-            ],
-        ]);
-
-        if ($this->Users->save($user) === false) {
-            throw new BadRequestException();
-        }
-    }
-
     public function deleteAccount(): void
     {
         $user = $this->Users->get($this->_user->id);

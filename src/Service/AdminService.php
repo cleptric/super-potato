@@ -31,7 +31,6 @@ class AdminService
                         'id' => $user->id,
                         'full_name' => $user->full_name,
                         'vatsim_id' => $user->vatsim_id,
-                        'username' => $user->username,
                         'status' => $user->status,
                         'admin' => $user->admin,
                     ];
