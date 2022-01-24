@@ -17,7 +17,7 @@
                                 <thead class="bg-gray-100">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Notifications
+                                            Notify
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Airport
@@ -36,6 +36,9 @@
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Wind
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Conditions
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         </th>
@@ -79,7 +82,9 @@
                                             </template>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{ airport.atis.transition_level }}
+                                            <template v-if="airport.atis.transition_level">
+                                                FL {{ airport.atis.transition_level }}
+                                            </template>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ airport.metar.qnh_value }}
@@ -93,6 +98,9 @@
                                                     {{ airport.metar.mean_direction.toString().padStart(3, '0') }}° / {{ airport.metar.mean_speed }}kts
                                                 </template>
                                             </template>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ airport.metar.condition }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                             <template v-if="airport.missed_approach">

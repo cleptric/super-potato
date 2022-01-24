@@ -169,10 +169,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             'queryParam' => 'redirect',
         ]);
 
-        $fields = [
-            IdentifierInterface::CREDENTIAL_USERNAME => 'username',
-            IdentifierInterface::CREDENTIAL_PASSWORD => 'password',
-        ];
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');
 

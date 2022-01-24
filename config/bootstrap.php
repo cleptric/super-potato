@@ -37,8 +37,8 @@ use Cake\Core\Configure\Engine\PhpConfig;
 use Cake\Database\TypeFactory;
 use Cake\Database\Type\StringType;
 use Cake\Datasource\ConnectionManager;
-use App\Error\ConsoleErrorHandler;
-use App\Error\ErrorHandler;
+use Cake\Error\ConsoleErrorHandler;
+use Cake\Error\ErrorHandler;
 use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
@@ -67,10 +67,6 @@ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
         ->toEnv()
         ->toServer();
 }
-
-Sentry\init([
-    'dsn' => env('SENTRY_DSN'),
-]);
 
 /*
  * Read configuration file and inject configuration into various

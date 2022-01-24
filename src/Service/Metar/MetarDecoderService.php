@@ -102,6 +102,7 @@ class MetarDecoderService
         }
 
         $rvr = $this->_decoder->getRunwaysVisualRange();
+
         $runwayRvr = [];
         if (!empty($rvr)) {
             foreach ($rvr as $rwy) {
@@ -109,7 +110,7 @@ class MetarDecoderService
                 if (isset($runwayRvr['rvr']) && $runwayRvr['rvr'] < $rwy->getVisualRange()->getValue()) {
                     continue;
                 }
-                if ($rwy->getVisualRange()->getValue() < 600) {
+                if ($rwy->getVisualRange()->getValue() <= 1000) {
                     $runwayRvr = [
                         'runway' => $rwy->getRunway(),
                         'rvr' => $rwy->getVisualRange()->getValue(),
@@ -120,30 +121,24 @@ class MetarDecoderService
 
         // LVP 3
         if (
-            // RVR smaller 350m AND
-            !empty($runwayRvr) && $runwayRvr['rvr'] < 350 &&
-            // Celing below 200ft
-            !empty($cloudLayer) && $cloudLayer['base'] < 200
+            // RVR equal/smaller 75m
+            !empty($runwayRvr) && $runwayRvr['rvr'] <= 75
         ) {
             return 'LVP CAT III';
         }
 
         // LVP 2
         if (
-            // RVR smaller 600m OR
-            !empty($runwayRvr) && $runwayRvr['rvr'] < 600 ||
-            // Celing below 200ft
-            !empty($cloudLayer) && $cloudLayer['base'] < 200
+            /// RVR smaller 400m
+            !empty($runwayRvr) && $runwayRvr['rvr'] < 400
         ) {
             return 'LVP CAT II';
         }
 
         // LVP 1
         if (
-            // Celing below 450ft OR
-            !empty($cloudLayer) && $cloudLayer['base'] < 450 ||
-            // Visibility below 5000m
-            !empty($visiblity) && $visiblity < 5000
+            // RVR smaller 1000m
+            !empty($runwayRvr) && $runwayRvr['rvr'] < 1000
         ) {
             return 'LVP CAT I';
         }

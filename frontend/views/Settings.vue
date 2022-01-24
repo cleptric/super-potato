@@ -11,12 +11,12 @@
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div
-                        v-if="message.type && message.text"
+                        v-if="settingsMessage.type && settingsMessage.text"
                         class="rounded-md p-4 mb-4"
-                        :class="{ 'bg-green-50': message.type === 'success', 'bg-red-50': message.type === 'error' }"
+                        :class="{ 'bg-green-50': settingsMessage.type === 'success', 'bg-red-50': settingsMessage.type === 'error' }"
                     >
                         <div class="flex">
-                            <template v-if="message.type === 'success'">
+                            <template v-if="settingsMessage.type === 'success'">
                                 <div class="flex-shrink-0">
                                     <!-- Heroicon name: solid/check-circle -->
                                     <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -25,11 +25,11 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-green-800">
-                                        {{ message.text }}
+                                        {{ settingsMessage.text }}
                                     </p>
                                 </div>
                             </template>
-                            <template v-if="message.type === 'error'">
+                            <template v-if="settingsMessage.type === 'error'">
                                 <div class="flex-shrink-0">
                                     <!-- Heroicon name: solid/x-circle -->
                                     <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="ml-3">
                                     <p class="text-sm font-medium text-red-800">
-                                        {{ message.text }}
+                                        {{ settingsMessage.text }}
                                     </p>
                                 </div>
                             </template>
@@ -181,6 +181,63 @@
                     </button>
                 </div>
             </div>
+
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                    <div
+                        v-if="deleteMessage.type && deleteMessage.text"
+                        class="rounded-md p-4 mb-4"
+                        :class="{ 'bg-green-50': deleteMessage.type === 'success', 'bg-red-50': deleteMessage.type === 'error' }"
+                    >
+                        <div class="flex">
+                            <template v-if="deleteMessage.type === 'success'">
+                                <div class="flex-shrink-0">
+                                    <!-- Heroicon name: solid/check-circle -->
+                                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-green-800">
+                                        {{ deleteMessage.text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template v-if="deleteMessage.type === 'error'">
+                                <div class="flex-shrink-0">
+                                    <!-- Heroicon name: solid/x-circle -->
+                                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-red-800">
+                                        {{ deleteMessage.text }}
+                                    </p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <fieldset>
+                            <legend class="text-base font-medium text-gray-900">Delete Account</legend>
+                            <p class="text-sm text-gray-500">If you do not longer want to use Super Potato, you can delete your account</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center">
+                                    <button 
+                                        class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        @click="toggleDeleteAccount"
+                                    >
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="space-y-2">
@@ -201,6 +258,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div class="space-y-2">
@@ -229,7 +287,55 @@
             </div>
         </div>
     </main>
-    
+
+    <div
+        v-if="deleteAccountModal"
+        class="fixed z-10 inset-0 overflow-y-auto"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+    >
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <!-- Heroicon name: outline/exclamation -->
+                        <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Delete Account
+                        </h3>
+                        <div class="mt-2">
+                            <p class="text-sm text-gray-500">
+                                Are you sure you want to delete your account? This action cannot be undone.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 sm:mt-4 sm:ml-10 sm:pl-4 sm:flex">
+                    <button
+                        class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                        @click="deleteAccount"
+                    >
+                        Delete Account
+                    </button>
+                    <button
+                        class="ml-3 inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                        @click="toggleDeleteAccount"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -241,16 +347,49 @@ export default {
     setup () {
         const store = useStore()
         const browserNotifications = ref(false)
-        const message = ref({
+        const deleteAccountModal = ref(false)
+
+        const settingsMessage = ref({
+            type: null,
+            text: null,
+        })
+        const passwordMessage = ref({
+            type: null,
+            text: null,
+        })
+        const deleteMessage = ref({
             type: null,
             text: null,
         })
 
         return {
-            message: message,
+            settingsMessage: settingsMessage,
+            passwordMessage: passwordMessage,
+            deleteMessage: deleteMessage,
             browserNotifications: browserNotifications,
+            deleteAccountModal: deleteAccountModal,
             settings: computed(() => store.getters.settings),
         }
+    },
+    watch: {
+        deleteAccountModal: {
+            immediate: true,
+            handler(deleteAccountModal) {
+                if (deleteAccountModal) {
+                    document.body.style.setProperty('overflow', 'hidden');
+                } else {
+                    document.body.style.removeProperty('overflow');
+                }
+            },
+        },
+    },
+    created() {
+        const onEscape = (e) => {
+            if (this.deleteAccountModal && e.keyCode === 27) {
+                this.toggleDeleteAccount()
+            }
+        }
+        document.addEventListener('keydown', onEscape)
     },
     mounted() {
         this.setupNotifications()
@@ -283,25 +422,71 @@ export default {
                 onboarded: false,
             })
         },
+        toggleDeleteAccount() {
+            this.deleteAccountModal = !this.deleteAccountModal
+        },
         async saveSettings() {
             try {
                 await this.$store.dispatch('saveSettings')
-                this.message = {
+                this.settingsMessage = {
                     type: 'success',
                     text: 'Your settings have been saved',
                 }
             } catch (error) {
-                this.message = {
+                this.settingsMessage = {
                     type: 'error',
                     text: 'Your settings could not be saved',
                 }
             } finally {
                 setTimeout(() => {
-                    this.message = {
+                    this.settingsMessage = {
                         type: null,
                         text: null,
                     }
-                }, 3000)
+                }, 5000)
+            }
+        },
+        async changePassword() {
+            try {
+                let data = new FormData(this.$refs.passwordForm)
+
+                await this.$store.dispatch('changePassword', data)
+                this.passwordMessage = {
+                    type: 'success',
+                    text: 'Your password has been changed',
+                }
+                this.$refs.currentPassword.value = null
+                this.$refs.newPassword.value = null
+            } catch (error) {
+                this.passwordMessage = {
+                    type: 'error',
+                    text: 'Your password could not be changed',
+                }
+            } finally {
+                setTimeout(() => {
+                    this.passwordMessage = {
+                        type: null,
+                        text: null,
+                    }
+                }, 5000)
+            }
+        },
+        async deleteAccount() {
+            try {
+                await this.$store.dispatch('deleteAccount')
+                window.location.href = '/'
+            } catch (error) {
+                this.deleteMessage = {
+                    type: 'error',
+                    text: 'Your account could not be deleted',
+                }
+            } finally {
+                setTimeout(() => {
+                    this.deleteMessage = {
+                        type: null,
+                        text: null,
+                    }
+                }, 5000)
             }
         },
     },

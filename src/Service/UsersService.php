@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\Data;
+namespace App\Service;
 
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
+use Cake\Http\Exception\BadRequestException;
 use Throwable;
 
-class NotificationsDataService
+class UsersService
 {
     use ModelAwareTrait;
 
@@ -21,7 +23,7 @@ class NotificationsDataService
 
         try {
             $this->_settings = $this->Users->find()
-                ->select('notifications')
+                ->select('settings')
                 ->where(['id' => $this->_user->id])
                 ->firstOrFail()
                 ->toArray();
@@ -29,28 +31,10 @@ class NotificationsDataService
         }
     }
 
-    public function getData(): ?array
+    public function deleteAccount(): void
     {
         $user = $this->Users->get($this->_user->id);
-
-        return [
-            'notifications' => $user->notifications,
-        ];
-    }
-
-    public function saveData(array $data): void
-    {
-        $user = $this->Users->get($this->_user->id);
-        $user = $this->Users->patchEntity($user, [
-            'notifications' => [
-                'eetn' => filter_var($data['eetn'], FILTER_VALIDATE_BOOLEAN),
-            ],
-        ], [
-            'accessibleFields' => [
-                'notifications' => true,
-            ],
-        ]);
-        $this->Users->saveOrFail($user);
+        $user = $this->Users->delete($user);
     }
 
     public function setUser(IdentityInterface $user): void

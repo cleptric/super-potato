@@ -17,6 +17,7 @@ use RuntimeException;
  * @property string $vatsim_id
  * @property string $full_name
  * @property bool $admin
+ * @property string $status
  * @property bool $onboarded
  * @property array|null $settings
  * @property array|null $notifications
@@ -26,14 +27,12 @@ use RuntimeException;
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
     public const CONTROLER_PREFIX = [
-        'LOVV',
-        'LOWW',
-        'LOWI',
-        'LOWS',
-        'LOWG',
-        'LOWK',
-        'LOWL',
+        'EETN',
+        'EETT',
     ];
+
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_BLOCKED = 'blocked';
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -47,11 +46,6 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     protected $_accessible = [
         '*' => false,
     ];
-
-    /**
-     * @var \Authorization\AuthorizationServiceInterface|null
-     */
-    protected $authorization = null;
 
     protected function _getSettings($settings)
     {
@@ -70,12 +64,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     {
         if (empty($notifications)) {
             return [
-                'loww' => true,
-                'lowi' => true,
-                'lows' => true,
-                'lowg' => true,
-                'lowk' => true,
-                'lowl' => true,
+                'eetn' => true,
             ];
         }
 

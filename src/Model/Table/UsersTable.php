@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use App\Model\Entity\User;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -60,6 +62,11 @@ class UsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
+            ->numeric('vatsim_id')
+            ->requirePresence('vatsim_id', 'create')
+            ->notEmptyString('vatsim_id');
+
+        $validator
             ->scalar('full_name')
             ->maxLength('full_name', 255)
             ->requirePresence('full_name', 'create')
@@ -68,6 +75,12 @@ class UsersTable extends Table
         $validator
             ->boolean('admin')
             ->notEmptyString('admin');
+
+        $validator
+            ->scalar('status')
+            ->maxLength('status', 255)
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         $validator
             ->boolean('onboarded')
@@ -91,8 +104,14 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['vatism_id']), ['errorField' => 'vatism_id']);
+        $rules->add($rules->isUnique(['vatsim_id']), ['errorField' => 'vatsim_id']);
+        $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
 
         return $rules;
+    }
+
+    public function findActive(Query $query, array $options): Query
+    {
+        return $query->where(['status' => User::STATUS_ACTIVE]);
     }
 }

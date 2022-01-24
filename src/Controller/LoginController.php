@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 
@@ -13,8 +14,11 @@ class LoginController extends AppController
         parent::beforeFilter($event);
 
         $this->viewBuilder()->setLayout('login');
+
         $this->Authentication->allowUnauthenticated(['login', 'startOauth', 'oauth']);
         $this->Authorization->skipAuthorization();
+
+        $this->loadModel('Users');
     }
 
     public function login()
@@ -68,21 +72,6 @@ class LoginController extends AppController
             if ($response->isSuccess()) {
                 $responseJson = $response->getJson();
 
-                // Only allow login for VACC Austria members
-                $response = $http->get(env('VACC_AUTH_ENDPOINT'), [
-                    'vatsimid' => $responseJson['data']['cid'],
-                ], [
-                    'headers' => [
-                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
-                    ],
-                ]);
-
-                if ($response->isSuccess() === false) {
-                    $this->Flash->error('You are not part of the VACC Austria');
-
-                    return $this->redirect(['action' => 'login']);
-                }
-
                 $this->loadModel('Users');
                 $user = $this->Users->find()
                     ->where([
@@ -99,10 +88,12 @@ class LoginController extends AppController
                     $user = $this->Users->newEntity([
                         'vatsim_id' => $responseJson['data']['cid'],
                         'full_name' => $responseJson['data']['personal']['name_full'],
+                        'status' => User::STATUS_ACTIVE,
                     ], [
                         'accessibleFields' => [
                             'vatsim_id' => true,
                             'full_name' => true,
+                            'status' => true,
                         ],
                     ]);
 
@@ -112,6 +103,7 @@ class LoginController extends AppController
 
                         return $this->redirect(['controller' => 'Home', 'action' => 'index']);
                     }
+                    dd($user);
                 }
             }
         }

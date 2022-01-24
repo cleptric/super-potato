@@ -54,13 +54,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/login', ['controller' => 'Login', 'action' => 'login']);
         $builder->connect('/logout', ['controller' => 'Login', 'action' => 'logout']);
 
-        $builder->connect('/loww', ['controller' => 'Home', 'action' => 'index']);
-        $builder->connect('/lowi', ['controller' => 'Home', 'action' => 'index']);
-        $builder->connect('/lows', ['controller' => 'Home', 'action' => 'index']);
-        $builder->connect('/lowg', ['controller' => 'Home', 'action' => 'index']);
-        $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'index']);
-        $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'index']);
+        $builder->connect('/eetn', ['controller' => 'Home', 'action' => 'index']);
 
+        $builder->connect('/admin', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);
 
         $builder->fallbacks();

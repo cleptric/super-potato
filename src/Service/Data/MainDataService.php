@@ -59,14 +59,10 @@ class MainDataService
                 'vatsim_id' => $this->_user->vatsim_id,
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
                 'onboarded' => $this->_user->onboarded,
+                'admin' => $this->_user->admin,
             ],
             'logs' => (new LogsService())->getData(),
-            'loww' => (new LowwDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowi' => (new LowiDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lows' => (new LowsDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowg' => (new LowgDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowk' => (new LowkDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
-            'lowl' => (new LowlDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
+            'eetn' => (new EetnDataService($this->_feed, $this->_metar, $this->_taf))->getData(),
         ];
     }
 
