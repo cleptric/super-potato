@@ -69,7 +69,17 @@ class MetarDecoderService
         $runwayRvr = [];
         if (!empty($rvr)) {
             foreach ($rvr as $rwy) {
-                $runwayRvr[$rwy->getRunway()] = $rwy->getVisualRange()->getValue() . $rwy->getPastTendency();
+                if ($rwy->getVisualRange()) {
+                    $runwayRvr[$rwy->getRunway()] = $rwy->getVisualRange()->getValue() . $rwy->getPastTendency();
+                }
+                // Check for variable RVR (R08L/0700V1700U)
+                if ($rwy->isVariable()) {
+                    $interval = [];
+                    foreach ($rwy->getVisualRangeInterval() as $rwyInterval) {
+                        $interval[] = $rwyInterval->getValue();
+                    }
+                    $runwayRvr[$rwy->getRunway()] = implode('V', $interval) . $rwy->getPastTendency();
+                }
             }
         }
 
@@ -106,15 +116,18 @@ class MetarDecoderService
         $runwayRvr = [];
         if (!empty($rvr)) {
             foreach ($rvr as $rwy) {
-                // Ignore higher RVR
+                // Ignore higher RVR, as we use the lowest
                 if (isset($runwayRvr['rvr']) && $runwayRvr['rvr'] < $rwy->getVisualRange()->getValue()) {
                     continue;
                 }
-                if ($rwy->getVisualRange()->getValue() <= 1000) {
-                    $runwayRvr = [
-                        'runway' => $rwy->getRunway(),
-                        'rvr' => $rwy->getVisualRange()->getValue(),
-                    ];
+                // Ignore variable RVR for now
+                if ($rwy->getVisualRange()) {
+                    if ($rwy->getVisualRange()->getValue() <= 1000) {
+                        $runwayRvr = [
+                            'runway' => $rwy->getRunway(),
+                            'rvr' => $rwy->getVisualRange()->getValue(),
+                        ];
+                    }
                 }
             }
         }
