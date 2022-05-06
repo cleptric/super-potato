@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+
+  web:
+    build: docker/web
+    ports:
+      - 8200:80
+    volumes:
+      - ./:/var/www/super-potato:consistent
+
+  db:
+    build: docker/mysql
+    ports:
+      - 8309:3306
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
