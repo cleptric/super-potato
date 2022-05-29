@@ -82,6 +82,11 @@ class AirportsTable extends Table
             ->notEmptyString('icao');
 
         $validator
+            ->scalar('charts_link')
+            ->maxLength('charts_link', 255)
+            ->allowEmptyString('charts_link');
+
+        $validator
             ->scalar('atis_callsign')
             ->maxLength('atis_callsign', 255)
             ->requirePresence('atis_callsign', 'create')

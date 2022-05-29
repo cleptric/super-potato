@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property string $organization_id
  * @property string $name
  * @property string $icao
+ * @property string $charts_url
  * @property string $atis_callsign
  * @property string|null $atis_depature_runway_pattern
  * @property string|null $atis_arrival_runway_pattern
