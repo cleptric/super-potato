@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="space-y-3">
         <div class="max-w-7xl mx-auto px-8">
             <ul class="mt-3">
                 <li
@@ -121,7 +121,7 @@
             v-if="logs.length"
             class="max-w-7xl mx-auto px-8"
         >
-            <div class="mt-16 flex flex-col">
+            <div class="flex flex-col">
                 <div class="-my-2 -mx-8 overflow-x-auto">
                     <div class="py-2 px-8 align-middle inline-block min-w-full">
                         <div class="border border-gray-200 dark:border-zinc-600 overflow-hidden rounded-md">

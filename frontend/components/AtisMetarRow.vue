@@ -57,7 +57,7 @@
                 </dt>
                 <dd class="mt-1 text-lg font-semibold truncate">
                     <template v-if="airport.metar.temperature  !== null && airport.metar.dew_point !== null">
-                        {{ airport.metar.temperature }} / {{ airport.metar.temperature }}
+                        {{ airport.metar.temperature.toString().padStart(2, '0') }} / {{ airport.metar.dew_point.toString().padStart(2, '0') }}
                         <template v-if="airport.metar.temperature <= 10">
                             <i class="far fa-sm fa-snowflakes text-blue-300"></i>
                         </template>
