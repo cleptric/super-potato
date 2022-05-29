@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 
@@ -105,10 +106,14 @@ class LoginController extends AppController
                     $user = $this->Users->newEntity([
                         'vatsim_id' => $responseJson['data']['cid'],
                         'full_name' => $responseJson['data']['personal']['name_full'],
+                        'status' => User::STATUS_ACTIVE,
+                        'role' => User::ROLE_USER,
                     ], [
                         'accessibleFields' => [
                             'vatsim_id' => true,
                             'full_name' => true,
+                            'status' => true,
+                            'role' => true,
                         ],
                     ]);
 

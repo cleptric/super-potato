@@ -352,19 +352,9 @@ class Initial extends AbstractMigration
                 'limit' => 40,
                 'null' => false,
             ])
-            ->addColumn('created', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => true,
-            ])
-            ->addColumn('modified', 'datetime', [
-                'default' => 'CURRENT_TIMESTAMP',
-                'limit' => null,
-                'null' => true,
-            ])
             ->addColumn('data', 'binary', [
                 'default' => null,
-                'limit' => null,
+                'limit' => 16777215,
                 'null' => true,
             ])
             ->addColumn('expires', 'integer', [
@@ -410,7 +400,7 @@ class Initial extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('role', 'string', [
-                'default' => '0',
+                'default' => null,
                 'limit' => 255,
                 'null' => false,
             ])

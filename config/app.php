@@ -426,10 +426,12 @@ return [
     'Session' => [
         'cookie' => 'super-potato',
         'defaults' => 'database',
-        'timeout' => 60 * 24 * 14, // 2 weeks
+        'timeout' => 60 * 24 * 90, // 90 days
         'ini' => [
-            'session.gc_maxlifetime' => 60 * 60 * 24 * 14, // 2 weeks
-            'session.cookie_lifetime' => 60 * 60 * 24 * 14 // 2 weeks
+            'session.cookie_lifetime' => 60 * 60 * 24 * 90, // 90 days
+            'session.gc_divisor' => 1000,
+            'session.gc_probability' => 1,
+            'session.cookie_samesite' => 'Lax',
         ]
     ],
 ];
