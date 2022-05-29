@@ -37,7 +37,7 @@ RUN \
     sed -i 's/Options Indexes FollowSymLinks/Options FollowSymLinks/g' /etc/apache2/apache2.conf && \
     sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 
-# COPY supervisord/conf.d/ /etc/supervisor/conf.d/
+COPY supervisord/conf.d/ /etc/supervisor/conf.d/
 
 WORKDIR /var/www/super-potato
 
