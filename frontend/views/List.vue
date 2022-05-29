@@ -24,10 +24,10 @@
                                 {{ airport.name }}
                             </div>
                             <div class="ml-3">
-                                <a
+                                <a  v-if="airport.charts_link"
                                     target="_blank"
                                     rel="noopener"
-                                    href="https://www.vacc-austria.org/index.php?page=content/chartlist&icao=LOWW"
+                                    :href="airport.charts_link"
                                     class="text-sm font-medium text-blue-700 underline"
                                 >
                                     Charts
