@@ -13,22 +13,22 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-if (version_compare(PHP_VERSION, '7.4.0') < 0) {
-    trigger_error('Your PHP version must be equal or higher than 7.2.0 to use Super Potato.', E_USER_ERROR);
-}
+// if (version_compare(PHP_VERSION, '7.4.0') < 0) {
+//     trigger_error('Your PHP version must be equal or higher than 7.2.0 to use Super Potato.', E_USER_ERROR);
+// }
 
-if (!extension_loaded('intl')) {
-    trigger_error('You must enable the intl extension to use Super Potato.', E_USER_ERROR);
-}
+// if (!extension_loaded('intl')) {
+//     trigger_error('You must enable the intl extension to use Super Potato.', E_USER_ERROR);
+// }
 
-if (version_compare(INTL_ICU_VERSION, '50.1', '<')) {
-    trigger_error('ICU >= 50.1 is needed to use Super Potato. Please update the `libicu` package of your system.' . PHP_EOL, E_USER_ERROR);
-}
+// if (version_compare(INTL_ICU_VERSION, '50.1', '<')) {
+//     trigger_error('ICU >= 50.1 is needed to use Super Potato. Please update the `libicu` package of your system.' . PHP_EOL, E_USER_ERROR);
+// }
 
-if (!extension_loaded('mbstring')) {
-    trigger_error('You must enable the mbstring extension to use Super Potato.', E_USER_ERROR);
-}
+// if (!extension_loaded('mbstring')) {
+//     trigger_error('You must enable the mbstring extension to use Super Potato.', E_USER_ERROR);
+// }
 
-if (!extension_loaded('zmq')) {
-    trigger_error('You must enable the zmq extension to use Super Potato.', E_USER_ERROR);
-}
+// if (!extension_loaded('zmq')) {
+//     trigger_error('You must enable the zmq extension to use Super Potato.', E_USER_ERROR);
+// }
