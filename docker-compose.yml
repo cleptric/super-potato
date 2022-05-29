@@ -7,6 +7,10 @@ services:
       - 8080:80
     volumes:
       - ./:/var/www/super-potato:consistent
+    networks:
+      super-potato:
+        aliases:
+          - super-potato.test
 
   db:
     build: docker/mysql
@@ -17,6 +21,13 @@ services:
       MYSQL_ROOT_PASSWORD: password
     volumes:
       - db:/var/lib/mysql
+    networks:
+      super-potato:
+        aliases:
+          - db.super-potato.test
 
 volumes:
   db:
+
+networks:
+  super-potato:
