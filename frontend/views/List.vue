@@ -24,10 +24,11 @@
                                 {{ airport.name }}
                             </div>
                             <div class="ml-3">
-                                <a  v-if="airport.charts_link"
+                                <a  
+                                    v-if="airport.charts_link"
+                                    :href="airport.charts_link"
                                     target="_blank"
                                     rel="noopener"
-                                    :href="airport.charts_link"
                                     class="text-sm font-medium text-blue-700 underline"
                                 >
                                     Charts
