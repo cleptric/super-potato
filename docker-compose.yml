@@ -5,6 +5,7 @@ services:
     build: docker/web
     ports:
       - 8080:80
+      - 8081:8081
     volumes:
       - ./:/var/www/super-potato:consistent
     networks:
