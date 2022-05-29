@@ -234,10 +234,10 @@
                                 Special thanks to <span class="text-gray-600 dark:text-zinc-400">Alex</span>, <span class="text-gray-600 dark:text-zinc-400">Clemens</span>, <span class="text-gray-600 dark:text-zinc-400">Mitch</span> &amp; <span class="text-gray-600 dark:text-zinc-400">Nick</span> for all your help!
                             </p>
                             <p class="mt-2 text-sm text-gray-500 dark:text-zinc-300">
-                                Developed and maintained by <span class="text-gray-600 dark:text-zinc-400">Michael Hoffmann</span>.
+                                Developed and maintained by <span class="text-gray-600 dark:text-zinc-400">Michael Hoffmann</span> and <span class="text-gray-600 dark:text-zinc-400">Luis Kreihsl</span>.
                             </p>
                             <p class="mt-2 text-sm text-gray-400 dark:text-zinc-300">
-                                &#169;Michael Hoffmann - 2021 - Munich, Germany 🏳️‍🌈
+                                &#169;Michael Hoffmann - {{new Date().getFullYear()}} - Munich, Germany 🏳️‍🌈
                             </p>
                         </div>
                     </fieldset>
