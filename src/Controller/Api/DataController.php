@@ -117,17 +117,22 @@ class DataController extends Controller
         $this->request->allowMethod('post');
 
         $airportIcao = $this->request->getData('airport');
-        $runways = $this->request->getData('runways');
+        $runwayDesignator = $this->request->getData('runways');
 
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
             ->where(['icao' => $airportIcao])
             ->first();
+        
+        $this->loadModel('Runways');
+        $runway = $this->Runways->find()
+        ->where(['designator' => $runwayDesignator])
+        ->first();
 
         $this->Authorization->authorize($airport, 'updateRunwayClosed');
 
         $service = new RunwayClosedService();
-        $service->toggleRunwayClosed($airport, $runways, $this->Authentication->getIdentity());
+        $service->toggleRunwayClosed($airport, $runway, $this->Authentication->getIdentity());
 
         return $this->response
             ->withStatus(204);
