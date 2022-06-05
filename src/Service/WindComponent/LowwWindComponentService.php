@@ -9,9 +9,9 @@ class LowwWindComponentService extends AbstractWindComponentService
      * @var array
      */
     protected array $_trueHeadings = [
-        '11' => 115,
+        '11' => 116,
         '16' => 164,
-        '29' => 295,
+        '29' => 296,
         '34' => 344,
     ];
 }
