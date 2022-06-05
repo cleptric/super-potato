@@ -49,6 +49,9 @@ class AirportsTable extends Table
             'foreignKey' => 'organization_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('Runways', [
+            'foreignKey' => 'airport_id',
+        ]);
         $this->hasMany('Atis', [
             'foreignKey' => 'airport_id',
         ]);

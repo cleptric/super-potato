@@ -26,13 +26,13 @@
                                 @click="triggerRunwayClosed(runway)"
                                 class="relative inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-sm font-medium text-gray-700 dark:text-zinc-100 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                                 :class="{
-                                    'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': airport.closed_runways.includes(runway),
+                                    'border-red-300 bg-red-200 text-red-800 hover:bg-red-100 focus:ring-red-500 focus:border-red-500': runway.closed,
                                     '-ml-px ': index !== 0,
                                     'rounded-l-md': index === 0,
                                     'rounded-r-md': index === airport.runways.length - 1
                                 }"
                             >
-                                {{ runway }}
+                                {{ runway.designator }}
                             </button>
                         </span>
                     </template>
