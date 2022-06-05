@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Policy;
 
+use App\Model\Entity\User;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
@@ -18,7 +19,7 @@ abstract class AbstractPolicy
         $feed = [];
 
         // Admins can always trigger actions
-        if ($user->admin === true) {
+        if ($user->role === User::ROLE_ADMIN) {
             return true;
         }
 
