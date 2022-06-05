@@ -8,7 +8,7 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->script('https://kit.fontawesome.com/c1157ccfdb.js', [
+    <?= $this->Html->script('https://kit.fontawesome.com/c45baf632e.js', [
         'crossorigin' => 'anonymous',
     ]) ?>
 
