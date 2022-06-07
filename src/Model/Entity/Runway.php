@@ -29,11 +29,6 @@ class Runway extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'airport_id' => true,
-        'designator' => true,
-        'closed' => true,
-        'created' => true,
-        'modified' => true,
-        'airport' => true,
+        '*' => false,
     ];
 }
