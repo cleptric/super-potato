@@ -117,7 +117,7 @@ class DataController extends Controller
         $this->request->allowMethod('post');
 
         $airportIcao = $this->request->getData('airport');
-        $runwayDesignator = $this->request->getData('runways');
+        $runwayId = $this->request->getData('runway_id');
 
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
@@ -126,8 +126,8 @@ class DataController extends Controller
         
         $this->loadModel('Runways');
         $runway = $this->Runways->find()
-        ->where(['designator' => $runwayDesignator])
-        ->first();
+            ->where(['id' => $runwayId])
+            ->first();
 
         $this->Authorization->authorize($airport, 'updateRunwayClosed');
 

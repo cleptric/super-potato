@@ -24,9 +24,10 @@ class RunwayClosedService
 
     public function toggleRunwayClosed(Airport $airport, Runway $runway, IdentityInterface $user): void
     {
-        $runwayClosed = $runway->closed;
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();
+
+        $runwayClosed = $runway->closed;
 
         if ($runwayClosed !== false) {
             $logsService->createLog($user, $airport, LogsService::TYPE_OPENED_RUNWAY);
@@ -34,13 +35,10 @@ class RunwayClosedService
             $this->pushMessage('runway-reopened', $airport->icao);
         } else {
             $closedRunwaysTimeout = new FrozenTime(Airport::RUNWAY_CLOSED_TIMEOUT);
-
             $logsService->createLog($user, $airport, LogsService::TYPE_CLOSED_RUNWAY);
 
             $this->pushMessage('runway-closed', $airport->icao);
         }
-        
-        $runwayClosed = !$runwayClosed;
 
         $airport = $this->Airports->patchEntity($airport, [
             'closed_runways_timeout' => $closedRunwaysTimeout,
@@ -49,16 +47,15 @@ class RunwayClosedService
                 'closed_runways_timeout' => true,
             ],
         ]);
+        $this->Airports->save($airport);
 
         $runway = $this->Runways->patchEntity($runway, [
-            'closed' => $runwayClosed,
+            'closed' => !$runwayClosed,
         ], [
             'accessibleFields' => [
                 'closed' => true,
             ],
         ]);
-
-        $this->Airports->save($airport);
         $this->Runways->save($runway);
 
         $this->pushMessage('refresh');
