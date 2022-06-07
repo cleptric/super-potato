@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\Entity\Airport;
+use App\Model\Entity\Runway;
 use App\Traits\ZMQContextTrait;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
@@ -18,42 +19,44 @@ class RunwayClosedService
     public function __construct()
     {
         $this->loadModel('Airports');
+        $this->loadModel('Runways');
     }
 
-    public function toggleRunwayClosed(Airport $airport, string $runways, IdentityInterface $user): void
+    public function toggleRunwayClosed(Airport $airport, Runway $runway, IdentityInterface $user): void
     {
-        $data = (array)$airport->closed_runways;
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();
 
-        $key = array_search($runways, $data);
-        if ($key !== false) {
-            unset($data[$key]);
-            $data = array_values($data);
+        $runwayClosed = $runway->closed;
 
+        if ($runwayClosed !== false) {
             $logsService->createLog($user, $airport, LogsService::TYPE_OPENED_RUNWAY);
 
             $this->pushMessage('runway-reopened', $airport->icao);
         } else {
-            $data = Hash::merge($data, $runways);
             $closedRunwaysTimeout = new FrozenTime(Airport::RUNWAY_CLOSED_TIMEOUT);
-
             $logsService->createLog($user, $airport, LogsService::TYPE_CLOSED_RUNWAY);
 
             $this->pushMessage('runway-closed', $airport->icao);
         }
 
         $airport = $this->Airports->patchEntity($airport, [
-            'closed_runways' => $data,
             'closed_runways_timeout' => $closedRunwaysTimeout,
         ], [
             'accessibleFields' => [
-                'closed_runways' => true,
                 'closed_runways_timeout' => true,
             ],
         ]);
-
         $this->Airports->save($airport);
+
+        $runway = $this->Runways->patchEntity($runway, [
+            'closed' => !$runwayClosed,
+        ], [
+            'accessibleFields' => [
+                'closed' => true,
+            ],
+        ]);
+        $this->Runways->save($runway);
 
         $this->pushMessage('refresh');
     }

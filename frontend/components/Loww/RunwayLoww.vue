@@ -13,24 +13,28 @@
 
             </div>
 
-            <div class="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
+            <div
+              v-for="(runway, index) in loww.runways"
+              :key="index"
+              class="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center"
+            >
                 <div
                     class="w-[500px] h-[100px] flex items-center justify-between border border-gray-300 dark:border-zinc-400 rounded-md"
-                    :class="{ 'bg-red-200 border-red-300': loww.closed_runways.includes('11/29') }"
+                    :class="{ 'bg-red-200 border-red-300': runway.closed }"
                 >
 
                     <div
                         class="relative h-full flex items-center p-4 text-center text-xl font-black"
-                        :class="{ 'rounded-l-md bg-blue-200 dark:bg-blue-500': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('29') || loww.atis.depature_runway.includes('29')) }"
+                        :class="{ 'rounded-l-md bg-blue-200 dark:bg-blue-500': runway.closed === false && (loww.atis.arrival_runway.includes('29') || loww.atis.depature_runway.includes('29')) }"
                     >
                         <div
-                            v-if="loww.atis.arrival_runway.includes('29') && loww.closed_runways.includes('11/29') === false"
+                            v-if="loww.atis.arrival_runway.includes('29') && runway.closed === false"
                             class="absolute left-[-40px] h-6 w-6 rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
                         <div
-                            v-if="loww.atis.depature_runway.includes('29') && loww.closed_runways.includes('11/29') === false"
+                            v-if="loww.atis.depature_runway.includes('29') && runway.closed === false"
                             class="absolute left-[90px] h-6 w-6 rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
@@ -47,7 +51,7 @@
                         <span class="-rotate-90">29</span>
                     </div>
 
-                    <template v-if="loww.closed_runways.includes('11/29')">
+                    <template v-if="runway.closed">
                         <div class="text-center">
                             <i class="far fa-2x fa-times text-red-800"></i>
                         </div>
@@ -99,16 +103,16 @@
 
                     <div
                         class="relative h-full flex items-center p-4 text-center text-xl font-black"
-                        :class="{ 'rounded-r-md bg-blue-200 dark:bg-blue-500': loww.closed_runways.includes('11/29') === false && (loww.atis.arrival_runway.includes('11') || loww.atis.depature_runway.includes('11')) }"
+                        :class="{ 'rounded-r-md bg-blue-200 dark:bg-blue-500': runway.closed === false && (loww.atis.arrival_runway.includes('11') || loww.atis.depature_runway.includes('11')) }"
                     >
                         <div
-                            v-if="loww.atis.arrival_runway.includes('11') && loww.closed_runways.includes('11/29') === false"
+                            v-if="loww.atis.arrival_runway.includes('11') && runway.closed === false"
                             class="absolute right-[-40px] h-6 w-6 -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>
                         </div>
                         <div
-                            v-if="loww.atis.depature_runway.includes('11') && loww.closed_runways.includes('11/29') === false"
+                            v-if="loww.atis.depature_runway.includes('11') && runway.closed === false"
                             class="absolute left-[-40px] h-6 w-6 -rotate-90"
                         >
                             <i class="far fa-lg fa-arrow-up"></i>

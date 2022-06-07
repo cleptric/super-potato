@@ -20,6 +20,7 @@ abstract class AbstractDataService
 
         $this->_airport = $this->Airports->find()
             ->where(['icao' => 'LOWW'])
+            ->contain(['Runways'])
             ->first();
     }
 
@@ -50,7 +51,7 @@ abstract class AbstractDataService
             'name' => sprintf('%s (%s)', $this->_airport->name, $this->_airport->icao),
             'icao' => $this->_airport->icao,
             'charts_link' => $this->_airport->charts_link,
-            'runways' => $this->_airportRunways,
+            'runways' => $this->_airport->runways,
             'atis' => $atis,
             'metar' => $metar,
             'taf' => $taf,

@@ -12,7 +12,7 @@ class LowwDataService extends AbstractDataService
 
     protected array $_airportRunways = [
         '16/34',
-        '29/11',
+        '11/29',
     ];
 
     protected string $_windComponentService = LowwWindComponentService::class;
