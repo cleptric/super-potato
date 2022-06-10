@@ -219,6 +219,60 @@
                     </fieldset>
                 </div>
             </div>
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+                <div class="mt-3 rounded-md bg-white dark:bg-zinc-900 overflow-hidden border border-gray-200 dark:border-zinc-600 p-3 space-y-6">
+                    <div
+                        v-if="deleteMessage.type && deleteMessage.text"
+                        class="rounded-md p-4 mb-4"
+                        :class="{ 'bg-green-50': deleteMessage.type === 'success', 'bg-red-50': deleteMessage.type === 'error' }"
+                    >
+                        <div class="flex">
+                            <template v-if="deleteMessage.type === 'success'">
+                                <div class="flex-shrink-0">
+                                    <!-- Heroicon name: solid/check-circle -->
+                                    <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-green-800">
+                                        {{ deleteMessage.text }}
+                                    </p>
+                                </div>
+                            </template>
+                            <template v-if="deleteMessage.type === 'error'">
+                                <div class="flex-shrink-0">
+                                    <!-- Heroicon name: solid/x-circle -->
+                                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-red-800">
+                                        {{ deleteMessage.text }}
+                                    </p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <fieldset>
+                            <legend class="text-base font-medium">Delete Account</legend>
+                            <p class="text-sm text-gray-500 dark:text-zinc-300">If you do not longer want to use Super Potato, you can delete your account</p>
+                            <div class="mt-4 space-y-2">
+                                <div class="flex items-center">
+                                    <button 
+                                        class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        @click="toggleDeleteAccount"
+                                    >
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
             <div class="mt-3 rounded-md bg-white dark:bg-zinc-900 overflow-hidden border border-gray-200 dark:border-zinc-600">
                 <div class="p-3 space-y-6">
                     <fieldset>
@@ -243,6 +297,49 @@
                     </fieldset>
                 </div>
             </div>
+
+            <div
+                v-if="deleteAccountModal"
+                class="fixed z-10 inset-0 overflow-y-auto"
+                aria-labelledby="modal-title"
+                role="dialog"
+                aria-modal="true"
+            >
+                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                    <div class="inline-block align-bottom bg-white dark:bg-zinc-900 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div class="sm:flex sm:items-start">
+                            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                <h3 class="text-lg leading-6 font-medium text-gray-500 dark:text-zinc-300" id="modal-title">
+                                    Delete Account
+                                </h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500 dark:text-zinc-300">
+                                        Are you sure you want to delete your account? This action cannot be undone.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 sm:mt-4 sm:pl-4 sm:flex">
+                            <button
+                                class="inline-flex items-center py-2 px-4 border border-transparent text-sm font-medium rounded text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                                @click="deleteAccount"
+                            >
+                                Delete Account
+                            </button>
+                            <button
+                                class="inline-flex items-center ml-3 py-2 px-4 border border-transparent text-sm font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                @click="toggleDeleteAccount"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     
@@ -257,7 +354,13 @@ export default {
     setup () {
         const store = useStore()
         const browserNotifications = ref(false)
+        const deleteAccountModal = ref(false)
+
         const message = ref({
+            type: null,
+            text: null,
+        })
+        const deleteMessage = ref({
             type: null,
             text: null,
         })
@@ -268,7 +371,17 @@ export default {
             browserNotifications: browserNotifications,
             settings: computed(() => store.getters.settings),
             theme: theme,
+            deleteMessage: deleteMessage,
+            deleteAccountModal: deleteAccountModal,
         }
+    },
+    created() {
+        const onEscape = (e) => {
+            if (this.deleteAccountModal && e.keyCode === 27) {
+                this.toggleDeleteAccount()
+            }
+        }
+        document.addEventListener('keydown', onEscape)
     },
     mounted() {
         this.setupNotifications()
@@ -295,6 +408,9 @@ export default {
                 audio.volume = this.settings.volume
                 audio.play()
             }
+        },
+        toggleDeleteAccount() {
+            this.deleteAccountModal = !this.deleteAccountModal
         },
         setLightTheme() {
             localStorage.theme = 'light'
@@ -325,6 +441,24 @@ export default {
                         text: null,
                     }
                 }, 3000)
+            }
+        },
+        async deleteAccount() {
+            try {
+                await this.$store.dispatch('deleteAccount')
+                window.location.href = '/'
+            } catch (error) {
+                this.deleteMessage = {
+                    type: 'error',
+                    text: 'Your account could not be deleted',
+                }
+            } finally {
+                setTimeout(() => {
+                    this.deleteMessage = {
+                        type: null,
+                        text: null,
+                    }
+                }, 5000)
             }
         },
     },
