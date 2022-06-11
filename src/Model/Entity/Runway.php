@@ -12,6 +12,9 @@ use Cake\ORM\Entity;
  * @property string $airport_id
  * @property string $designator
  * @property bool $closed
+ * @property int|null $position_x
+ * @property int|null $position_y
+ * @property int|null $rotation
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
