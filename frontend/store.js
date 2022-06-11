@@ -53,6 +53,13 @@ export const store = createStore({
                 throw error
             }
         },
+        async deleteAccount({ commit }) {
+            try {
+                await api.delete('users/delete-account')
+            } catch (error) {
+                throw error
+            }
+        },
         async loadNotifications({ commit, state }) {
             try {
                 const response = await api.get('data/get-notifications')
