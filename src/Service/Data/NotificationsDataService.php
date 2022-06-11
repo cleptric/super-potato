@@ -5,7 +5,6 @@ namespace App\Service\Data;
 
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
-use Throwable;
 
 class NotificationsDataService
 {

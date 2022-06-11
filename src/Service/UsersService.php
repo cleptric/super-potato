@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
-use Cake\Http\Exception\BadRequestException;
 use Throwable;
 
 class UsersService

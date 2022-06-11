@@ -5,7 +5,6 @@ namespace App\Service\Atis;
 
 use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
-use Cake\I18n\FrozenTime;
 use Throwable;
 
 class AtisDecoderService

@@ -9,7 +9,6 @@ use App\Traits\ZMQContextTrait;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
-use Cake\Utility\Hash;
 
 class RunwayClosedService
 {

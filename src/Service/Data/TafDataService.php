@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Service\Data;
 
 use App\Model\Entity\Airport;
-use App\Model\Entity\Metar;
-use App\Service\Metar\MetarDecoderService;
 use Cake\Datasource\ModelAwareTrait;
 
 class TafDataService

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Service\Vatsim;
 
 use App\Enums\QnhTrend;
-use App\Model\Entity\Airport;
 use App\Service\Metar\MetarDecoderService;
 use App\Traits\ZMQContextTrait;
 use Cake\Console\ConsoleIo;

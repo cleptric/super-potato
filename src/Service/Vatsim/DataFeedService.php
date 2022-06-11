@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace App\Service\Vatsim;
 
-use App\Model\Entity\Airport;
-use App\Model\Entity\User;
 use App\Service\AirportsService;
-use App\Service\LogsService;
 use App\Service\Atis\AtisDecoderService;
+use App\Service\LogsService;
 use App\Traits\ZMQContextTrait;
 use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
-use Cake\I18n\FrozenTime;
 
 class DataFeedService
 {

@@ -6,7 +6,6 @@ namespace App\Service\Data;
 use App\Service\LogsService;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
-use Throwable;
 
 class MainDataService
 {

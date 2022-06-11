@@ -8,7 +8,6 @@ use App\Service\Data\NotificationsDataService;
 use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
-use App\Service\VisualDepatureService;
 use Cake\Controller\Controller;
 
 class DataController extends Controller
@@ -123,7 +122,7 @@ class DataController extends Controller
         $airport = $this->Airports->find()
             ->where(['icao' => $airportIcao])
             ->first();
-        
+
         $this->loadModel('Runways');
         $runway = $this->Runways->find()
             ->where(['id' => $runwayId])
