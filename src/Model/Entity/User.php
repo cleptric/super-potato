@@ -79,15 +79,17 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @return string
      */
-    public function getIdentifier(): int
+    public function getIdentifier(): string
     {
         return $this->get('id');
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return bool
      */
     public function can($action, $resource): bool
     {
@@ -99,9 +101,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return \Authorization\Policy\ResultInterface
      */
-    public function canResult($action, $resource): ResultInterface
+    public function canResult(string $action, $resource): ResultInterface
     {
         if (!$this->authorization) {
             throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
@@ -111,9 +115,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return mixed The modified resource.
      */
-    public function applyScope($action, $resource)
+    public function applyScope(string $action, $resource)
     {
         if (!$this->authorization) {
             throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
@@ -123,7 +129,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @return \ArrayAccess|array
      */
     public function getOriginalData()
     {
@@ -131,7 +137,8 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Setter to be used by the middleware.
+     * @param \Authorization\AuthorizationServiceInterface $service The authorization service.
+     * @return $this
      */
     public function setAuthorization(AuthorizationServiceInterface $service)
     {

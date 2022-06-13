@@ -19,7 +19,7 @@ class TafDataService
 
     public function getData(): ?string
     {
-        $taf =  $this->Taf->find()
+        $taf = $this->Taf->find()
             ->order(['created' => 'DESC'])
             ->first();
 
