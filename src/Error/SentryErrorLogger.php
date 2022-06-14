@@ -6,7 +6,6 @@ namespace App\Error;
 use Cake\Error\ErrorLogger;
 use Cake\Error\PhpError;
 use Psr\Http\Message\ServerRequestInterface;
-use RuntimeException;
 use Throwable;
 
 /**
