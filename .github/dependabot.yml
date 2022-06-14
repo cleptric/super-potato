@@ -4,12 +4,10 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
-  open-pull-requests-limit: 20
 - package-ecosystem: "npm"
   directory: "/"
   schedule:
     interval: "weekly"
-  open-pull-requests-limit: 20
 - package-ecosystem: "docker"
   directory: "/docker/web"
   schedule:
