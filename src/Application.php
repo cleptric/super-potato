@@ -33,6 +33,7 @@ use Cake\Datasource\FactoryLocator;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
+use Cake\Http\Middleware\CspMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
@@ -83,6 +84,23 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     }
 
     /**
+     * Bootstrapping for CLI application.
+     *
+     * That is when running commands.
+     *
+     * @return void
+     */
+    protected function bootstrapCli(): void
+    {
+        $this->addOptionalPlugin('Cake/Repl');
+        $this->addOptionalPlugin('Bake');
+
+        $this->addPlugin('Migrations');
+
+        // Load more plugins here
+    }
+
+    /**
      * Setup the middleware queue your application will use.
      *
      * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to setup.
@@ -98,7 +116,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new RoutingMiddleware($this))
             ->add(new BodyParserMiddleware())
             ->add(new CsrfProtectionMiddleware())
-            // ->add(new CspMiddleware($this->getCspPolicy()))
+            ->add(new CspMiddleware($this->getCspPolicy()))
             ->add(new AuthenticationMiddleware($this))
             ->add(new AuthorizationMiddleware($this, [
                 'identityDecorator' => function ($auth, $user) {
@@ -120,34 +138,21 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
     }
 
-    /**
-     * Bootstrapping for CLI application.
-     *
-     * That is when running commands.
-     *
-     * @return void
-     */
-    protected function bootstrapCli(): void
-    {
-        try {
-            $this->addPlugin('Bake');
-        } catch (MissingPluginException $e) {
-            // Do not halt if the plugin is missing
-        }
-
-        $this->addPlugin('Migrations');
-
-        // Load more plugins here
-    }
-
     protected function getCspPolicy()
     {
+        $allow = [
+            'https://*.fontawesome.com',
+        ];
+        if (Configure::read('debug')) {
+            $allow[] = 'localhost:3000';
+        }
+
         $csp = new CSPBuilder([
-            // 'font-src' => ['self' => true],
+            'font-src' => ['self' => true, 'data' => true, 'allow' => $allow],
             'form-action' => ['self' => true],
-            'img-src' => ['self' => true],
-            'script-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => ['data', 'https://kit.fontawesome.com']],
-            'style-src' => ['self' => true, 'unsafe-inline' => true],
+            'img-src' => ['self' => true, 'data' => true],
+            'script-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => $allow],
+            'style-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => $allow],
             'object-src' => [],
             'plugin-types' => [],
         ]);
