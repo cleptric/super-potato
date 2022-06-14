@@ -68,10 +68,6 @@ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
         ->toServer();
 }
 
-Sentry\init([
-    'dsn' => env('SENTRY_DSN'),
-]);
-
 /*
  * Read configuration file and inject configuration into various
  * CakePHP classes.
@@ -174,6 +170,11 @@ TransportFactory::setConfig(Configure::consume('EmailTransport'));
 Mailer::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
 Security::setSalt(Configure::consume('Security.salt'));
+
+
+\Sentry\init([
+    'dsn' => env('SENTRY_DSN'),
+]);
 
 /*
  * Setup detectors for mobile and tablet.
