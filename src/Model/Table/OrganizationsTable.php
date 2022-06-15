@@ -51,11 +51,7 @@ class OrganizationsTable extends Table
         $this->hasMany('Airports', [
             'foreignKey' => 'organization_id',
         ]);
-        $this->belongsToMany('Users', [
-            'foreignKey' => 'organization_id',
-            'targetForeignKey' => 'user_id',
-            'joinTable' => 'organizations_users',
-        ]);
+        $this->belongsToMany('Users');
     }
 
     /**

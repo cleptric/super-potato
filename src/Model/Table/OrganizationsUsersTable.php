@@ -47,10 +47,8 @@ class OrganizationsUsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
-            'joinType' => 'INNER',
-        ]);
+        $this->belongsTo('Organizations');
+        $this->belongsTo('Users');
     }
 
     /**
