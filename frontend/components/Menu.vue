@@ -9,7 +9,7 @@
                         </a>
                     </div>
                     <div>
-                        <div class="ml-10 flex items-baseline space-x-4">
+                        <div class="ml-6 flex items-baseline space-x-3">
                             <router-link
                                 to="/"
                                 class="relative border border-gray-300 dark:border-zinc-600 text-center text-gray-800 dark:text-zinc-100 hover:bg-gray-100 dark:hover:bg-zinc-700 px-3.5 py-2 rounded-md text-sm font-semibold"
@@ -28,18 +28,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center">
+                <div class="flex items-center space-x-3">
+                    <router-link
+                        v-if="user.role === 'admin'"
+                        to="/admin"
+                        class="flex items-center relative border border-gray-300 dark:border-zinc-600 text-center text-gray-800 dark:text-zinc-100 hover:bg-gray-100 dark:hover:bg-zinc-700 px-3.5 py-2 rounded-md text-sm font-semibold"
+                        :class="{ 'bg-gray-300 dark:bg-zinc-600': this.$route.name === 'Admin' }"
+                    >
+                        <i class="fa-solid fa-screwdriver-wrench text-xs mr-2"></i>
+                        Admin
+                    </router-link>
                     <router-link
                         to="/settings"
                         class="flex items-center relative border border-gray-300 dark:border-zinc-600 text-center text-gray-800 dark:text-zinc-100 hover:bg-gray-100 dark:hover:bg-zinc-700 px-3.5 py-2 rounded-md text-sm font-semibold"
                         :class="{ 'bg-gray-300 dark:bg-zinc-600': this.$route.name === 'Settings' }"
                     >
-                        <i
-                            class="fas fa-circle text-xs mr-2"
-                            :class="{ 'text-green-400': websocket, 'text-red-400': !websocket }"
-                        ></i>
-                        {{ user.name }} ({{ user.vatsim_id }})
+                        <i class="fa-solid fa-sliders text-xs mr-2"></i>
+                        Settings
                     </router-link>
+                    <a
+                        href="/logout"
+                        class="flex items-center relative border border-gray-300 dark:border-zinc-600 text-center text-gray-800 dark:text-zinc-100 hover:bg-gray-100 dark:hover:bg-zinc-700 px-3.5 py-2 rounded-md text-sm font-semibold"
+                    >
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs mr-2"></i>
+                        Logout
+                    </a>
                 </div>
             </div>
         </div>
@@ -63,7 +76,6 @@ export default {
         return {
             logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
-            websocket: computed(() => store.getters.websocket),
             loww: computed(() => store.getters.loww),
         }
     },
