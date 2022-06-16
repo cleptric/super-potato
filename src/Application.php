@@ -138,7 +138,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     }
 
     /**
-     * @return \ParagonIE\CSPBuilder\CSPBuilder\CSPBuilder
+     * @return \ParagonIE\CSPBuilder\CSPBuilder
      */
     protected function getCspPolicy(): CSPBuilder
     {
