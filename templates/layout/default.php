@@ -14,9 +14,6 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->script('https://kit.fontawesome.com/c45baf632e.js', [
-        'crossorigin' => 'anonymous',
-    ]) ?>
 
     <?= $this->element('assets') ?>
 
