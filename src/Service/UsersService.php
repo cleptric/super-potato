@@ -7,6 +7,9 @@ use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
+/**
+ * @property \App\Model\Table\UsersTable $Users
+ */
 class UsersService
 {
     use ModelAwareTrait;

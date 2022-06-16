@@ -19,6 +19,8 @@
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
+ *
+ * @var \Cake\Routing\RouteBuilder $routes
  */
 
 use Cake\Routing\Route\DashedRoute;

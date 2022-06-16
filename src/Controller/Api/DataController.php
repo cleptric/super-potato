@@ -11,6 +11,10 @@ use App\Service\RunwayClosedService;
 use Cake\Controller\Controller;
 use Cake\Http\Response;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\RunwaysTable $Runways
+ */
 class DataController extends Controller
 {
     /**

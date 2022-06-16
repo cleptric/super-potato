@@ -8,6 +8,9 @@ use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ */
 class AirportsService
 {
     use ModelAwareTrait;

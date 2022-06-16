@@ -6,6 +6,10 @@ namespace App\Service\Data;
 use App\Model\Entity\Airport;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\TafTable $Taf
+ */
 abstract class AbstractDataService
 {
     use ModelAwareTrait;

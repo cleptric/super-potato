@@ -7,6 +7,9 @@ use App\Model\Entity\Airport;
 use App\Model\Entity\Metar;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\MetarTable $Metar
+ */
 class MetarDataService
 {
     use ModelAwareTrait;

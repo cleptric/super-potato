@@ -8,6 +8,9 @@ use Authorization\IdentityInterface;
 use Cake\Collection\CollectionInterface;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\LogsTable $Logs
+ */
 class LogsService
 {
     use ModelAwareTrait;

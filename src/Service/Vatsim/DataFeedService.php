@@ -11,6 +11,12 @@ use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\AtisTable $Atis
+ * @property \App\Model\Table\ControllersTable $Controllers
+ * @property \App\Model\Table\FeedsTable $Feeds
+ */
 class DataFeedService
 {
     use ModelAwareTrait;

@@ -7,6 +7,9 @@ use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\UsersTable $Users
+ */
 class LoginController extends AppController
 {
     /**

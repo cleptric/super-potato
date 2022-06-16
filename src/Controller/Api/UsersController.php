@@ -7,6 +7,9 @@ use App\Service\UsersService;
 use Cake\Controller\Controller;
 use Cake\Http\Response;
 
+/**
+ * @property \App\Model\Table\UsersTable $Users
+ */
 class UsersController extends Controller
 {
     /**

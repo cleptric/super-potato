@@ -10,6 +10,10 @@ use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\RunwaysTable $Runways
+ */
 class RunwayClosedService
 {
     use ModelAwareTrait;

@@ -8,6 +8,10 @@ use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\TafTable $Taf
+ */
 class TafService
 {
     use ModelAwareTrait;

@@ -26,6 +26,9 @@ use Cake\Event\EventInterface;
  * will inherit them.
  *
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
+ *
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
  */
 class AppController extends Controller
 {

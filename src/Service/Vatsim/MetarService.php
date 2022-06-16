@@ -10,6 +10,10 @@ use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\MetarTable $Metar
+ */
 class MetarService
 {
     use ModelAwareTrait;

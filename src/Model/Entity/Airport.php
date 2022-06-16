@@ -18,10 +18,16 @@ use Cake\ORM\Entity;
  * @property string|null $atis_arrival_runway_pattern
  * @property string|null $atis_transition_level_pattern
  * @property \Cake\I18n\FrozenTime|null $closed_runways_timeout
- * @property bool|null $missed_approach
+ * @property bool $missed_approach
  * @property \Cake\I18n\FrozenTime|null $missed_approach_timeout
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
+ * @property array|null $visual_depatures
+ * @property array|null $closed_runways
+ *
+ * @property \Cake\ORM\Entity $organization
+ * @property \App\Model\Entity\Runway[] $runways
+ * @property \App\Model\Entity\Metar[] $metar
  */
 class Airport extends Entity
 {

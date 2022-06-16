@@ -6,6 +6,9 @@ namespace App\Service\Data;
 use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\UsersTable $Users
+ */
 class NotificationsDataService
 {
     use ModelAwareTrait;
