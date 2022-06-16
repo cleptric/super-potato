@@ -9,6 +9,8 @@ use Cake\Http\Response;
 
 /**
  * @property \App\Model\Table\UsersTable $Users
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
  */
 class UsersController extends Controller
 {

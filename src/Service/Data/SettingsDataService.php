@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Service\Data;
 
-use Authorization\IdentityInterface;
+use Authentication\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
@@ -72,10 +72,10 @@ class SettingsDataService
     }
 
     /**
-     * @param \Authorization\IdentityInterface $user User
+     * @param \Authentication\IdentityInterface|null $user User
      * @return void
      */
-    public function setUser(IdentityInterface $user): void
+    public function setUser(?IdentityInterface $user): void
     {
         $this->_user = $user;
     }

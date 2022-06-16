@@ -14,6 +14,8 @@ use Cake\Http\Response;
 /**
  * @property \App\Model\Table\AirportsTable $Airports
  * @property \App\Model\Table\RunwaysTable $Runways
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
  */
 class DataController extends Controller
 {
