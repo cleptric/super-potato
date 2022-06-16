@@ -10,6 +10,10 @@ use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\MetarTable $Metar
+ */
 class MetarService
 {
     use ModelAwareTrait;
@@ -40,6 +44,9 @@ class MetarService
      */
     protected ?string $_metarUrl;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
@@ -50,7 +57,10 @@ class MetarService
         $this->_metarUrl = $this->_getMetarUrl();
     }
 
-    public function getMetar()
+    /**
+     * @return void
+     */
+    public function getMetar(): void
     {
         $airports = $this->Airports->find()
             ->all();
@@ -91,11 +101,19 @@ class MetarService
         }
     }
 
+    /**
+     * @param \Cake\Console\ConsoleIo $io IO
+     * @return void
+     */
     public function setIo(ConsoleIo $io)
     {
         $this->_io = $io;
     }
 
+    /**
+     * @param string $station Station
+     * @return string|null
+     */
     protected function _fetchMetar(string $station): ?string
     {
         $response = $this->_client->get($this->_metarUrl, [
@@ -108,6 +126,9 @@ class MetarService
         return null;
     }
 
+    /**
+     * @return string|null
+     */
     protected function _getMetarUrl(): ?string
     {
         $response = $this->_client->get(self::_VATSIM_STATUS_URL);
@@ -120,7 +141,12 @@ class MetarService
         return null;
     }
 
-    protected function _getQnhTrend(?int $currentMetar, ?int $previousQnh): ?QnhTrend
+    /**
+     * @param int|null $currentQnh Current QNH
+     * @param int|null $previousQnh Previous QNH
+     * @return \App\Enums\QnhTrend
+     */
+    protected function _getQnhTrend(?int $currentQnh, ?int $previousQnh): ?QnhTrend
     {
         if (isset($currentMetar) && isset($previousQnh)) {
             if ($currentMetar > $previousQnh) {

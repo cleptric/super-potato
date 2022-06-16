@@ -8,6 +8,8 @@ use RuntimeException;
 
 /**
  * Vite helper
+ *
+ * @property \Cake\View\Helper\HtmlHelper $Html
  */
 class ViteHelper extends Helper
 {

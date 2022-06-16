@@ -3,12 +3,15 @@ declare(strict_types=1);
 
 namespace App\Policy;
 
-use App\Model\Entity\User;
 use Authorization\IdentityInterface;
 
 class UserPolicy extends AbstractPolicy
 {
-    public function canTriggerActions(IdentityInterface $identityUser, User $user): bool
+    /**
+     * @param \Authorization\IdentityInterface $identityUser User
+     * @return bool
+     */
+    public function canTriggerActions(IdentityInterface $identityUser): bool
     {
         return parent::_isUserOnline($identityUser);
     }

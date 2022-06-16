@@ -21,6 +21,9 @@ class AtisDecoderService
      */
     protected string $_rawAtis;
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return [
@@ -30,16 +33,27 @@ class AtisDecoderService
         ];
     }
 
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @return void
+     */
     public function setAirport(Airport $airport): void
     {
         $this->_airport = $airport;
     }
 
+    /**
+     * @param string $rawAtis Atis
+     * @return void
+     */
     public function setAtis(string $rawAtis): void
     {
         $this->_rawAtis = $rawAtis;
     }
 
+    /**
+     * @return array
+     */
     protected function _getDepatureRunway(): array
     {
         try {
@@ -61,13 +75,16 @@ class AtisDecoderService
         return [];
     }
 
+    /**
+     * @return array
+     */
     protected function _getArrivalRunway(): array
     {
         try {
             $success = preg_match($this->_airport->atis_arrival_runway_pattern, $this->_rawAtis, $arrivalRunway);
 
             if ($success === 1) {
-                // Multiple depature runways
+                // Multiple arrival runways
                 if (strpos($arrivalRunway[0], 'AND') !== false) {
                     return explode(' AND ', $arrivalRunway[0]);
                 }
@@ -82,6 +99,9 @@ class AtisDecoderService
         return [];
     }
 
+    /**
+     * @return string
+     */
     protected function _getTransitionLevel(): string
     {
         try {

@@ -25,15 +25,32 @@ use RuntimeException;
  */
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
+    /**
+     * @var array<int, string>
+     */
     public const CONTROLER_PREFIX = [
         'LOVV',
         'LOWW',
     ];
 
+    /**
+     * @var string
+     */
     public const STATUS_ACTIVE = 'active';
+
+    /**
+     * @var string
+     */
     public const STATUS_BLOCKED = 'blocked';
 
+    /**
+     * @var string
+     */
     public const ROLE_USER = 'user';
+
+    /**
+     * @var string
+     */
     public const ROLE_ADMIN = 'admin';
 
     /**
@@ -43,7 +60,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<string, bool>
      */
     protected $_accessible = [
         '*' => false,
@@ -54,7 +71,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      */
     protected $authorization = null;
 
-    protected function _getSettings($settings)
+    /**
+     * @param array $settings Settings
+     * @return array
+     */
+    protected function _getSettings($settings): array
     {
         if (empty($settings)) {
             return [
@@ -67,7 +88,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         return $settings;
     }
 
-    protected function _getNotifications($notifications)
+    /**
+     * @param array $notifications Notifications
+     * @return array
+     */
+    protected function _getNotifications(array $notifications): array
     {
         if (empty($notifications)) {
             return [

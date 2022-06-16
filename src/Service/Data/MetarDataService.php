@@ -7,17 +7,26 @@ use App\Model\Entity\Airport;
 use App\Model\Entity\Metar;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\MetarTable $Metar
+ */
 class MetarDataService
 {
     use ModelAwareTrait;
 
     protected ?Airport $_airport;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Metar');
     }
 
+    /**
+     * @return \App\Model\Entity\Metar|null
+     */
     public function getData(): ?Metar
     {
         return $this->Metar->find()
@@ -26,7 +35,11 @@ class MetarDataService
             ->first();
     }
 
-    public function setAirport(Airport $airport)
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @return void
+     */
+    public function setAirport(Airport $airport): void
     {
         $this->_airport = $airport;
     }

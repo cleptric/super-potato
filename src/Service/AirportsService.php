@@ -8,16 +8,25 @@ use App\Traits\ZMQContextTrait;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ */
 class AirportsService
 {
     use ModelAwareTrait;
     use ZMQContextTrait;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
     }
 
+    /**
+     * @return void
+     */
     public function resetState(): void
     {
         $airports = $this->Airports->find()
@@ -39,6 +48,9 @@ class AirportsService
         $this->pushMessage('refresh');
     }
 
+    /**
+     * @return bool
+     */
     public function isResetState(): bool
     {
         return $this->Airports->find()
@@ -51,6 +63,9 @@ class AirportsService
             ->count() === 0;
     }
 
+    /**
+     * @return void
+     */
     public function resetMissedApporach(): void
     {
         $airports = $this->Airports->find()

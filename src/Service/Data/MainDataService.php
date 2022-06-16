@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service\Data;
 
 use App\Service\LogsService;
-use Authorization\IdentityInterface;
+use Authentication\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 
 class MainDataService
@@ -16,6 +16,9 @@ class MainDataService
      */
     protected ?IdentityInterface $_user;
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return [
@@ -30,7 +33,11 @@ class MainDataService
         ];
     }
 
-    public function setUser(IdentityInterface $user): void
+    /**
+     * @param \Authentication\IdentityInterface|null $user User
+     * @return void
+     */
+    public function setUser(?IdentityInterface $user): void
     {
         $this->_user = $user;
     }

@@ -137,7 +137,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     {
     }
 
-    protected function getCspPolicy()
+    /**
+     * @return \ParagonIE\CSPBuilder\CSPBuilder
+     */
+    protected function getCspPolicy(): CSPBuilder
     {
         $allow = [
             'https://*.fontawesome.com',
@@ -159,6 +162,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         return $csp;
     }
 
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request Request
+     * @return \Authentication\AuthenticationServiceInterface
+     */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $service = new AuthenticationService();
@@ -184,6 +191,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         return $service;
     }
 
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request Request
+     * @return \Authorization\AuthorizationServiceInterface
+     */
     public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
         $resolver = new OrmResolver();

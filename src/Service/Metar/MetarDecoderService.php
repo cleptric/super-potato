@@ -12,15 +12,18 @@ class MetarDecoderService
     use ModelAwareTrait;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected ?string $_metar = null;
 
     /**
-     * @var \MetarDecoder\MetarDecoder
+     * @var \MetarDecoder\MetarDecoder|null
      */
     protected ?DecodedMetar $_decoder = null;
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         $decoder = new MetarDecoder();
@@ -43,11 +46,18 @@ class MetarDecoderService
         ];
     }
 
+    /**
+     * @param string|null $metar Metar
+     * @return void
+     */
     public function setMetar(?string $metar): void
     {
         $this->_metar = $metar;
     }
 
+    /**
+     * @return array
+     */
     protected function _getRvr(): array
     {
         $rvr = $this->_decoder->getRunwaysVisualRange();
@@ -61,6 +71,9 @@ class MetarDecoderService
         return $runwayRvr;
     }
 
+    /**
+     * @return string
+     */
     protected function _getConditions(): string
     {
         $clouds = $this->_decoder->getClouds();

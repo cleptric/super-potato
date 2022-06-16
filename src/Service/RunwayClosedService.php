@@ -6,22 +6,35 @@ namespace App\Service;
 use App\Model\Entity\Airport;
 use App\Model\Entity\Runway;
 use App\Traits\ZMQContextTrait;
-use Authorization\IdentityInterface;
+use Authentication\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\RunwaysTable $Runways
+ */
 class RunwayClosedService
 {
     use ModelAwareTrait;
     use ZMQContextTrait;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
         $this->loadModel('Runways');
     }
 
-    public function toggleRunwayClosed(Airport $airport, Runway $runway, IdentityInterface $user): void
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @param \App\Model\Entity\Runway $runway Runway
+     * @param \Authentication\IdentityInterface|null $user User
+     * @return void
+     */
+    public function toggleRunwayClosed(Airport $airport, Runway $runway, ?IdentityInterface $user): void
     {
         $closedRunwaysTimeout = new FrozenTime();
         $logsService = new LogsService();

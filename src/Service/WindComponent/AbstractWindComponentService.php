@@ -15,16 +15,27 @@ abstract class AbstractWindComponentService
      */
     protected ?int $_meanSpeed = null;
 
+    /**
+     * @param int|null $meanDirection Mean direction
+     * @return void
+     */
     public function setMeanDirection(?int $meanDirection): void
     {
         $this->_meanDirection = $meanDirection;
     }
 
+    /**
+     * @param int|null $meanSpeed Mean speed
+     * @return void
+     */
     public function setMeanSpeed(?int $meanSpeed): void
     {
         $this->_meanSpeed = $meanSpeed;
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         $data = [];
@@ -45,14 +56,22 @@ abstract class AbstractWindComponentService
         return $data;
     }
 
-    protected function _calcutlateCrossWindComponent($trueHeading): string
+    /**
+     * @param int $trueHeading True heading
+     * @return string
+     */
+    protected function _calcutlateCrossWindComponent(int $trueHeading): string
     {
         $crossWind = abs(round(sin(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed));
 
         return $crossWind . 'X';
     }
 
-    protected function _calcutlateHeadTailWindComponent($trueHeading): string
+    /**
+     * @param int $trueHeading True heading
+     * @return string
+     */
+    protected function _calcutlateHeadTailWindComponent(int $trueHeading): string
     {
         $headTailWind = round(cos(deg2rad($this->_meanDirection - $trueHeading)) * $this->_meanSpeed);
 
