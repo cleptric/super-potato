@@ -12,15 +12,32 @@ class LogsService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var string
+     */
     public const TYPE_MISSED_APPROACH = 'Activated missed approach at ';
+
+    /**
+     * @var string
+     */
     public const TYPE_CLOSED_RUNWAY = 'Closed runway at ';
+
+    /**
+     * @var string
+     */
     public const TYPE_OPENED_RUNWAY = 'Opened runway at ';
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Logs');
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return $this->Logs->find()
@@ -38,6 +55,12 @@ class LogsService
             ->toArray();
     }
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @param string $action Action
+     * @return void
+     */
     public function createLog(IdentityInterface $user, Airport $airport, string $action): void
     {
         $log = $this->Logs->newEntity([
@@ -53,6 +76,9 @@ class LogsService
         $this->Logs->save($log);
     }
 
+    /**
+     * @return void
+     */
     public function deleteAllLogs(): void
     {
         $logs = $this->Logs->find()
@@ -63,6 +89,9 @@ class LogsService
         }
     }
 
+    /**
+     * @return bool
+     */
     public function logsEmpty(): bool
     {
         return $this->Logs->find()

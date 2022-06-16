@@ -56,6 +56,9 @@ class DataFeedService
      */
     protected ?string $_feedUrl;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
@@ -71,7 +74,10 @@ class DataFeedService
         $this->_feedUrl = $this->_getFeedUrl();
     }
 
-    public function getFeed()
+    /**
+     * @return void
+     */
+    public function getFeed(): void
     {
         $rawFeed = $this->_fetchFeed();
 
@@ -159,11 +165,18 @@ class DataFeedService
         // }
     }
 
-    public function setIo(ConsoleIo $io)
+    /**
+     * @param \Cake\Console\ConsoleIo $io IO
+     * @return void
+     */
+    public function setIo(ConsoleIo $io): void
     {
         $this->_io = $io;
     }
 
+    /**
+     * @return array
+     */
     protected function _fetchFeed(): array
     {
         $response = $this->_client->get($this->_feedUrl);
@@ -174,6 +187,9 @@ class DataFeedService
         return [];
     }
 
+    /**
+     * @return string|int
+     */
     protected function _getFeedUrl(): ?string
     {
         $response = $this->_client->get(self::_VATSIM_STATUS_URL);

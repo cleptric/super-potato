@@ -29,6 +29,9 @@ use Cake\Event\EventInterface;
  */
 class AppController extends Controller
 {
+    /**
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -44,6 +47,10 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
+    /**
+     * @param \Cake\Event\EventInterface $event The event
+     * @return void
+     */
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);

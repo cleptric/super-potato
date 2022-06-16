@@ -16,6 +16,9 @@ class MainDataService
      */
     protected ?IdentityInterface $_user;
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return [
@@ -30,6 +33,10 @@ class MainDataService
         ];
     }
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
     public function setUser(IdentityInterface $user): void
     {
         $this->_user = $user;

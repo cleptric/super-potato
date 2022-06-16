@@ -11,10 +11,16 @@ class SettingsDataService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var array<string, mixed>|null
+     */
     protected ?array $_settings = null;
 
     protected ?IdentityInterface $_user;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Users');
@@ -29,6 +35,9 @@ class SettingsDataService
         }
     }
 
+    /**
+     * @return array|null
+     */
     public function getData(): ?array
     {
         $user = $this->Users->get($this->_user->id);
@@ -38,6 +47,10 @@ class SettingsDataService
         ];
     }
 
+    /**
+     * @param array $data Data
+     * @return void
+     */
     public function saveData(array $data): void
     {
         $user = $this->Users->get($this->_user->id);
@@ -55,6 +68,10 @@ class SettingsDataService
         $this->Users->saveOrFail($user);
     }
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
     public function setUser(IdentityInterface $user): void
     {
         $this->_user = $user;

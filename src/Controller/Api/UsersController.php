@@ -5,9 +5,13 @@ namespace App\Controller\Api;
 
 use App\Service\UsersService;
 use Cake\Controller\Controller;
+use Cake\Http\Response;
 
 class UsersController extends Controller
 {
+    /**
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -16,7 +20,10 @@ class UsersController extends Controller
         $this->loadComponent('Authorization.Authorization');
     }
 
-    public function deleteAccount()
+    /**
+     * @return \Cake\Http\Response
+     */
+    public function deleteAccount(): Response
     {
         $this->request->allowMethod('delete');
         $this->Authorization->skipAuthorization();

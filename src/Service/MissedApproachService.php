@@ -14,11 +14,19 @@ class MissedApproachService
     use ModelAwareTrait;
     use ZMQContextTrait;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
     }
 
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
     public function toggleMissedApproach(Airport $airport, IdentityInterface $user): void
     {
         $missedApproach = $airport->missed_approach;

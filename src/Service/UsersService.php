@@ -11,10 +11,19 @@ class UsersService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var array<string, mixed>|null
+     */
     protected ?array $_settings = null;
 
+    /**
+     * @var \Authorization\IdentityInterface|null
+     */
     protected ?IdentityInterface $_user;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Users');
@@ -29,14 +38,21 @@ class UsersService
         }
     }
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
+    public function setUser(IdentityInterface $user): void
+    {
+        $this->_user = $user;
+    }
+
+    /**
+     * @return void
+     */
     public function deleteAccount(): void
     {
         $user = $this->Users->get($this->_user->id);
         $user = $this->Users->delete($user);
-    }
-
-    public function setUser(IdentityInterface $user): void
-    {
-        $this->_user = $user;
     }
 }

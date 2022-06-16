@@ -9,9 +9,13 @@ use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
 use Cake\Controller\Controller;
+use Cake\Http\Response;
 
 class DataController extends Controller
 {
+    /**
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -20,7 +24,10 @@ class DataController extends Controller
         $this->loadComponent('Authorization.Authorization');
     }
 
-    public function getData()
+    /**
+     * @return \Cake\Http\Response
+     */
+    public function getData(): Response
     {
         $this->request->allowMethod('get');
         $this->Authorization->skipAuthorization();
@@ -35,6 +42,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function getSettings()
     {
         $this->request->allowMethod('get');
@@ -50,6 +60,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function saveSettings()
     {
         $this->request->allowMethod('post');
@@ -63,6 +76,9 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function getNotifications()
     {
         $this->request->allowMethod('get');
@@ -78,6 +94,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function saveNotifications()
     {
         $this->request->allowMethod('post');
@@ -91,6 +110,9 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function updateMissedApproach()
     {
         $this->request->allowMethod('post');
@@ -111,6 +133,9 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function updateRunwayClosed()
     {
         $this->request->allowMethod('post');

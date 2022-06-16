@@ -10,8 +10,14 @@ abstract class AbstractDataService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var \App\Model\Entity\Airport|null
+     */
     protected ?Airport $_airport;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
@@ -23,6 +29,9 @@ abstract class AbstractDataService
             ->first();
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         $taf = $this->Taf->find()
@@ -63,6 +72,9 @@ abstract class AbstractDataService
         ];
     }
 
+    /**
+     * @return bool
+     */
     protected function _hasNotification(): bool
     {
         return $this->_airport->missed_approach || !empty($this->_airport->closed_runways);

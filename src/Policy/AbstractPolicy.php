@@ -12,6 +12,12 @@ abstract class AbstractPolicy
 {
     use ModelAwareTrait;
 
+    /**
+     * undocumented function
+     *
+     * @param \Authorization\IdentityInterface $user User
+     * @return bool
+     */
     protected function _isUserOnline(IdentityInterface $user): bool
     {
         $this->loadModel('Feeds');

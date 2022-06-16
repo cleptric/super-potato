@@ -15,12 +15,21 @@ class RunwayClosedService
     use ModelAwareTrait;
     use ZMQContextTrait;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
         $this->loadModel('Runways');
     }
 
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @param \App\Model\Entity\Runway $runway Runway
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
     public function toggleRunwayClosed(Airport $airport, Runway $runway, IdentityInterface $user): void
     {
         $closedRunwaysTimeout = new FrozenTime();

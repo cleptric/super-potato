@@ -10,13 +10,22 @@ class NotificationsDataService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var \Authorization\IdentityInterface|null
+     */
     protected ?IdentityInterface $_user;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Users');
     }
 
+    /**
+     * @return array|null
+     */
     public function getData(): ?array
     {
         $user = $this->Users->get($this->_user->id);
@@ -26,6 +35,10 @@ class NotificationsDataService
         ];
     }
 
+    /**
+     * @param array $data Data
+     * @return void
+     */
     public function saveData(array $data): void
     {
         $user = $this->Users->get($this->_user->id);
@@ -41,6 +54,10 @@ class NotificationsDataService
         $this->Users->saveOrFail($user);
     }
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @return void
+     */
     public function setUser(IdentityInterface $user): void
     {
         $this->_user = $user;
