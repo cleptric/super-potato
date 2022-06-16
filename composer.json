@@ -23,6 +23,8 @@
         "cakephp/bake": "^2.7",
         "cakephp/cakephp-codesniffer": "^4.5",
         "cakephp/debug_kit": "^4.5",
+        "dereuromark/cakephp-ide-helper": "^1.17",
+        "phpstan/phpstan": "^1.7",
         "phpunit/phpunit": "^9.5",
         "psalm/phar": "^4.9"
     },
@@ -45,6 +47,7 @@
         "cs-check": "phpcs --colors -p  src/ tests/",
         "cs-fix": "phpcbf --colors -p src/ tests/",
         "psalm": "psalm.phar --show-info=false",
+        "phpstan": "phpstan analyse",
         "test": "phpunit --colors=always"
     },
     "prefer-stable": true,

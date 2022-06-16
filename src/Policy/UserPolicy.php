@@ -8,8 +8,6 @@ use Authorization\IdentityInterface;
 class UserPolicy extends AbstractPolicy
 {
     /**
-     * undocumented function
-     *
      * @param \Authorization\IdentityInterface $identityUser User
      * @return bool
      */

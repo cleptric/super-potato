@@ -8,13 +8,14 @@ use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
+/**
+ * @property \App\Model\Table\FeedsTable $Feeds
+ */
 abstract class AbstractPolicy
 {
     use ModelAwareTrait;
 
     /**
-     * undocumented function
-     *
      * @param \Authorization\IdentityInterface $user User
      * @return bool
      */
