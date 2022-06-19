@@ -30,13 +30,6 @@ class OrganizationsUser extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'id' => true,
-        'organization_id' => true,
-        'user_id' => true,
-        'role' => true,
-        'created' => true,
-        'modified' => true,
-        'organization' => true,
-        'user' => true,
+        '*' => false,
     ];
 }

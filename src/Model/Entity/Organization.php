@@ -30,12 +30,6 @@ class Organization extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'name' => true,
-        'callsings' => true,
-        'authorization_endpoint' => true,
-        'created' => true,
-        'modified' => true,
-        'airports' => true,
-        'users' => true,
+        '*' => false,
     ];
 }
