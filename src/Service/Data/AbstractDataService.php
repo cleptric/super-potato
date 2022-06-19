@@ -4,15 +4,24 @@ declare(strict_types=1);
 namespace App\Service\Data;
 
 use App\Model\Entity\Airport;
-use App\Service\Metar\MetarDecoderService;
 use Cake\Datasource\ModelAwareTrait;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\TafTable $Taf
+ */
 abstract class AbstractDataService
 {
     use ModelAwareTrait;
 
+    /**
+     * @var \App\Model\Entity\Airport|null
+     */
     protected ?Airport $_airport;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
@@ -20,9 +29,13 @@ abstract class AbstractDataService
 
         $this->_airport = $this->Airports->find()
             ->where(['icao' => 'LOWW'])
+            ->contain(['Runways'])
             ->first();
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         $taf = $this->Taf->find()
@@ -50,7 +63,7 @@ abstract class AbstractDataService
             'name' => sprintf('%s (%s)', $this->_airport->name, $this->_airport->icao),
             'icao' => $this->_airport->icao,
             'charts_link' => $this->_airport->charts_link,
-            'runways' => $this->_airportRunways,
+            'runways' => $this->_airport->runways,
             'atis' => $atis,
             'metar' => $metar,
             'taf' => $taf,
@@ -63,6 +76,9 @@ abstract class AbstractDataService
         ];
     }
 
+    /**
+     * @return bool
+     */
     protected function _hasNotification(): bool
     {
         return $this->_airport->missed_approach || !empty($this->_airport->closed_runways);

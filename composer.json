@@ -6,37 +6,36 @@
     "license": "MIT",
     "require": {
         "php": ">=8.1",
-        "cakephp/authentication": "^2.0",
-        "cakephp/authorization": "^2.0",
-        "cakephp/cakephp": "^4.3",
-        "cakephp/migrations": "^3.2",
+        "cakephp/authentication": "^2.9",
+        "cakephp/authorization": "^2.2",
+        "cakephp/cakephp": "^4.4",
+        "cakephp/migrations": "^3.5",
         "cakephp/plugin-installer": "^1.3",
-        "cboden/ratchet": "^0.4.3",
+        "cboden/ratchet": "^0.4.4",
         "josegonzalez/dotenv": "^3.2",
         "mobiledetect/mobiledetectlib": "^2.8",
-        "paragonie/csp-builder": "^2.5",
+        "paragonie/csp-builder": "^2.6",
         "react/zmq": "^0.4.0",
         "safran-cassiopee/php-metar-decoder": "^0.8.0",
-        "sentry/sdk": "^3.1"
+        "sentry/sdk": "^3.2"
     },
     "require-dev": {
-        "cakephp/bake": "^2.6",
+        "cakephp/bake": "^2.7",
         "cakephp/cakephp-codesniffer": "^4.5",
         "cakephp/debug_kit": "^4.5",
-        "phpunit/phpunit": "~8.5.0 || ^9.3",
+        "phpstan/phpstan": "^1.7",
+        "phpunit/phpunit": "^9.5",
         "psalm/phar": "^4.9"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Admin\\": "plugins/Admin/src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
-            "Admin\\Test\\": "plugins/Admin/tests/"
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
         }
     },
     "scripts": {
@@ -45,6 +44,7 @@
         "cs-check": "phpcs --colors -p  src/ tests/",
         "cs-fix": "phpcbf --colors -p src/ tests/",
         "psalm": "psalm.phar --show-info=false",
+        "phpstan": "phpstan analyse",
         "test": "phpunit --colors=always"
     },
     "prefer-stable": true,

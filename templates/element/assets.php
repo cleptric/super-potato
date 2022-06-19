@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
+
+/**
+ * @var \App\View\AppView $this
+ */
 use Cake\Core\Configure;
 
-echo $this->Html->script('https://kit.fontawesome.com/c1157ccfdb.js', [
+echo $this->Html->script('https://kit.fontawesome.com/c45baf632e.js', [
     'crossorigin' => 'anonymous',
 ]);
 

@@ -7,7 +7,6 @@ use App\Service\Vatsim\MetarService;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\Console\ConsoleOptionParser;
 
 class FetchMetarCommand extends Command
 {

@@ -8,10 +8,17 @@ use Authorization\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Throwable;
 
+/**
+ * @property \App\Model\Table\FeedsTable $Feeds
+ */
 abstract class AbstractPolicy
 {
     use ModelAwareTrait;
 
+    /**
+     * @param \Authorization\IdentityInterface $user User
+     * @return bool
+     */
     protected function _isUserOnline(IdentityInterface $user): bool
     {
         $this->loadModel('Feeds');

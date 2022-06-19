@@ -3,11 +3,15 @@ declare(strict_types=1);
 
 namespace App\Service\CheckWx;
 
-use App\Model\Entity\Airport;
 use App\Traits\ZMQContextTrait;
+use Cake\Console\ConsoleIo;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\TafTable $Taf
+ */
 class TafService
 {
     use ModelAwareTrait;
@@ -24,7 +28,7 @@ class TafService
     protected ?ConsoleIo $_io;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected ?string $_rawTaf = null;
 
@@ -33,6 +37,9 @@ class TafService
      */
     protected Client $_client;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
@@ -41,6 +48,9 @@ class TafService
         $this->_client = new Client();
     }
 
+    /**
+     * @return void
+     */
     public function getTaf(): void
     {
         $airports = $this->Airports->find()
@@ -65,11 +75,19 @@ class TafService
         $this->pushMessage('refresh');
     }
 
-    public function setIo(ConsoleIo $io)
+    /**
+     * @param \Cake\Console\ConsoleIo $io IO
+     * @return void
+     */
+    public function setIo(ConsoleIo $io): void
     {
         $this->_io = $io;
     }
 
+    /**
+     * @param array $tafStations TAF stations
+     * @return array
+     */
     protected function _fetchTaf(array $tafStations): array
     {
         $response = $this->_client->get(self::_CHECK_WX_URL . implode(',', $tafStations) . '/decoded', [], [

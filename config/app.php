@@ -1,9 +1,10 @@
 <?php
 
+use App\Error\SentryErrorLogger;
 use Cake\Cache\Engine\FileEngine;
 use Cake\Database\Connection;
 use Cake\Database\Driver\Mysql;
-use Cake\Error\ExceptionRenderer;
+use Cake\Error\Renderer\WebExceptionRenderer;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
 
@@ -181,19 +182,17 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'exceptionRenderer' => ExceptionRenderer::class,
+        'exceptionRenderer' => WebExceptionRenderer::class,
+        'errorLogger' => SentryErrorLogger::class,
         'skipLog' => [
             'Authorization\Exception\ForbiddenException',
-            'Cake\Controller\Exception\MissingActionException',
             'Cake\Http\Exception\ForbiddenException',
             'Cake\Http\Exception\InvalidCsrfTokenException',
-            'Cake\Http\Exception\MissingControllerException',
             'Cake\Http\Exception\NotFoundException',
-            'Cake\Routing\Exception\MissingRouteException',
         ],
+        'ignoredDeprecationPaths' => [],
         'log' => true,
         'trace' => true,
-        'ignoredDeprecationPaths' => [],
     ],
 
     /*

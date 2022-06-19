@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="relative h-full max-w-screen-xl mx-auto flex items-center justify-center">
     <div class="absolute top-4 left-4 sm:top-8 sm:left-8">
         <a href="">

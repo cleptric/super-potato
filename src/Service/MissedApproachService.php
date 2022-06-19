@@ -5,21 +5,32 @@ namespace App\Service;
 
 use App\Model\Entity\Airport;
 use App\Traits\ZMQContextTrait;
-use Authorization\IdentityInterface;
+use Authentication\IdentityInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\I18n\FrozenTime;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ */
 class MissedApproachService
 {
     use ModelAwareTrait;
     use ZMQContextTrait;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->loadModel('Airports');
     }
 
-    public function toggleMissedApproach(Airport $airport, IdentityInterface $user): void
+    /**
+     * @param \App\Model\Entity\Airport $airport Airport
+     * @param \Authentication\IdentityInterface|null $user User
+     * @return void
+     */
+    public function toggleMissedApproach(Airport $airport, ?IdentityInterface $user): void
     {
         $missedApproach = $airport->missed_approach;
         $missedApproachTimeout = new FrozenTime();

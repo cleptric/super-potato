@@ -25,15 +25,32 @@ use RuntimeException;
  */
 class User extends Entity implements AuthenticationIdentity, AuthorizationIdentity
 {
+    /**
+     * @var array<int, string>
+     */
     public const CONTROLER_PREFIX = [
         'LOVV',
         'LOWW',
     ];
 
+    /**
+     * @var string
+     */
     public const STATUS_ACTIVE = 'active';
+
+    /**
+     * @var string
+     */
     public const STATUS_BLOCKED = 'blocked';
 
+    /**
+     * @var string
+     */
     public const ROLE_USER = 'user';
+
+    /**
+     * @var string
+     */
     public const ROLE_ADMIN = 'admin';
 
     /**
@@ -43,7 +60,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array<string, bool>
      */
     protected $_accessible = [
         '*' => false,
@@ -54,7 +71,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
      */
     protected $authorization = null;
 
-    protected function _getSettings($settings)
+    /**
+     * @param array $settings Settings
+     * @return array
+     */
+    protected function _getSettings($settings): array
     {
         if (empty($settings)) {
             return [
@@ -67,7 +88,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
         return $settings;
     }
 
-    protected function _getNotifications($notifications)
+    /**
+     * @param array $notifications Notifications
+     * @return array
+     */
+    protected function _getNotifications(array $notifications): array
     {
         if (empty($notifications)) {
             return [
@@ -79,15 +104,17 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @return string
      */
-    public function getIdentifier(): int
+    public function getIdentifier(): string
     {
         return $this->get('id');
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return bool
      */
     public function can($action, $resource): bool
     {
@@ -99,9 +126,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return \Authorization\Policy\ResultInterface
      */
-    public function canResult($action, $resource): ResultInterface
+    public function canResult(string $action, $resource): ResultInterface
     {
         if (!$this->authorization) {
             throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
@@ -111,9 +140,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @param string $action The action/operation being performed.
+     * @param mixed $resource The resource being operated on.
+     * @return mixed The modified resource.
      */
-    public function applyScope($action, $resource)
+    public function applyScope(string $action, $resource)
     {
         if (!$this->authorization) {
             throw new RuntimeException('Cannot check authorization. AuthorizationService has not been set.');
@@ -123,7 +154,7 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Authorization\IdentityInterface method
+     * @return \ArrayAccess|array
      */
     public function getOriginalData()
     {
@@ -131,7 +162,8 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     }
 
     /**
-     * Setter to be used by the middleware.
+     * @param \Authorization\AuthorizationServiceInterface $service The authorization service.
+     * @return $this
      */
     public function setAuthorization(AuthorizationServiceInterface $service)
     {

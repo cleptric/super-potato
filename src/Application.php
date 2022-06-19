@@ -28,11 +28,11 @@ use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
-use Cake\Core\Exception\MissingPluginException;
 use Cake\Datasource\FactoryLocator;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Http\Middleware\BodyParserMiddleware;
+use Cake\Http\Middleware\CspMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
@@ -79,7 +79,23 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
-        $this->addPlugin('Admin');
+    }
+
+    /**
+     * Bootstrapping for CLI application.
+     *
+     * That is when running commands.
+     *
+     * @return void
+     */
+    protected function bootstrapCli(): void
+    {
+        $this->addOptionalPlugin('Cake/Repl');
+        $this->addOptionalPlugin('Bake');
+
+        $this->addPlugin('Migrations');
+
+        // Load more plugins here
     }
 
     /**
@@ -98,7 +114,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             ->add(new RoutingMiddleware($this))
             ->add(new BodyParserMiddleware())
             ->add(new CsrfProtectionMiddleware())
-            // ->add(new CspMiddleware($this->getCspPolicy()))
+            ->add(new CspMiddleware($this->getCspPolicy()))
             ->add(new AuthenticationMiddleware($this))
             ->add(new AuthorizationMiddleware($this, [
                 'identityDecorator' => function ($auth, $user) {
@@ -121,33 +137,23 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
     }
 
     /**
-     * Bootstrapping for CLI application.
-     *
-     * That is when running commands.
-     *
-     * @return void
+     * @return \ParagonIE\CSPBuilder\CSPBuilder
      */
-    protected function bootstrapCli(): void
+    protected function getCspPolicy(): CSPBuilder
     {
-        try {
-            $this->addPlugin('Bake');
-        } catch (MissingPluginException $e) {
-            // Do not halt if the plugin is missing
+        $allow = [
+            'https://*.fontawesome.com',
+        ];
+        if (Configure::read('debug')) {
+            $allow[] = 'localhost:3000';
         }
 
-        $this->addPlugin('Migrations');
-
-        // Load more plugins here
-    }
-
-    protected function getCspPolicy()
-    {
         $csp = new CSPBuilder([
-            // 'font-src' => ['self' => true],
+            'font-src' => ['self' => true, 'data' => true, 'allow' => $allow],
             'form-action' => ['self' => true],
-            'img-src' => ['self' => true],
-            'script-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => ['data', 'https://kit.fontawesome.com']],
-            'style-src' => ['self' => true, 'unsafe-inline' => true],
+            'img-src' => ['self' => true, 'data' => true],
+            'script-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => $allow],
+            'style-src' => ['self' => true, 'unsafe-inline' => true, 'allow' => $allow],
             'object-src' => [],
             'plugin-types' => [],
         ]);
@@ -155,6 +161,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         return $csp;
     }
 
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request Request
+     * @return \Authentication\AuthenticationServiceInterface
+     */
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $service = new AuthenticationService();
@@ -180,6 +190,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         return $service;
     }
 
+    /**
+     * @param \Psr\Http\Message\ServerRequestInterface $request Request
+     * @return \Authorization\AuthorizationServiceInterface
+     */
     public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
         $resolver = new OrmResolver();

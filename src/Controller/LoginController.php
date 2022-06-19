@@ -7,8 +7,17 @@ use App\Model\Entity\User;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 
+/**
+ * @property \App\Model\Table\UsersTable $Users
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
+ */
 class LoginController extends AppController
 {
+    /**
+     * @param \Cake\Event\EventInterface $event The event
+     * @return void
+     */
     public function beforeFilter(EventInterface $event)
     {
         parent::beforeFilter($event);
@@ -24,6 +33,9 @@ class LoginController extends AppController
         $this->Authorization->skipAuthorization();
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function login()
     {
         $result = $this->Authentication->getResult();
@@ -35,6 +47,9 @@ class LoginController extends AppController
         }
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function startOauth()
     {
         $url = env('VATSIM_SSO_ENDPOINT') . '/oauth/authorize' .
@@ -46,6 +61,9 @@ class LoginController extends AppController
         return $this->redirect($url);
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function oauth()
     {
         $code = $this->request->getQuery('code');
@@ -132,6 +150,9 @@ class LoginController extends AppController
         return $this->redirect(['action' => 'login']);
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function logout()
     {
         $this->Authentication->logout();
@@ -139,11 +160,17 @@ class LoginController extends AppController
         return $this->redirect(['action' => 'login']);
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function imprint(): void
     {
         # code...
     }
 
+    /**
+     * @return \Cake\Http\Response|null|void
+     */
     public function privacyPolicy(): void
     {
         # code...

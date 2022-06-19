@@ -19,6 +19,8 @@
  * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
+ *
+ * @var \Cake\Routing\RouteBuilder $routes
  */
 
 use Cake\Routing\Route\DashedRoute;
@@ -60,6 +62,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/lowg', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'index']);
+
+        $builder->connect('/admin/*', ['controller' => 'Home', 'action' => 'index']);
+        $builder->connect('/admin', ['controller' => 'Home', 'action' => 'index']);
 
         $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);
 

@@ -8,11 +8,20 @@ use App\Service\Data\NotificationsDataService;
 use App\Service\Data\SettingsDataService;
 use App\Service\MissedApproachService;
 use App\Service\RunwayClosedService;
-use App\Service\VisualDepatureService;
 use Cake\Controller\Controller;
+use Cake\Http\Response;
 
+/**
+ * @property \App\Model\Table\AirportsTable $Airports
+ * @property \App\Model\Table\RunwaysTable $Runways
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
+ * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
+ */
 class DataController extends Controller
 {
+    /**
+     * @return void
+     */
     public function initialize(): void
     {
         parent::initialize();
@@ -21,7 +30,10 @@ class DataController extends Controller
         $this->loadComponent('Authorization.Authorization');
     }
 
-    public function getData()
+    /**
+     * @return \Cake\Http\Response
+     */
+    public function getData(): Response
     {
         $this->request->allowMethod('get');
         $this->Authorization->skipAuthorization();
@@ -36,6 +48,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function getSettings()
     {
         $this->request->allowMethod('get');
@@ -51,6 +66,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function saveSettings()
     {
         $this->request->allowMethod('post');
@@ -64,6 +82,9 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function getNotifications()
     {
         $this->request->allowMethod('get');
@@ -79,6 +100,9 @@ class DataController extends Controller
             ->withStringBody(json_encode($data));
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function saveNotifications()
     {
         $this->request->allowMethod('post');
@@ -92,6 +116,9 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function updateMissedApproach()
     {
         $this->request->allowMethod('post');
@@ -112,22 +139,30 @@ class DataController extends Controller
             ->withStatus(204);
     }
 
+    /**
+     * @return \Cake\Http\Response
+     */
     public function updateRunwayClosed()
     {
         $this->request->allowMethod('post');
 
         $airportIcao = $this->request->getData('airport');
-        $runways = $this->request->getData('runways');
+        $runwayId = $this->request->getData('runway_id');
 
         $this->loadModel('Airports');
         $airport = $this->Airports->find()
             ->where(['icao' => $airportIcao])
             ->first();
 
+        $this->loadModel('Runways');
+        $runway = $this->Runways->find()
+            ->where(['id' => $runwayId])
+            ->first();
+
         $this->Authorization->authorize($airport, 'updateRunwayClosed');
 
         $service = new RunwayClosedService();
-        $service->toggleRunwayClosed($airport, $runways, $this->Authentication->getIdentity());
+        $service->toggleRunwayClosed($airport, $runway, $this->Authentication->getIdentity());
 
         return $this->response
             ->withStatus(204);

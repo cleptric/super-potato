@@ -11,6 +11,7 @@
             px-3
             py-1.5
             border
+            border-transparent
             text-sm
             font-medium
             rounded-md
@@ -26,7 +27,6 @@
 
     .button-primary {
         @apply
-            border-transparent
             text-white
             bg-blue-600
             hover:bg-blue-700
@@ -35,20 +35,24 @@
 
     .button-secondary {
         @apply
-            border-transparent
             text-blue-700
             bg-blue-100
             hover:bg-blue-200
             focus:ring-blue-500
     }
 
-    @media (prefers-color-scheme: dark) {
-        .dark .button-primary {
-            @apply
-                ring-offset-zinc-900
-        }
+    .button-danger {
+        @apply
+            text-red-700
+            bg-red-100
+            hover:bg-red-200
+            focus:ring-red-500
+    }
 
-        .dark .button-secondary {
+    @media (prefers-color-scheme: dark) {
+        .dark .button-primary,
+        .dark .button-secondary,
+        .dark .button-danger {
             @apply
                 ring-offset-zinc-900
         }

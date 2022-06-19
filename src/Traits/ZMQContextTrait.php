@@ -8,6 +8,11 @@ use ZMQContext;
 
 trait ZMQContextTrait
 {
+    /**
+     * @param string $type Message type
+     * @param string|null $icao Airport ICAO
+     * @return void
+     */
     public function pushMessage(string $type, ?string $icao = null)
     {
         $context = new ZMQContext();
