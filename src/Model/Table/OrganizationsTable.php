@@ -72,9 +72,9 @@ class OrganizationsTable extends Table
             ->allowEmptyString('callsings');
 
         $validator
-            ->scalar('api')
-            ->maxLength('api', 255)
-            ->allowEmptyString('api');
+            ->scalar('authorization_endpoint')
+            ->maxLength('authorization_endpoint', 255)
+            ->allowEmptyString('authorization_endpoint');
 
         return $validator;
     }

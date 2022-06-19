@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * OrganizationsUsers Model
  *
+ * @property \App\Model\Table\OrganizationsTable&\Cake\ORM\Association\BelongsTo $Organizations
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  *
  * @method \App\Model\Entity\OrganizationsUser newEmptyEntity()
@@ -42,13 +43,19 @@ class OrganizationsUsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('organizations_users');
-        $this->setDisplayField('organization_id');
-        $this->setPrimaryKey('organization_id');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Organizations');
-        $this->belongsTo('Users');
+        $this->belongsTo('Organizations', [
+            'foreignKey' => 'organization_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -59,6 +66,16 @@ class OrganizationsUsersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator
+            ->uuid('id')
+            ->requirePresence('id', 'create')
+            ->notEmptyString('id');
+
+        $validator
+            ->uuid('organization_id')
+            ->requirePresence('organization_id', 'create')
+            ->notEmptyString('organization_id');
+
         $validator
             ->uuid('user_id')
             ->requirePresence('user_id', 'create')
@@ -82,6 +99,7 @@ class OrganizationsUsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->existsIn('organization_id', 'Organizations'), ['errorField' => 'organization_id']);
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;

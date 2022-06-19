@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property string $id
  * @property string $name
  * @property array|null $callsings
- * @property string|null $api
+ * @property string|null $authorization_endpoint
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -30,6 +30,12 @@ class Organization extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        '*' => false,
+        'name' => true,
+        'callsings' => true,
+        'authorization_endpoint' => true,
+        'created' => true,
+        'modified' => true,
+        'airports' => true,
+        'users' => true,
     ];
 }
