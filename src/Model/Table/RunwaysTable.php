@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -11,6 +12,7 @@ use Cake\Validation\Validator;
  * Runways Model
  *
  * @property \App\Model\Table\AirportsTable&\Cake\ORM\Association\BelongsTo $Airports
+ *
  * @method \App\Model\Entity\Runway newEmptyEntity()
  * @method \App\Model\Entity\Runway newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Runway[] newEntities(array $data, array $options = [])
@@ -24,6 +26,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Runway[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Runway[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Runway[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class RunwaysTable extends Table
@@ -72,6 +75,18 @@ class RunwaysTable extends Table
         $validator
             ->boolean('closed')
             ->notEmptyString('closed');
+
+        $validator
+            ->integer('position_x')
+            ->allowEmptyString('position_x');
+
+        $validator
+            ->integer('position_y')
+            ->allowEmptyString('position_y');
+
+        $validator
+            ->integer('rotation')
+            ->allowEmptyString('rotation');
 
         return $validator;
     }
