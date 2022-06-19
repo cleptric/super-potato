@@ -6,6 +6,7 @@ export const store = createStore({
         return {
             user: null,
             logs: null,
+            debug: false,
             websocket: false,
             airports: {
                 loww: null,
@@ -18,22 +19,34 @@ export const store = createStore({
             notifications: {
                 loww: true,
             },
+            adminData: {
+                users: null,
+            },
         }
     },
     getters: {
         user: state => state.user,
         logs: state => state.logs,
+        debug: state => state.debug,
         websocket: state => state.websocket,
         airports: state => state.airports,
         settings: state => state.settings,
         notifications: state => state.notifications,
         loww: state => state.airports.loww,
+        adminData: state => state.adminData,
     },
     actions: {
         async loadData({ commit }) {
             try {
                 const response = await api.get('data/get-data')
                 commit('SET_DATA', response.data)
+            } catch (error) {
+            }
+        },
+        async loadAdminData({ commit }) {
+            try {
+                const response = await api.get('admin/get-data')
+                commit('SET_ADMIN_DATA', response.data)
             } catch (error) {
             }
         },
@@ -76,6 +89,26 @@ export const store = createStore({
                 throw error
             }
         },
+        async blockUser({ dispatch }, data) {
+            try {
+                await api.post('admin/block-user', {
+                    user_id: data.user_id
+                })
+                dispatch('loadAdminData')
+            } catch (error) {
+                throw error
+            }
+        },
+        async unblockUser({ dispatch }, data) {
+            try {
+                await api.post('admin/unblock-user', {
+                    user_id: data.user_id
+                })
+                dispatch('loadAdminData')
+            } catch (error) {
+                throw error
+            }
+        },
         toggleNotification({ commit }, icao) {
             commit('TOGGLE_NOTIFICATION', icao)
         },
@@ -91,6 +124,10 @@ export const store = createStore({
             state.airports.loww = data.loww
             state.user = data.user
             state.logs = data.logs
+            state.debug = data.debug
+        },
+        SET_ADMIN_DATA(state, data) {
+            state.adminData = data
         },
         SET_SETTINGS(state, data) {
             state.settings = data.settings

@@ -63,6 +63,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/lowk', ['controller' => 'Home', 'action' => 'index']);
         $builder->connect('/lowl', ['controller' => 'Home', 'action' => 'index']);
 
+        $builder->connect('/admin/*', ['controller' => 'Home', 'action' => 'index']);
+        $builder->connect('/admin', ['controller' => 'Home', 'action' => 'index']);
+
         $builder->connect('/settings', ['controller' => 'Home', 'action' => 'index']);
 
         $builder->fallbacks();
