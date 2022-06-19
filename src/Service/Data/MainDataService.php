@@ -5,6 +5,7 @@ namespace App\Service\Data;
 
 use App\Service\LogsService;
 use Authentication\IdentityInterface;
+use Cake\Core\Configure;
 use Cake\Datasource\ModelAwareTrait;
 
 class MainDataService
@@ -23,6 +24,7 @@ class MainDataService
     {
         return [
             'user' => [
+                'name' => $this->_user->full_name,
                 'role' => $this->_user->role,
                 'vatsim_id' => $this->_user->vatsim_id,
                 'can_trigger_actions' => $this->_user->can('triggerActions', $this->_user),
@@ -30,6 +32,7 @@ class MainDataService
             ],
             'loww' => (new LowwDataService())->getData(),
             'logs' => (new LogsService())->getData(),
+            'debug' => Configure::read('debug'),
         ];
     }
 

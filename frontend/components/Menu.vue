@@ -1,4 +1,38 @@
 <template>
+    <nav
+        v-if="debug === true"
+        class="bg-gray-400 dark:bg-zinc-600"
+    >
+        <div class="max-w-7xl mx-auto py-1.5 px-8">
+            <div class="flex items-center">
+                <div class="flex items-center">
+                    <span class="text-sm font-semibold mr-2">
+                        Websocket Connection
+                    </span>
+                    <i
+                        class="fas fa-circle text-xs"
+                        :class="{ 'text-green-400': websocket, 'text-red-400': !websocket }"
+                    ></i>
+                </div>
+                <div class="flex items-center ml-6">
+                    <span class="text-sm font-semibold mr-2">
+                        Authenticated User
+                    </span>
+                    <span class="text-sm">
+                        {{ user.name }} ({{ user.vatsim_id }})
+                    </span>
+                </div>
+                <div class="flex items-center ml-6">
+                    <span class="text-sm font-semibold mr-2">
+                        User Role
+                    </span>
+                    <span class="text-sm">
+                        {{ user.role }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
     <nav class="bg-gray-200 dark:bg-zinc-800">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex items-center justify-between h-12 xl:h-16">
@@ -31,9 +65,9 @@
                 <div class="flex items-center space-x-3">
                     <router-link
                         v-if="user.role === 'admin'"
-                        to="/admin"
+                        to="/admin/overview"
                         class="flex items-center relative border border-gray-300 dark:border-zinc-600 text-center text-gray-800 dark:text-zinc-100 hover:bg-gray-100 dark:hover:bg-zinc-700 px-3.5 py-2 rounded-md text-sm font-semibold"
-                        :class="{ 'bg-gray-300 dark:bg-zinc-600': this.$route.name === 'Admin' }"
+                        :class="{ 'bg-gray-300 dark:bg-zinc-600': this.$route.name === 'Admin' || this.$route.matched.some(route => route.path.includes('/admin')) }"
                     >
                         <i class="fa-solid fa-screwdriver-wrench text-xs mr-2"></i>
                         Admin
@@ -76,6 +110,8 @@ export default {
         return {
             logoUrl: '/img/potato.png',
             user: computed(() => store.getters.user),
+            debug: computed(() => store.getters.debug),
+            websocket: computed(() => store.getters.websocket),
             loww: computed(() => store.getters.loww),
         }
     },
