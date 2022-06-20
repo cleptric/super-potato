@@ -63,7 +63,7 @@ class TafService
         $rawTaf = $this->_fetchTaf($airports);
 
         foreach ($rawTaf['data'] as $taf) {
-            $data[$taf['icao']] = $taf;
+            $data[$taf['icao']] = $taf['raw_text'];
         }
 
         $tafEntity = $this->Taf->newEntity([

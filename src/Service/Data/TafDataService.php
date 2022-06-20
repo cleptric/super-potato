@@ -35,7 +35,7 @@ class TafDataService
             ->order(['created' => 'DESC'])
             ->first();
 
-        return $taf->data[$this->_airport->icao]['raw_text'] ?? null;
+        return $taf->data[$this->_airport->icao] ?? null;
     }
 
     /**
