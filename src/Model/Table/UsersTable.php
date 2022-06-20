@@ -45,6 +45,8 @@ class UsersTable extends Table
         $this->getSchema()->setColumnType('notifications', 'json');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsToMany('Organizations');
     }
 
     /**

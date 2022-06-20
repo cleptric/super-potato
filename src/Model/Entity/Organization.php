@@ -6,20 +6,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Atis Entity
+ * Organization Entity
  *
  * @property string $id
- * @property string $airport_id
- * @property string|null $raw_atis
- * @property string|null $atis_letter
- * @property array|null $depature_runways
- * @property array|null $arrival_runways
- * @property string|null $transition_level
+ * @property string $name
+ * @property array|null $callsings
+ * @property string|null $authorization_endpoint
  * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\Airport $airport
+ * @property \App\Model\Entity\Airport[] $airports
+ * @property \App\Model\Entity\User[] $users
  */
-class Atis extends Entity
+class Organization extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,12 +30,6 @@ class Atis extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'airport_id' => true,
-        'raw_atis' => true,
-        'atis_letter' => true,
-        'depature_runway' => true,
-        'arrival_runway' => true,
-        'transition_level' => true,
-        'created' => true,
+        '*' => false,
     ];
 }

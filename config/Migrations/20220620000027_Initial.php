@@ -35,6 +35,11 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
+            ->addColumn('charts_link', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('atis_callsign', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -80,6 +85,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addIndex(
+                [
+                    'organization_id',
+                ]
+            )
             ->create();
 
         $this->table('atis', ['id' => false, 'primary_key' => ['id']])
@@ -123,11 +133,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
-            ->addColumn('modified', 'datetime', [
-                'default' => null,
-                'limit' => null,
-                'null' => true,
-            ])
+            ->addIndex(
+                [
+                    'airport_id',
+                ]
+            )
             ->create();
 
         $this->table('controllers', ['id' => false, 'primary_key' => ['id']])
@@ -161,6 +171,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addIndex(
+                [
+                    'user_id',
+                ]
+            )
             ->create();
 
         $this->table('feeds', ['id' => false, 'primary_key' => ['id']])
@@ -290,6 +305,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addIndex(
+                [
+                    'airport_id',
+                ]
+            )
             ->create();
 
         $this->table('organizations', ['id' => false, 'primary_key' => ['id']])
@@ -308,6 +328,11 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('authorization_endpoint', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
@@ -320,7 +345,12 @@ class Initial extends AbstractMigration
             ])
             ->create();
 
-        $this->table('organizations_users', ['id' => false, 'primary_key' => ['organization_id']])
+        $this->table('organizations_users', ['id' => false, 'primary_key' => ['id']])
+            ->addColumn('id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
             ->addColumn('organization_id', 'uuid', [
                 'default' => null,
                 'limit' => null,
@@ -331,11 +361,31 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('role', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'limit' => null,
                 'null' => true,
             ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'organization_id',
+                ]
+            )
+            ->addIndex(
+                [
+                    'user_id',
+                ]
+            )
             ->create();
 
         $this->table('runways', ['id' => false, 'primary_key' => ['id']])
@@ -344,6 +394,51 @@ class Initial extends AbstractMigration
                 'limit' => null,
                 'null' => false,
             ])
+            ->addColumn('airport_id', 'uuid', [
+                'default' => null,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('designator', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
+            ])
+            ->addColumn('closed', 'boolean', [
+                'default' => false,
+                'limit' => null,
+                'null' => false,
+            ])
+            ->addColumn('position_x', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('position_y', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('rotation', 'integer', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('created', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('modified', 'datetime', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addIndex(
+                [
+                    'airport_id',
+                ]
+            )
             ->create();
 
         $this->table('sessions', ['id' => false, 'primary_key' => ['id']])
@@ -436,6 +531,87 @@ class Initial extends AbstractMigration
                 ['unique' => true]
             )
             ->create();
+
+        $this->table('airports')
+            ->addForeignKey(
+                'organization_id',
+                'organizations',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
+
+        $this->table('atis')
+            ->addForeignKey(
+                'airport_id',
+                'airports',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
+
+        $this->table('controllers')
+            ->addForeignKey(
+                'user_id',
+                'users',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
+
+        $this->table('metar')
+            ->addForeignKey(
+                'airport_id',
+                'airports',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
+
+        $this->table('organizations_users')
+            ->addForeignKey(
+                'organization_id',
+                'organizations',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->addForeignKey(
+                'user_id',
+                'users',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
+
+        $this->table('runways')
+            ->addForeignKey(
+                'airport_id',
+                'airports',
+                'id',
+                [
+                    'update' => 'NO_ACTION',
+                    'delete' => 'NO_ACTION',
+                ]
+            )
+            ->update();
     }
 
     /**
@@ -447,6 +623,39 @@ class Initial extends AbstractMigration
      */
     public function down()
     {
+        $this->table('airports')
+            ->dropForeignKey(
+                'organization_id'
+            )->save();
+
+        $this->table('atis')
+            ->dropForeignKey(
+                'airport_id'
+            )->save();
+
+        $this->table('controllers')
+            ->dropForeignKey(
+                'user_id'
+            )->save();
+
+        $this->table('metar')
+            ->dropForeignKey(
+                'airport_id'
+            )->save();
+
+        $this->table('organizations_users')
+            ->dropForeignKey(
+                'organization_id'
+            )
+            ->dropForeignKey(
+                'user_id'
+            )->save();
+
+        $this->table('runways')
+            ->dropForeignKey(
+                'airport_id'
+            )->save();
+
         $this->table('airports')->drop()->save();
         $this->table('atis')->drop()->save();
         $this->table('controllers')->drop()->save();
