@@ -19,7 +19,7 @@ class ViteHelper extends Helper
     protected $helpers = ['Html'];
 
     /**
-     * @var string[]
+     * @var array<string, mixed>
      */
     protected $_defaultConfig = [
         'manifestFile' => WWW_ROOT . 'manifest.json',

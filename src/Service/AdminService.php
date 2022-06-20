@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Model\Entity\User;
-use Authorization\IdentityInterface;
+use Authentication\IdentityInterface;
 use Cake\Collection\CollectionInterface;
 use Cake\Datasource\ModelAwareTrait;
 use Cake\Http\Exception\BadRequestException;
