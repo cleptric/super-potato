@@ -16,7 +16,6 @@ use Cake\ORM\Entity;
  * @property array|null $arrival_runways
  * @property string|null $transition_level
  * @property \Cake\I18n\FrozenTime|null $created
- * @property \Cake\I18n\FrozenTime|null $modified
  *
  * @property \App\Model\Entity\Airport $airport
  */
@@ -39,6 +38,5 @@ class Atis extends Entity
         'arrival_runway' => true,
         'transition_level' => true,
         'created' => true,
-        'modified' => true,
     ];
 }
