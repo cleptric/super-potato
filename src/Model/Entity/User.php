@@ -90,9 +90,9 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
 
     /**
      * @param array $notifications Notifications
-     * @return array
+     * @return array|null
      */
-    protected function _getNotifications(array $notifications): array
+    protected function _getNotifications(?array $notifications): array
     {
         if (empty($notifications)) {
             return [
