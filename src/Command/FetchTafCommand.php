@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Service\CheckWx\TafService;
+use App\Service\Taf\CheckWxService;
+use App\Service\Taf\NoaaService;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
@@ -29,7 +30,7 @@ class FetchTafCommand extends Command
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
-        $tafService = new TafService();
+        $tafService = new NoaaService();
         $tafService->getTaf();
     }
 }
