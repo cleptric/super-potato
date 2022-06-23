@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service\CheckWx;
+namespace App\Service\Taf;
 
 use App\Traits\ZMQContextTrait;
 use Cake\Console\ConsoleIo;
@@ -12,7 +12,7 @@ use Cake\Http\Client;
  * @property \App\Model\Table\AirportsTable $Airports
  * @property \App\Model\Table\TafTable $Taf
  */
-class TafService
+class CheckWxService
 {
     use ModelAwareTrait;
     use ZMQContextTrait;
