@@ -41,6 +41,11 @@ class User extends Entity implements AuthenticationIdentity, AuthorizationIdenti
     /**
      * @var string
      */
+    public const STATUS_PENDING = 'pending';
+
+    /**
+     * @var string
+     */
     public const STATUS_BLOCKED = 'blocked';
 
     /**
