@@ -100,7 +100,7 @@ class NoaaService
         ]);
         if ($response->isOk()) {
             $xmlTaf = $response->getXml();
-            
+
             return json_decode(json_encode($xmlTaf), true);
         }
 
