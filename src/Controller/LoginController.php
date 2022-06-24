@@ -147,9 +147,10 @@ class LoginController extends AppController
                         ])
                         ->first();
 
-                    $user = $this->Users->get($user->id);
     
                     if ($user) {
+                        $user = $this->Users->get($user->id);
+
                         $this->loadModel('OrganizationsUsers');
                         $organization_user = $this->OrganizationsUsers->find()
                             ->where([
@@ -163,7 +164,8 @@ class LoginController extends AppController
                                 $this->Authentication->setIdentity($user);
                                 return $this->redirect(['controller' => 'Home', 'action' => 'index']);
                             } else {
-                                dd('pending or blocked from org');
+                                $this->Flash->error('You are pending or blocked from ' . $organization->name);
+                                return $this->redirect('/login/login/' . $organization_id);
                             }
                         } else {
                             // user exists but has no connection to org -> add and check for auth point
@@ -208,12 +210,13 @@ class LoginController extends AppController
                             } else {
                                 // save as pending
                                 if ($this->OrganizationsUsers->save($organization_user_)) {
-                                    dd('pending or blocked from org');
+                                    $this->Flash->error('Request created for ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
                                 }
                             }
                         }
-
                     } else {
+                        $this->loadModel('Users');
                         $user = $this->Users->newEntity([
                             'vatsim_id' => $responseJson['data']['cid'],
                             'full_name' => $responseJson['data']['personal']['name_full'],
@@ -230,9 +233,53 @@ class LoginController extends AppController
     
                         if ($this->Users->save($user)) {
                             $user = $this->Users->get($user->id);
-                            $this->Authentication->setIdentity($user);
-    
-                            return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+
+                            $this->loadModel('OrganizationsUsers');
+                            $organization_user_ = $this->OrganizationsUsers->newEntity([
+                                'organization_id' => $organization_id,
+                                'user_id' => $user->id,
+                                'role' => User::STATUS_PENDING,
+                            ], [
+                                'accessibleFields' => [
+                                    'organization_id' => true,
+                                    'user_id' => true,
+                                    'role' => true,
+                                ],
+                            ]);
+
+                            if($organization->authorization_endpoint) {
+                                // send request to auth point
+                                $response = $http->get($organization->authorization_endpoint, [
+                                    'vatsimid' => $responseJson['data']['cid'],
+                                ], [
+                                    'headers' => [
+                                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
+                                    ],
+                                ]);
+                                
+                                if ($response->isSuccess() === false) {
+                                    $this->Flash->error('You are not part of ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                } else {
+                                    $organization_user_ = $this->OrganizationsUsers->patchEntity($organization_user_, [
+                                        'role' => User::STATUS_ACTIVE,
+                                    ], [
+                                        'accessibleFields' => [
+                                            'role' => true,
+                                        ],
+                                    ]);
+                                    $this->OrganizationsUsers->save($organization_user_);
+
+                                    $this->Authentication->setIdentity($user);
+                                    return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+                                }
+                            } else {
+                                // save as pending
+                                if ($this->OrganizationsUsers->save($organization_user_)) {
+                                    $this->Flash->error('Request created for ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                }
+                            }
                         }
                     }
                 }
