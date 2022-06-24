@@ -20,7 +20,7 @@
                 </h2>
 
                 <div class="leading-tight my-4 text-gray-500 dark:text-zinc-300">
-                    You need to be a member of the <a href="https://vatsim.net" target="_blank" rel="noopener" class="underline">VATSIM&nbsp;Network</a> to use this service.
+                    You need to be a member of the <a href="https://vatsim.net" target="_blank" rel="noopener" class="underline">VATSIM&nbsp;Network</a> and <?= $organization->name ?> to use this service.
                 </div>
 
                 <div class="relative my-4">
@@ -40,6 +40,7 @@
                     <?= $this->Html->link('Vatsim SSO', [
                         'controller' => 'Login',
                         'action' => 'startOauth',
+                        $organization->id,
                     ], [
                         'class' => 'button button-full button-primary'
                     ])?>
