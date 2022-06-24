@@ -62,7 +62,7 @@ class NoaaService
 
         $rawTaf = $this->_fetchTaf($airports);
 
-        if($rawTaf['data']['@attributes']['num_results'] > 1) {
+        if ($rawTaf['data']['@attributes']['num_results'] > 1) {
             foreach ($rawTaf['data']['TAF'] as $taf) {
                 $data[$taf['station_id']] = $taf['raw_text'];
             }
@@ -100,6 +100,7 @@ class NoaaService
         ]);
         if ($response->isOk()) {
             $xmlTaf = $response->getXml();
+            
             return json_decode(json_encode($xmlTaf), true);
         }
 

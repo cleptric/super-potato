@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Service\Taf\CheckWxService;
 use App\Service\Taf\NoaaService;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
