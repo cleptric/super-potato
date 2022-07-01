@@ -182,7 +182,6 @@ return [
      */
     'Error' => [
         'errorLevel' => E_ALL,
-        'exceptionRenderer' => WebExceptionRenderer::class,
         'errorLogger' => SentryErrorLogger::class,
         'skipLog' => [
             'Authorization\Exception\ForbiddenException',
