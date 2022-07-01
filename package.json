@@ -17,5 +17,5 @@
     "vue-router": "^4.0",
     "vuex": "^4.0"
   },
-  "packageManager": "yarn@3.2.1"
+  "devDependencies": {}
 }
