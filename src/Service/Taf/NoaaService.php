@@ -20,7 +20,7 @@ class NoaaService
     /**
      * @var string
      */
-    protected const _NOAA_URL = 'https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=true&hoursBeforeNow=0&stationString=';
+    protected const _NOAA_URL = 'https://aviationweather.gov/adds/dataserver_current/httpparam';
 
     /**
      * @var \Cake\Console\ConsoleIo|null
@@ -94,7 +94,15 @@ class NoaaService
      */
     protected function _fetchTaf(array $tafStations): array
     {
-        $response = $this->_client->get(self::_NOAA_URL . implode('%20', $tafStations), [], [
+        $response = $this->_client->get(self::_NOAA_URL, [
+            'dataSource' => 'tafs',
+            'requestType' => 'retrieve',
+            'format' => 'xml',
+            'mostRecentForEachStation' => 'true',
+            'hoursBeforeNow' => 0,
+            'stationString' => urlencode(implode(',', $tafStations)),
+        ], [
+            'type' => 'xml',
             'headers' => [
             ],
         ]);
