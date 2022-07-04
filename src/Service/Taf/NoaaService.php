@@ -44,6 +44,7 @@ class NoaaService
     }
 
     /**
+     * @FIXME split airports into more than one request
      * @return void
      */
     public function getTaf(): void
@@ -55,21 +56,25 @@ class NoaaService
             ->extract('icao')
             ->toArray();
 
-        $rawTaf = $this->_fetchTaf($airports);
-
-        if ($rawTaf['data']['@attributes']['num_results'] > 1) {
-            foreach ($rawTaf['data']['TAF'] as $taf) {
-                $data[$taf['station_id']] = $taf['raw_text'];
+        if($airports) {
+            $rawTaf = $this->_fetchTaf($airports);
+    
+            if($rawTaf && $rawTaf['data']['@attributes']['num_results'] && $rawTaf['data']['TAF']) {
+                if ($rawTaf['data']['@attributes']['num_results'] > 1) {
+                    foreach ($rawTaf['data']['TAF'] as $taf) {
+                        $data[$taf['station_id']] = $taf['raw_text'];
+                    }
+                } else {
+                    $data[$rawTaf['data']['TAF']['station_id']] = $rawTaf['data']['TAF']['raw_text'];
+                }
+        
+                $tafEntity = $this->Taf->newEntity([
+                    'data' => $data,
+                ]);
+                $savedTaf = $this->Taf->save($tafEntity);
+                $this->Taf->deleteAll(['id IS NOT' => $savedTaf->id]);
             }
-        } else {
-            $data[$rawTaf['data']['TAF']['station_id']] = $rawTaf['data']['TAF']['raw_text'];
         }
-
-        $tafEntity = $this->Taf->newEntity([
-            'data' => $data,
-        ]);
-        $savedTaf = $this->Taf->save($tafEntity);
-        $this->Taf->deleteAll(['id IS NOT' => $savedTaf->id]);
 
         $this->pushMessage('refresh');
     }
