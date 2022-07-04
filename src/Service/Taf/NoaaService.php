@@ -28,11 +28,6 @@ class NoaaService
     protected ?ConsoleIo $_io;
 
     /**
-     * @var string|null
-     */
-    protected ?string $_rawTaf = null;
-
-    /**
      * @var \Cake\Http\Client
      */
     protected Client $_client;
