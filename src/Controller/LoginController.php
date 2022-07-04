@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Model\Entity\User;
+use App\Model\Entity\Organization;
+use App\Model\Entity\OrganizationsUser;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 
@@ -36,7 +38,7 @@ class LoginController extends AppController
     /**
      * @return \Cake\Http\Response|null|void
      */
-    public function login()
+    public function login($organization_id = null)
     {
         $result = $this->Authentication->getResult();
         // If the user is logged in send them away.
@@ -45,18 +47,39 @@ class LoginController extends AppController
 
             return $this->redirect($target);
         }
+
+        if($organization_id === null) {
+            dd('default landing Page');
+        }
+        
+        $this->loadModel('Organizations');
+        $organization = $this->Organizations->find()
+            ->where([
+                'id' => $organization_id,
+            ])
+            ->first();
+
+        if($organization === null) {
+            dd('default landing Page');
+        }
+        $this->set(compact('organization'));
     }
 
     /**
      * @return \Cake\Http\Response|null|void
      */
-    public function startOauth()
+    public function startOauth($organization_id = null)
     {
+        if($organization_id === null) {
+            dd('default landing Page');
+        }
+
         $url = env('VATSIM_SSO_ENDPOINT') . '/oauth/authorize' .
             '?client_id=' . env('VATSIM_SSO_CLIENT_ID') .
             '&redirect_uri=' . env('VATSIM_SSO_REDIRECT_URL') .
             '&response_type=code' .
-            '&scope=full_name+vatsim_details';
+            '&scope=full_name+vatsim_details' .
+            '&state=' . $organization_id;
 
         return $this->redirect($url);
     }
@@ -67,6 +90,7 @@ class LoginController extends AppController
     public function oauth()
     {
         $code = $this->request->getQuery('code');
+        $organization_id = $this->request->getQuery('state');
 
         $http = new Client();
         $response = $http->post(env('VATSIM_SSO_ENDPOINT') . '/oauth/token', [
@@ -108,46 +132,163 @@ class LoginController extends AppController
                 //     return $this->redirect(['action' => 'login']);
                 // }
 
-                $this->loadModel('Users');
-                $user = $this->Users->find()
+                $this->loadModel('Organizations');
+                $organization = $this->Organizations->find()
                     ->where([
-                        'vatsim_id IS' => $responseJson['data']['cid'],
+                        'id' => $organization_id,
                     ])
                     ->first();
 
-                if ($user) {
-                    $user = $this->Users->get($user->id);
-                    $this->Authentication->setIdentity($user);
+                if($organization) {
+                    $this->loadModel('Users');
+                    $user = $this->Users->find()
+                        ->where([
+                            'vatsim_id IS' => $responseJson['data']['cid'],
+                        ])
+                        ->first();
 
-                    return $this->redirect(['controller' => 'Home', 'action' => 'index']);
-                } else {
-                    $user = $this->Users->newEntity([
-                        'vatsim_id' => $responseJson['data']['cid'],
-                        'full_name' => $responseJson['data']['personal']['name_full'],
-                        'status' => User::STATUS_ACTIVE,
-                        'role' => User::ROLE_USER,
-                    ], [
-                        'accessibleFields' => [
-                            'vatsim_id' => true,
-                            'full_name' => true,
-                            'status' => true,
-                            'role' => true,
-                        ],
-                    ]);
-
-                    if ($this->Users->save($user)) {
+    
+                    if ($user) {
                         $user = $this->Users->get($user->id);
-                        $this->Authentication->setIdentity($user);
 
-                        return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+                        $this->loadModel('OrganizationsUsers');
+                        $organization_user = $this->OrganizationsUsers->find()
+                            ->where([
+                                'organization_id' => $organization->id,
+                                'user_id' => $user->id,
+                            ])
+                            ->first();
+
+                        if($organization_user) {
+                            if($organization_user->role == User::STATUS_ACTIVE) {
+                                $this->Authentication->setIdentity($user);
+                                return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+                            } else {
+                                $this->Flash->error('You are pending or blocked from ' . $organization->name);
+                                return $this->redirect('/login/login/' . $organization_id);
+                            }
+                        } else {
+                            // user exists but has no connection to org -> add and check for auth point
+                            $organization_user_ = $this->OrganizationsUsers->newEntity([
+                                'organization_id' => $organization_id,
+                                'user_id' => $user->id,
+                                'role' => User::STATUS_PENDING,
+                            ], [
+                                'accessibleFields' => [
+                                    'organization_id' => true,
+                                    'user_id' => true,
+                                    'role' => true,
+                                ],
+                            ]);
+
+                            if($organization->authorization_endpoint) {
+                                // send request to auth point
+                                $response = $http->get($organization->authorization_endpoint, [
+                                    'vatsimid' => $responseJson['data']['cid'],
+                                ], [
+                                    'headers' => [
+                                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
+                                    ],
+                                ]);
+                                
+                                if ($response->isSuccess() === false) {
+                                    $this->Flash->error('You are not part of ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                } else {
+                                    $organization_user_ = $this->OrganizationsUsers->patchEntity($organization_user_, [
+                                        'role' => User::STATUS_ACTIVE,
+                                    ], [
+                                        'accessibleFields' => [
+                                            'role' => true,
+                                        ],
+                                    ]);
+                                    $this->OrganizationsUsers->save($organization_user_);
+
+                                    $this->Authentication->setIdentity($user);
+                                    return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+                                }
+                            } else {
+                                // save as pending
+                                if ($this->OrganizationsUsers->save($organization_user_)) {
+                                    $this->Flash->error('Request created for ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                }
+                            }
+                        }
+                    } else {
+                        $this->loadModel('Users');
+                        $user = $this->Users->newEntity([
+                            'vatsim_id' => $responseJson['data']['cid'],
+                            'full_name' => $responseJson['data']['personal']['name_full'],
+                            'status' => User::STATUS_ACTIVE,
+                            'role' => User::ROLE_USER,
+                        ], [
+                            'accessibleFields' => [
+                                'vatsim_id' => true,
+                                'full_name' => true,
+                                'status' => true,
+                                'role' => true,
+                            ],
+                        ]);
+    
+                        if ($this->Users->save($user)) {
+                            $user = $this->Users->get($user->id);
+
+                            $this->loadModel('OrganizationsUsers');
+                            $organization_user_ = $this->OrganizationsUsers->newEntity([
+                                'organization_id' => $organization_id,
+                                'user_id' => $user->id,
+                                'role' => User::STATUS_PENDING,
+                            ], [
+                                'accessibleFields' => [
+                                    'organization_id' => true,
+                                    'user_id' => true,
+                                    'role' => true,
+                                ],
+                            ]);
+
+                            if($organization->authorization_endpoint) {
+                                // send request to auth point
+                                $response = $http->get($organization->authorization_endpoint, [
+                                    'vatsimid' => $responseJson['data']['cid'],
+                                ], [
+                                    'headers' => [
+                                        'Authorization' => 'Bearer ' . env('VACC_AUTH_TOKEN'),
+                                    ],
+                                ]);
+                                
+                                if ($response->isSuccess() === false) {
+                                    $this->Flash->error('You are not part of ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                } else {
+                                    $organization_user_ = $this->OrganizationsUsers->patchEntity($organization_user_, [
+                                        'role' => User::STATUS_ACTIVE,
+                                    ], [
+                                        'accessibleFields' => [
+                                            'role' => true,
+                                        ],
+                                    ]);
+                                    $this->OrganizationsUsers->save($organization_user_);
+
+                                    $this->Authentication->setIdentity($user);
+                                    return $this->redirect(['controller' => 'Home', 'action' => 'index']);
+                                }
+                            } else {
+                                // save as pending
+                                if ($this->OrganizationsUsers->save($organization_user_)) {
+                                    $this->Flash->error('Request created for ' . $organization->name);
+                                    return $this->redirect('/login/login/' . $organization_id);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
 
-        $this->Flash->error('Vatsim SOO sign in failed');
+        $this->Flash->error('Vatsim SSO sign in failed');
 
-        return $this->redirect(['action' => 'login']);
+        return $this->redirect('/login/login/' . $organization_id);
     }
 
     /**

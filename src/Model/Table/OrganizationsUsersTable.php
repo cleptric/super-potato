@@ -65,8 +65,7 @@ class OrganizationsUsersTable extends Table
     {
         $validator
             ->uuid('id')
-            ->requirePresence('id', 'create')
-            ->notEmptyString('id');
+            ->allowEmptyString('id', null, 'create');
 
         $validator
             ->uuid('organization_id')
