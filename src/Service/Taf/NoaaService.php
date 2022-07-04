@@ -107,9 +107,13 @@ class NoaaService
             ],
         ]);
         if ($response->isOk()) {
-            $xmlTaf = $response->getXml();
+            try {
+                $xmlTaf = $response->getXml();
 
-            return json_decode(json_encode($xmlTaf), true);
+                return json_decode(json_encode($xmlTaf), true);
+            } catch (Exception $e) {
+                echo 'Error while parsing XML to array: ',  $e->getMessage(), "\n";
+            }
         }
 
         return [];
